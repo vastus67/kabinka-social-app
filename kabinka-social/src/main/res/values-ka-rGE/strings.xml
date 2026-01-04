@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+	<string name="log_in">áƒ¨áƒ”áƒ¡áƒ•áƒšáƒ</string>
+	<string name="next">áƒ¨áƒ”áƒ›áƒ“áƒ”áƒ’áƒ˜</string>
+	<string name="loading_instance">áƒ›áƒ˜áƒ›áƒ“áƒ˜áƒœáƒáƒ áƒ”áƒáƒ‘áƒ¡ áƒ¡áƒ”áƒ áƒ•áƒ”áƒ áƒ˜áƒ¡ áƒ˜áƒœáƒ¤áƒáƒ áƒ›áƒáƒªáƒ˜áƒ˜áƒ¡ áƒ›áƒ˜áƒ¦áƒ”áƒ‘áƒâ€¦</string>
+	<string name="error">áƒ¨áƒ”áƒªáƒ“áƒáƒ›áƒ</string>
+	<string name="not_a_mastodon_instance">áƒ áƒáƒ’áƒáƒ áƒª áƒ©áƒáƒœáƒ¡, %s áƒáƒ  áƒáƒ áƒ˜áƒ¡ Mastodon-áƒ˜áƒ¡ áƒ¡áƒ”áƒ áƒ•áƒ”áƒ áƒ˜.</string>
+	<string name="ok">OK</string>
+	<string name="preparing_auth">áƒ›áƒ˜áƒ›áƒ“áƒ˜áƒœáƒáƒ áƒ”áƒáƒ‘áƒ¡ áƒáƒ•áƒ¢áƒáƒ áƒ˜áƒ–áƒáƒªáƒ˜áƒ˜áƒ¡áƒ—áƒ•áƒ˜áƒ¡ áƒ›áƒ–áƒáƒ“áƒ”áƒ‘áƒâ€¦</string>
+	<string name="finishing_auth">áƒ›áƒ˜áƒ›áƒ“áƒ˜áƒœáƒáƒ áƒ”áƒáƒ‘áƒ¡ áƒáƒ•áƒ¢áƒáƒ áƒ˜áƒ–áƒáƒªáƒ˜áƒ˜áƒ¡ áƒ“áƒáƒ¡áƒ áƒ£áƒšáƒ”áƒ‘áƒâ€¦</string>
+	<string name="notifications">áƒ¨áƒ”áƒ¢áƒ§áƒáƒ‘áƒ˜áƒœáƒ”áƒ‘áƒ”áƒ‘áƒ˜</string>
+	<string name="user_followed_you">%s-áƒ›áƒ áƒ’áƒáƒ›áƒáƒ’áƒ˜áƒ¬áƒ”áƒ áƒáƒ—</string>
+	<string name="user_sent_follow_request">%s-áƒ›áƒ áƒ’áƒáƒ›áƒáƒ’áƒ˜áƒ’áƒ–áƒáƒ•áƒœáƒáƒ— áƒ’áƒáƒ›áƒáƒ¬áƒ”áƒ áƒ˜áƒ¡ áƒ›áƒáƒ—áƒ®áƒáƒ•áƒœáƒ</string>
+	<string name="share_toot_title">áƒ’áƒáƒ–áƒ˜áƒáƒ áƒ”áƒ‘áƒ</string>
+	<string name="settings">áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜</string>
+	<string name="publish">áƒ’áƒáƒ›áƒáƒ¥áƒ•áƒ”áƒ§áƒœáƒ”áƒ‘áƒ</string>
+	<string name="discard_draft">áƒ’áƒ¡áƒ£áƒ áƒ— áƒ›áƒáƒœáƒáƒ®áƒáƒ–áƒ˜áƒ¡ áƒ¬áƒáƒ¨áƒšáƒ?</string>
+	<string name="discard">áƒ¬áƒáƒ¨áƒšáƒ</string>
+	<string name="cancel">áƒ’áƒáƒ£áƒ¥áƒ›áƒ”áƒ‘áƒ</string>
+	<string name="posts">áƒžáƒáƒ¡áƒ¢áƒ”áƒ‘áƒ˜</string>
+	<string name="media">áƒ›áƒ”áƒ“áƒ˜áƒ</string>
+	<string name="profile_about">áƒ©áƒ”áƒ›áƒ¡ áƒ¨áƒ”áƒ¡áƒáƒ®áƒ”áƒ‘</string>
+	<string name="button_follow">áƒ’áƒáƒ›áƒáƒ¬áƒ”áƒ áƒ</string>
+	<string name="edit_profile">áƒžáƒ áƒáƒ¤áƒ˜áƒšáƒ˜áƒ¡ áƒ áƒ”áƒ“áƒáƒ¥áƒ¢áƒ˜áƒ áƒ”áƒ‘áƒ</string>
+	<string name="share_user">áƒžáƒ áƒáƒ¤áƒ˜áƒšáƒ˜áƒ¡ áƒ’áƒáƒ–áƒ˜áƒáƒ áƒ”áƒ‘áƒâ€¦</string>
+	<string name="mute_user">%s-áƒ˜áƒ¡ áƒ˜áƒ’áƒœáƒáƒ áƒ˜áƒ áƒ”áƒ‘áƒ</string>
+	<string name="unmute_user">%s-áƒ˜áƒ¡ áƒáƒ›áƒáƒ¦áƒ”áƒ‘áƒ áƒ˜áƒ’áƒœáƒáƒ áƒ˜áƒ áƒ”áƒ‘áƒ£áƒšáƒ—áƒ áƒ¡áƒ˜áƒ˜áƒ“áƒáƒœ</string>
+	<string name="block_user">%s-áƒ˜áƒ¡ áƒ“áƒáƒ‘áƒšáƒáƒ™áƒ•áƒ</string>
+	<string name="unblock_user">%s-áƒ˜áƒ¡ áƒ’áƒáƒœáƒ‘áƒšáƒáƒ™áƒ•áƒ</string>
+	<string name="report_user">áƒ¡áƒáƒ©áƒ˜áƒ•áƒáƒ áƒ˜ %s-áƒ˜áƒ¡ áƒ¨áƒ”áƒ¡áƒáƒ®áƒ”áƒ‘</string>
+	<string name="block_domain">%s-áƒ˜áƒ¡ áƒ“áƒáƒ‘áƒšáƒáƒ™áƒ•áƒ</string>
+	<string name="unblock_domain">%s-áƒ˜áƒ¡ áƒ’áƒáƒœáƒ‘áƒšáƒáƒ™áƒ•áƒ</string>
+	<plurals name="x_posts">
+		<item quantity="one">%,d áƒžáƒáƒ¡áƒ¢áƒ˜</item>
+		<item quantity="other">%,d áƒžáƒáƒ¡áƒ¢áƒ˜</item>
+	</plurals>
+	<string name="profile_joined">áƒ áƒ”áƒ’áƒ˜áƒ¡áƒ¢áƒ áƒáƒªáƒ˜áƒ˜áƒ¡ áƒ—áƒáƒ áƒ˜áƒ¦áƒ˜</string>
+	<string name="done">áƒ›áƒ–áƒáƒ“áƒáƒ</string>
+	<string name="loading">áƒ›áƒ˜áƒ›áƒ“áƒ˜áƒœáƒáƒ áƒ”áƒáƒ‘áƒ¡ áƒ©áƒáƒ¢áƒ•áƒ˜áƒ áƒ—áƒ•áƒâ€¦</string>
+	<string name="field_label">áƒšáƒ”áƒ˜áƒ‘áƒšáƒ˜</string>
+	<string name="field_content">áƒ¨áƒ˜áƒœáƒáƒáƒ áƒ¡áƒ˜</string>
+	<string name="saving">áƒ›áƒ˜áƒ›áƒ“áƒ˜áƒœáƒáƒ áƒ”áƒáƒ‘áƒ¡ áƒ¨áƒ”áƒœáƒáƒ®áƒ•áƒâ€¦</string>
+	<string name="post_from_user">áƒžáƒáƒ¡áƒ¢áƒ˜ %s-áƒ˜áƒ¡áƒ’áƒáƒœ</string>
+	<string name="poll_option_hint">áƒ•áƒáƒ áƒ˜áƒáƒœáƒ¢áƒ˜ %d</string>
+	<plurals name="x_minutes">
+		<item quantity="one">%d áƒ¬áƒ£áƒ—áƒ˜</item>
+		<item quantity="other">%d áƒ¬áƒ£áƒ—áƒ˜</item>
+	</plurals>
+	<plurals name="x_hours">
+		<item quantity="one">%d áƒ¡áƒáƒáƒ—áƒ˜</item>
+		<item quantity="other">%d áƒ¡áƒáƒáƒ—áƒ˜</item>
+	</plurals>
+	<plurals name="x_days">
+		<item quantity="one">%d áƒ“áƒ¦áƒ”</item>
+		<item quantity="other">%d áƒ“áƒ¦áƒ”</item>
+	</plurals>
+	<plurals name="x_seconds_left">
+		<item quantity="one">áƒ“áƒáƒ áƒ©áƒ”áƒœáƒ˜áƒšáƒ˜áƒ %d áƒ¬áƒáƒ›áƒ˜</item>
+		<item quantity="other">áƒ“áƒáƒ áƒ©áƒ”áƒœáƒ˜áƒšáƒ˜áƒ %d áƒ¬áƒáƒ›áƒ˜</item>
+	</plurals>
+	<plurals name="x_minutes_left">
+		<item quantity="one">áƒ“áƒáƒ áƒ©áƒ”áƒœáƒ˜áƒšáƒ˜áƒ %d áƒ¬áƒ£áƒ—áƒ˜</item>
+		<item quantity="other">áƒ“áƒáƒ áƒ©áƒ”áƒœáƒ˜áƒšáƒ˜áƒ %d áƒ¬áƒ£áƒ—áƒ˜</item>
+	</plurals>
+	<plurals name="x_hours_left">
+		<item quantity="one">áƒ“áƒáƒ áƒ©áƒ”áƒœáƒ˜áƒšáƒ˜áƒ %d áƒ¡áƒáƒáƒ—áƒ˜</item>
+		<item quantity="other">áƒ“áƒáƒ áƒ©áƒ”áƒœáƒ˜áƒšáƒ˜áƒ %d áƒ¡áƒáƒáƒ—áƒ˜</item>
+	</plurals>
+	<plurals name="x_days_left">
+		<item quantity="one">áƒ“áƒáƒ áƒ©áƒ”áƒœáƒ˜áƒšáƒ˜áƒ %d áƒ“áƒ¦áƒ”</item>
+		<item quantity="other">áƒ“áƒáƒ áƒ©áƒ”áƒœáƒ˜áƒšáƒ˜áƒ %d áƒ“áƒ¦áƒ”</item>
+	</plurals>
+	<plurals name="x_votes">
+		<item quantity="one">%,d áƒ®áƒ›áƒ</item>
+		<item quantity="other">%,d áƒ®áƒ›áƒ</item>
+	</plurals>
+	<string name="poll_closed">áƒ“áƒáƒ¡áƒ áƒ£áƒšáƒ”áƒ‘áƒ£áƒšáƒ˜áƒ</string>
+	<string name="do_mute">áƒ˜áƒ’áƒœáƒáƒ áƒ˜áƒ áƒ”áƒ‘áƒ</string>
+	<string name="do_block">áƒ“áƒáƒ‘áƒšáƒáƒ™áƒ•áƒ</string>
+	<string name="button_blocked">áƒ“áƒáƒ‘áƒšáƒáƒ™áƒ˜áƒšáƒ˜áƒ</string>
+	<string name="action_vote">áƒ®áƒ›áƒ˜áƒ¡ áƒ›áƒ˜áƒªáƒ”áƒ›áƒ</string>
+	<string name="delete">áƒ¬áƒáƒ¨áƒšáƒ</string>
+	<string name="confirm_delete_title">áƒžáƒáƒ¡áƒ¢áƒ˜áƒ¡ áƒ¬áƒáƒ¨áƒšáƒ</string>
+	<string name="confirm_delete">áƒ“áƒáƒ áƒ¬áƒ›áƒ£áƒœáƒ”áƒ‘áƒ£áƒšáƒ˜ áƒ®áƒáƒ áƒ—, áƒ áƒáƒ› áƒ’áƒ¡áƒ£áƒ áƒ— áƒáƒ› áƒžáƒáƒ¡áƒ¢áƒ˜áƒ¡ áƒ¬áƒáƒ¨áƒšáƒ?</string>
+	<string name="deleting">áƒ›áƒ˜áƒ›áƒ“áƒ˜áƒœáƒáƒ áƒ”áƒáƒ‘áƒ¡ áƒ¬áƒáƒ¨áƒšáƒâ€¦</string>
+	<string name="notification_channel_audio_player">áƒáƒ£áƒ“áƒ˜áƒáƒ¡ áƒ“áƒáƒ™áƒ•áƒ áƒ</string>
+	<string name="play">áƒ“áƒáƒ™áƒ•áƒ áƒ</string>
+	<string name="pause">áƒžáƒáƒ£áƒ–áƒ</string>
+	<string name="log_out">áƒ’áƒáƒ›áƒáƒ¡áƒ•áƒšáƒ</string>
+	<string name="add_account">áƒáƒœáƒ’áƒáƒ áƒ˜áƒ¨áƒ˜áƒ¡ áƒ“áƒáƒ›áƒáƒ¢áƒ”áƒ‘áƒ</string>
+	<string name="search_hint">áƒ«áƒ˜áƒ”áƒ‘áƒ</string>
+	<string name="hashtags">áƒ°áƒ”áƒ¨áƒ¢áƒ”áƒ’áƒ”áƒ‘áƒ˜</string>
+	<string name="news">áƒ¡áƒ˜áƒáƒ®áƒšáƒ”áƒ”áƒ‘áƒ˜</string>
+	<string name="for_you">áƒ—áƒ¥áƒ•áƒ”áƒœáƒ—áƒ•áƒ˜áƒ¡</string>
+	<string name="all_notifications">áƒ§áƒ•áƒ”áƒšáƒáƒ¤áƒ”áƒ áƒ˜</string>
+	<string name="mentions">áƒ›áƒáƒœáƒ˜áƒ¨áƒ•áƒœáƒ”áƒ‘áƒ˜</string>
+	<string name="report_title">áƒ¡áƒáƒ©áƒ˜áƒ•áƒáƒ áƒ˜ %s-áƒ˜áƒ¡ áƒ¨áƒ”áƒ¡áƒáƒ®áƒ”áƒ‘</string>
+	<string name="report_reason_personal">áƒáƒ  áƒ›áƒáƒ›áƒ¬áƒáƒœáƒ¡</string>
+	<string name="report_reason_spam">áƒ”áƒ¡ áƒáƒ áƒ˜áƒ¡ áƒ¡áƒžáƒáƒ›áƒ˜</string>
+	<string name="report_choose_rule_subtitle">áƒáƒ˜áƒ áƒ©áƒ˜áƒ”áƒ— áƒ§áƒ•áƒ”áƒšáƒ, áƒ áƒáƒ›áƒ”áƒšáƒ˜áƒª áƒ¨áƒ”áƒ”áƒ¡áƒáƒ‘áƒáƒ›áƒ”áƒ‘áƒ</string>
+	<string name="report_comment_hint">áƒ“áƒáƒ›áƒáƒ¢áƒ”áƒ‘áƒ˜áƒ—áƒ˜ áƒ™áƒáƒ›áƒ”áƒœáƒ¢áƒáƒ áƒ˜</string>
+	<string name="sending_report">áƒ›áƒ˜áƒ›áƒ“áƒ˜áƒœáƒáƒ áƒ”áƒáƒ‘áƒ¡ áƒ¡áƒáƒ©áƒ˜áƒ•áƒ áƒ˜áƒ¡ áƒ’áƒáƒ’áƒ–áƒáƒ•áƒœáƒâ€¦</string>
+	<string name="back">áƒ£áƒ™áƒáƒœ</string>
+	<string name="search_communities">áƒ¡áƒ”áƒ áƒ•áƒ”áƒ áƒ˜áƒ¡ áƒ¡áƒáƒ®áƒ”áƒšáƒ˜ áƒáƒœ URL áƒ›áƒ˜áƒ¡áƒáƒ›áƒáƒ áƒ—áƒ˜</string>
+	<string name="instance_rules_title">áƒ¡áƒ”áƒ áƒ•áƒ”áƒ áƒ˜áƒ¡ áƒ¬áƒ”áƒ¡áƒ”áƒ‘áƒ˜</string>
+	<string name="signup_title">áƒáƒœáƒ’áƒáƒ áƒ˜áƒ¨áƒ˜áƒ¡ áƒ¨áƒ”áƒ¥áƒ›áƒœáƒ</string>
+	<string name="display_name">áƒ¡áƒáƒ®áƒ”áƒšáƒ˜</string>
+	<string name="username">áƒ›áƒáƒ›áƒ®áƒ›áƒáƒ áƒ”áƒ‘áƒšáƒ˜áƒ¡ áƒ¡áƒáƒ®áƒ”áƒšáƒ˜</string>
+	<string name="email">áƒ”áƒšáƒ”áƒ¥áƒ¢áƒ áƒáƒœáƒ£áƒšáƒ˜ áƒ¤áƒáƒ¡áƒ¢áƒ˜áƒ¡ áƒ›áƒ˜áƒ¡áƒáƒ›áƒáƒ áƒ—áƒ˜</string>
+	<string name="password">áƒžáƒáƒ áƒáƒšáƒ˜</string>
+	<string name="confirm_password">áƒ“áƒáƒáƒ“áƒáƒ¡áƒ¢áƒ£áƒ áƒ”áƒ— áƒžáƒáƒ áƒáƒšáƒ˜</string>
+	<string name="category_general">áƒ–áƒáƒ’áƒáƒ“áƒ˜</string>
+	<string name="confirm_email_title">áƒ¨áƒ”áƒáƒ›áƒáƒ¬áƒ›áƒ”áƒ— áƒ—áƒ¥áƒ•áƒ”áƒœáƒ˜ áƒ¨áƒ”áƒ›áƒáƒ¡áƒ£áƒšáƒ˜ áƒ¬áƒ”áƒ áƒ˜áƒšáƒ”áƒ‘áƒ˜</string>
+	<!-- %s is the email address -->
+	<string name="confirm_email_subtitle">%s-áƒ˜áƒ¡ áƒ“áƒáƒ¡áƒáƒ“áƒáƒ¡áƒ¢áƒ£áƒ áƒ”áƒ‘áƒšáƒáƒ“, áƒ“áƒáƒáƒ¬áƒ™áƒáƒžáƒ£áƒœáƒ”áƒ— áƒ‘áƒ›áƒ£áƒšáƒ–áƒ”, áƒ áƒáƒ›áƒ”áƒšáƒ˜áƒª áƒ’áƒáƒ›áƒáƒ’áƒ˜áƒ’áƒ–áƒáƒ•áƒœáƒ”áƒ—. áƒ©áƒ•áƒ”áƒœ áƒáƒ¥ áƒ“áƒáƒ’áƒ”áƒšáƒáƒ“áƒ”áƒ‘áƒ˜áƒ—.</string>
+	<string name="confirm_email_didnt_get">áƒáƒ  áƒ›áƒ˜áƒ’áƒ˜áƒ¦áƒ˜áƒáƒ— áƒ‘áƒ›áƒ£áƒšáƒ˜?</string>
+	<string name="resend">áƒ®áƒ”áƒšáƒáƒ®áƒšáƒ áƒ’áƒáƒ’áƒ–áƒáƒ•áƒœáƒ</string>
+	<string name="open_email_app">áƒ”áƒšáƒ¤áƒáƒ¡áƒ¢áƒ˜áƒ¡ áƒáƒžáƒšáƒ˜áƒ™áƒáƒªáƒ˜áƒ˜áƒ¡ áƒ’áƒáƒ®áƒ¡áƒœáƒ</string>
+	<string name="resent_email">áƒ•áƒ”áƒ áƒ˜áƒ¤áƒ˜áƒ™áƒáƒªáƒ˜áƒ˜áƒ¡ áƒ”áƒšáƒ¤áƒáƒ¡áƒ¢áƒ áƒ’áƒáƒ’áƒ–áƒáƒ•áƒœáƒ˜áƒšáƒ˜áƒ</string>
+	<string name="compose_hint">áƒ©áƒáƒ¬áƒ”áƒ áƒ”áƒ— áƒáƒœ áƒ©áƒáƒ¡áƒ•áƒ˜áƒ—, áƒ áƒáƒ¡áƒáƒª áƒ¤áƒ˜áƒ¥áƒ áƒáƒ‘áƒ—</string>
+	<string name="content_warning">áƒ’áƒáƒ¤áƒ áƒ—áƒ®áƒ˜áƒšáƒ”áƒ‘áƒ áƒ¨áƒ˜áƒœáƒáƒáƒ áƒ¡áƒ˜áƒ¡ áƒ¨áƒ”áƒ¡áƒáƒ®áƒ”áƒ‘</string>
+	<string name="save">áƒ¨áƒ”áƒœáƒáƒ®áƒ•áƒ</string>
+	<string name="add_alt_text">áƒáƒšáƒ¢áƒ”áƒ áƒœáƒáƒ¢áƒ˜áƒ£áƒšáƒ˜ áƒ¢áƒ”áƒ¥áƒ¡áƒ¢áƒ˜áƒ¡ áƒ“áƒáƒ›áƒáƒ¢áƒ”áƒ‘áƒ</string>
+	<string name="visibility_public">áƒ¡áƒáƒ¯áƒáƒ áƒ</string>
+	<string name="recent_searches">áƒ‘áƒáƒšáƒáƒ“áƒ áƒáƒ˜áƒœáƒ“áƒ”áƒšáƒ”áƒ‘áƒ˜</string>
+	<string name="notification_type_follow">áƒáƒ®áƒáƒšáƒ˜ áƒ’áƒáƒ›áƒáƒ›áƒ¬áƒ”áƒ áƒ”áƒ‘áƒ˜</string>
+	<string name="notification_type_favorite">áƒ áƒ©áƒ”áƒ£áƒšáƒ”áƒ‘áƒ˜</string>
+	<string name="notification_type_mention">áƒ›áƒáƒœáƒ˜áƒ¨áƒ•áƒœáƒ”áƒ‘áƒ˜</string>
+	<string name="notification_type_poll">áƒ’áƒáƒ›áƒáƒ™áƒ˜áƒ—áƒ®áƒ•áƒ”áƒ‘áƒ˜</string>
+	<string name="choose_account">áƒáƒ˜áƒ áƒ©áƒ˜áƒ”áƒ— áƒáƒœáƒ’áƒáƒ áƒ˜áƒ¨áƒ˜</string>
+	<string name="err_not_logged_in">áƒ’áƒ—áƒ®áƒáƒ•áƒ—, áƒ—áƒáƒ•áƒ“áƒáƒžáƒ˜áƒ áƒ•áƒ”áƒšáƒáƒ“, áƒ’áƒáƒ˜áƒáƒ áƒ”áƒ— áƒáƒ•áƒ¢áƒáƒ áƒ˜áƒ–áƒáƒªáƒ˜áƒ Mastodon-áƒ¨áƒ˜</string>
+	<string name="settings_notifications">áƒ¨áƒ”áƒ¢áƒ§áƒáƒ‘áƒ˜áƒœáƒ”áƒ‘áƒ”áƒ‘áƒ˜</string>
+	<string name="settings_tos">áƒ›áƒáƒ›áƒ¡áƒáƒ®áƒ£áƒ áƒ”áƒ‘áƒ˜áƒ¡ áƒžáƒ˜áƒ áƒáƒ‘áƒ”áƒ‘áƒ˜</string>
+	<string name="settings_privacy_policy">áƒ™áƒáƒœáƒ¤áƒ˜áƒ“áƒ”áƒœáƒªáƒ˜áƒáƒšáƒ£áƒ áƒáƒ‘áƒ˜áƒ¡ áƒžáƒáƒšáƒ˜áƒ¢áƒ˜áƒ™áƒ</string>
+	<string name="button_share">áƒ’áƒáƒ–áƒ˜áƒáƒ áƒ”áƒ‘áƒ</string>
+	<string name="emoji">Emoji</string>
+	<string name="my_profile">áƒ©áƒ”áƒ›áƒ˜ áƒžáƒ áƒáƒ¤áƒ˜áƒšáƒ˜</string>
+	<string name="open_in_browser">áƒ‘áƒ áƒáƒ£áƒ–áƒ”áƒ áƒ¨áƒ˜ áƒ’áƒáƒ®áƒ¡áƒœáƒ</string>
+	<string name="signup_reason">áƒ áƒáƒ¢áƒáƒ› áƒ’áƒ¡áƒ£áƒ áƒ— áƒ¨áƒ”áƒ›áƒáƒ£áƒ”áƒ áƒ—áƒ“áƒ”áƒ—?</string>
+	<string name="clear">áƒ’áƒáƒ¡áƒ£áƒ¤áƒ—áƒáƒ•áƒ”áƒ‘áƒ</string>
+	<string name="profile_picture">áƒžáƒ áƒáƒ¤áƒ˜áƒšáƒ˜áƒ¡ áƒ¡áƒ£áƒ áƒáƒ—áƒ˜</string>
+	<string name="download">áƒ’áƒáƒ“áƒ›áƒáƒ¬áƒ”áƒ áƒ</string>
+	<string name="permission_required">áƒ¡áƒáƒ­áƒ˜áƒ áƒáƒ áƒœáƒ”áƒ‘áƒáƒ áƒ—áƒ•áƒ</string>
+	<string name="open_settings">áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜áƒ¡ áƒ’áƒáƒ®áƒ¡áƒœáƒ</string>
+	<string name="error_saving_file">áƒ¨áƒ”áƒªáƒ“áƒáƒ›áƒ áƒ¤áƒáƒ˜áƒšáƒ˜áƒ¡ áƒ¨áƒ”áƒœáƒáƒ®áƒ•áƒ˜áƒ¡áƒáƒ¡</string>
+	<string name="downloading">áƒ›áƒ˜áƒ›áƒ“áƒ˜áƒœáƒáƒ áƒ”áƒáƒ‘áƒ¡ áƒ’áƒáƒ“áƒ›áƒáƒ¬áƒ”áƒ áƒâ€¦</string>
+	<!-- %s is the server domain -->
+	<string name="see_new_posts">áƒáƒ®áƒáƒšáƒ˜ áƒžáƒáƒ¡áƒ¢áƒ”áƒ‘áƒ˜</string>
+	<!-- translators: %,d is a valid placeholder, it formats the number with locale-dependent grouping separators -->
+	<string name="time_just_now">áƒáƒ®áƒšáƒáƒ®áƒáƒœáƒ¡</string>
+	<plurals name="x_seconds_ago">
+		<item quantity="one">%d áƒ¬áƒáƒ›áƒ˜áƒ¡ áƒ¬áƒ˜áƒœ</item>
+		<item quantity="other">%d áƒ¬áƒáƒ›áƒ˜áƒ¡ áƒ¬áƒ˜áƒœ</item>
+	</plurals>
+	<plurals name="x_minutes_ago">
+		<item quantity="one">%d áƒ¬áƒ£áƒ—áƒ˜áƒ¡ áƒ¬áƒ˜áƒœ</item>
+		<item quantity="other">%d áƒ¬áƒ£áƒ—áƒ˜áƒ¡ áƒ¬áƒ˜áƒœ</item>
+	</plurals>
+	<string name="edit_original_post">Original post</string>
+	<string name="edit">áƒ áƒ”áƒ“áƒáƒ¥áƒ¢áƒ˜áƒ áƒ”áƒ‘áƒ</string>
+	<string name="discard_changes">áƒ’áƒ¡áƒ£áƒ áƒ— áƒªáƒ•áƒšáƒ˜áƒšáƒ”áƒ‘áƒ”áƒ‘áƒ˜áƒ¡ áƒ’áƒáƒ£áƒ¥áƒ›áƒ”áƒ‘áƒ?</string>
+	<string name="upload_failed">áƒáƒ¢áƒ•áƒ˜áƒ áƒ—áƒ•áƒ áƒ•áƒ”áƒ  áƒ›áƒáƒ®áƒ”áƒ áƒ®áƒ“áƒ</string>
+	<string name="file_size_bytes">%d bytes</string>
+	<string name="file_size_kb">%.2f KB</string>
+	<string name="file_size_mb">%.2f MB</string>
+	<string name="file_size_gb">%.2f GB</string>
+	<string name="upload_processing">áƒ›áƒ£áƒ¨áƒáƒ•áƒ“áƒ”áƒ‘áƒâ€¦</string>
+	<!-- %s is file size -->
+	<string name="install_update">áƒ“áƒáƒ§áƒ”áƒœáƒ”áƒ‘áƒ</string>
+	<string name="privacy_policy_title">áƒ—áƒ¥áƒ•áƒ”áƒœáƒ˜ áƒ™áƒáƒœáƒ¤áƒ˜áƒ“áƒ”áƒœáƒªáƒ˜áƒáƒšáƒ£áƒ áƒáƒ‘áƒ</string>
+	<string name="i_agree">áƒ•áƒ”áƒ—áƒáƒœáƒ®áƒ›áƒ”áƒ‘áƒ˜</string>
+	<string name="empty_list">áƒ”áƒ¡ áƒ¡áƒ˜áƒ áƒªáƒáƒ áƒ˜áƒ”áƒšáƒ˜áƒ</string>
+	<string name="instance_signup_closed">áƒ”áƒ¡ áƒ¡áƒ”áƒ áƒ•áƒ”áƒ áƒ˜ áƒáƒ  áƒ˜áƒ¦áƒ”áƒ‘áƒ¡ áƒáƒ®áƒáƒš áƒ áƒ”áƒ’áƒ˜áƒ¡áƒ¢áƒ áƒáƒªáƒ˜áƒáƒ¡.</string>
+	<string name="text_copied">áƒ“áƒáƒ™áƒáƒžáƒ˜áƒ áƒ”áƒ‘áƒ£áƒšáƒ˜áƒ áƒ‘áƒ£áƒ¤áƒ”áƒ áƒ¨áƒ˜</string>
+	<string name="server_url">áƒ¡áƒ”áƒ áƒ•áƒ”áƒ áƒ˜áƒ¡ URL áƒ›áƒ˜áƒ¡áƒáƒ›áƒáƒ áƒ—áƒ˜</string>
+	<string name="server_filter_region_europe">áƒ”áƒ•áƒ áƒáƒžáƒ</string>
+	<string name="server_filter_region_north_america">áƒ©áƒ áƒ“áƒ˜áƒšáƒáƒ”áƒ— áƒáƒ›áƒ”áƒ áƒ˜áƒ™áƒ</string>
+	<string name="server_filter_region_south_america">áƒ¡áƒáƒ›áƒ®áƒ áƒ”áƒ— áƒáƒ›áƒ”áƒ áƒ˜áƒ™áƒ</string>
+	<string name="server_filter_region_africa">áƒáƒ¤áƒ áƒ˜áƒ™áƒ</string>
+	<string name="server_filter_region_asia">áƒáƒ–áƒ˜áƒ</string>
+	<string name="server_filter_region_oceania">áƒáƒ™áƒ”áƒáƒœáƒ”áƒ—áƒ˜</string>
+	<string name="not_accepting_new_members">áƒáƒ  áƒ˜áƒ¦áƒ”áƒ‘áƒ¡ áƒáƒ®áƒáƒš áƒ¬áƒ”áƒ•áƒ áƒ”áƒ‘áƒ¡</string>
+	<string name="signup_passwords_dont_match">áƒžáƒáƒ áƒáƒšáƒ”áƒ‘áƒ˜ áƒáƒ  áƒ”áƒ›áƒ—áƒ®áƒ•áƒ”áƒ•áƒ</string>
+	<!-- %s is server domain -->
+	<!-- Shown in a progress dialog when you tap "follow all" -->
+	<!-- %1$s is server domain, %2$s is email domain. You can reorder these placeholders to fit your language better. -->
+	<string name="save_changes">áƒªáƒ•áƒšáƒ˜áƒšáƒ”áƒ‘áƒ”áƒ‘áƒ˜áƒ¡ áƒ¨áƒ”áƒœáƒáƒ®áƒ•áƒ</string>
+	<string name="profile_endorsed_accounts">áƒáƒœáƒ’áƒáƒ áƒ˜áƒ¨áƒ”áƒ‘áƒ˜</string>
+	<string name="learn_more">áƒ’áƒáƒ˜áƒ’áƒ”áƒ— áƒ›áƒ”áƒ¢áƒ˜</string>
+	<string name="welcome_to_mastodon">áƒ›áƒáƒ’áƒ”áƒ¡áƒáƒšáƒ›áƒ”áƒ‘áƒáƒ— Mastodon</string>
+	<string name="what_are_servers">áƒ áƒ áƒáƒ áƒ˜áƒ¡ áƒ¡áƒ”áƒ áƒ•áƒ”áƒ áƒ”áƒ‘áƒ˜?</string>
+	<string name="log_out_all_accounts">áƒ§áƒ•áƒ”áƒšáƒ áƒáƒœáƒ’áƒáƒ áƒ˜áƒ¨áƒ˜áƒ“áƒáƒœ áƒ’áƒáƒ›áƒáƒ¡áƒ•áƒšáƒ</string>
+	<string name="confirm_log_out_all_accounts">áƒ’áƒ¡áƒ£áƒ áƒ— áƒ’áƒáƒ›áƒáƒ®áƒ•áƒ˜áƒ“áƒ”áƒ— áƒ§áƒ•áƒ”áƒšáƒ áƒáƒœáƒ’áƒáƒ áƒ˜áƒ¨áƒ˜áƒ“áƒáƒœ?</string>
+	<string name="retry">áƒ®áƒ”áƒšáƒáƒ®áƒšáƒ áƒªáƒ“áƒ</string>
+	<string name="post_failed">áƒžáƒáƒ¡áƒ¢áƒ˜áƒ¡ áƒ’áƒáƒ’áƒ–áƒáƒ•áƒœáƒ áƒ•áƒ”áƒ  áƒ›áƒáƒ®áƒ”áƒ áƒ®áƒ“áƒ</string>
+	<!-- %s is formatted file size ("467 KB image") -->
+	<string name="attachment_type_image">áƒ¡áƒ£áƒ áƒáƒ—áƒ˜</string>
+	<string name="attachment_type_video">áƒ•áƒ˜áƒ“áƒ”áƒ</string>
+	<string name="attachment_type_audio">áƒáƒ£áƒ“áƒ˜áƒ</string>
+	<string name="attachment_type_gif">GIF</string>
+	<string name="attachment_type_unknown">áƒ¤áƒáƒ˜áƒšáƒ˜</string>
+	<string name="poll_style">áƒ¡áƒ¢áƒ˜áƒšáƒ˜</string>
+	<string name="help">áƒ“áƒáƒ®áƒ›áƒáƒ áƒ”áƒ‘áƒ</string>
+	<string name="what_is_alt_text">áƒ áƒ áƒáƒ áƒ˜áƒ¡ áƒáƒšáƒ¢áƒ”áƒ áƒœáƒáƒ¢áƒ˜áƒ£áƒšáƒ˜ áƒ¢áƒ”áƒ¥áƒ¡áƒ¢áƒ˜?</string>
+	<string name="edit_post">áƒžáƒáƒ¡áƒ¢áƒ˜áƒ¡ áƒ áƒ”áƒ“áƒáƒ¥áƒ¢áƒ˜áƒ áƒ”áƒ‘áƒ</string>
+	<string name="language">áƒ”áƒœáƒ</string>
+	<string name="language_default">áƒœáƒáƒ’áƒ£áƒšáƒ˜áƒ¡áƒ®áƒ›áƒ”áƒ•áƒ˜</string>
+	<string name="language_system">áƒ¡áƒ˜áƒ¡áƒ¢áƒ”áƒ›áƒ˜áƒ¡ áƒ¨áƒ”áƒ¡áƒáƒ‘áƒáƒ›áƒ˜áƒ¡áƒ˜</string>
+	<string name="language_detecting">áƒ›áƒ˜áƒ›áƒ“áƒ˜áƒœáƒáƒ áƒ”áƒáƒ‘áƒ¡ áƒ”áƒœáƒ˜áƒ¡ áƒáƒ›áƒáƒªáƒœáƒáƒ‘áƒ</string>
+	<string name="language_cant_detect">áƒ”áƒœáƒ˜áƒ¡ áƒáƒ›áƒáƒªáƒœáƒáƒ‘áƒ áƒ¨áƒ”áƒ£áƒ«áƒšáƒ”áƒ‘áƒ”áƒšáƒ˜áƒ</string>
+	<string name="language_detected">áƒáƒ›áƒáƒªáƒœáƒáƒ‘áƒ˜áƒšáƒ˜áƒ</string>
+	<string name="media_hidden">áƒ›áƒ”áƒ“áƒ˜áƒ áƒ“áƒáƒ›áƒáƒšáƒ£áƒšáƒ˜áƒ</string>
+	<string name="post_hidden">áƒžáƒáƒ¡áƒ¢áƒ˜ áƒ“áƒáƒ›áƒáƒšáƒ£áƒšáƒ˜áƒ</string>
+	<string name="report_title_post">áƒ¡áƒáƒ©áƒ˜áƒ•áƒáƒ áƒ˜ áƒžáƒáƒ¡áƒ¢áƒ˜áƒ¡ áƒ¨áƒ”áƒ¡áƒáƒ®áƒ”áƒ‘</string>
+	<!-- %s is the server domain -->
+	<!-- Shown on the "stamp" on the screen that appears after you report a post/user. Please keep the translation short, preferably a single word -->
+	<string name="reported">áƒ¡áƒáƒ©áƒ˜áƒ•áƒáƒ áƒ˜ áƒ’áƒáƒ’áƒ–áƒáƒ•áƒœáƒ˜áƒšáƒ˜áƒ</string>
+	<string name="muted_user">%s áƒ˜áƒ’áƒœáƒáƒ áƒ˜áƒ áƒ”áƒ‘áƒ£áƒšáƒ˜áƒ</string>
+	<string name="blocked_user">%s áƒ“áƒáƒ‘áƒšáƒáƒ™áƒ˜áƒšáƒ˜áƒ</string>
+	<string name="mark_all_notifications_read">áƒ§áƒ•áƒ”áƒšáƒáƒ¡ áƒ¬áƒáƒ™áƒ˜áƒ—áƒ®áƒ£áƒšáƒáƒ“ áƒ›áƒáƒœáƒ˜áƒ¨áƒ•áƒœáƒ</string>
+	<string name="settings_filters">áƒ¤áƒ˜áƒšáƒ¢áƒ áƒ”áƒ‘áƒ˜</string>
+	<!-- %s is the app name (Mastodon, key app_name). I made it a placeholder so everything Just Worksâ„¢ with forks -->
+	<string name="about_app">%s-áƒ˜áƒ¡ áƒ¨áƒ”áƒ¡áƒáƒ®áƒ”áƒ‘</string>
+	<string name="default_post_language">áƒžáƒáƒ¡áƒ¢áƒ˜áƒ¡ áƒœáƒáƒ’áƒ£áƒšáƒ˜áƒ¡áƒ®áƒ›áƒ”áƒ•áƒ˜ áƒ”áƒœáƒ</string>
+	<plurals name="x_weeks">
+		<item quantity="one">%d áƒ™áƒ•áƒ˜áƒ áƒ</item>
+		<item quantity="other">%d áƒ™áƒ•áƒ˜áƒ áƒ</item>
+	</plurals>
+	<!-- %1$s is the date (may be relative, e.g. "today" or "yesterday"), %2$s is the time. You can reorder these placeholders if that works better for your language -->
+	<string name="today">áƒ“áƒ¦áƒ”áƒ¡</string>
+	<string name="yesterday">áƒ’áƒ£áƒ¨áƒ˜áƒœ</string>
+	<string name="tomorrow">áƒ®áƒ•áƒáƒš</string>
+	<!-- %s is the timestamp ("tomorrow at 12:34") -->
+	<!-- %s is the timestamp ("tomorrow at 12:34") -->
+	<string name="about_server">áƒ¡áƒ”áƒ áƒ•áƒ”áƒ áƒ˜áƒ¡ áƒ¨áƒ”áƒ¡áƒáƒ®áƒ”áƒ‘</string>
+	<string name="server_rules">áƒ¬áƒ”áƒ¡áƒ”áƒ‘áƒ˜</string>
+	<string name="server_administrator">áƒáƒ“áƒ›áƒ˜áƒœáƒ˜áƒ¡áƒ¢áƒ áƒáƒ¢áƒáƒ áƒ˜</string>
+	<string name="send_email_to_server_admin">áƒáƒ“áƒ›áƒ˜áƒœáƒ˜áƒ¡áƒ¢áƒ áƒáƒ¢áƒáƒ áƒ—áƒáƒœ áƒ¨áƒ”áƒ¢áƒ§áƒáƒ‘áƒ˜áƒœáƒ”áƒ‘áƒ˜áƒ¡ áƒ’áƒáƒ’áƒ–áƒáƒ•áƒœáƒ</string>
+	<string name="count_one">áƒ”áƒ áƒ—áƒ˜</string>
+	<string name="count_two">áƒáƒ áƒ˜</string>
+	<string name="count_three">áƒ¡áƒáƒ›áƒ˜</string>
+	<string name="count_four">áƒáƒ—áƒ®áƒ˜</string>
+	<!-- %s is the username -->
+	<string name="settings_add_filter">áƒ¤áƒ˜áƒšáƒ¢áƒ áƒ˜áƒ¡ áƒ“áƒáƒ›áƒáƒ¢áƒ”áƒ‘áƒ</string>
+	<string name="settings_edit_filter">áƒ¤áƒ˜áƒšáƒ¢áƒ áƒ˜áƒ¡ áƒ áƒ”áƒ“áƒáƒ¥áƒ¢áƒ˜áƒ áƒ”áƒ‘áƒ</string>
+	<string name="settings_filter_duration">áƒ®áƒáƒœáƒ’áƒ áƒ«áƒšáƒ˜áƒ•áƒáƒ‘áƒ</string>
+	<string name="settings_filter_muted_words">áƒ˜áƒ’áƒœáƒáƒ áƒ˜áƒ áƒ”áƒ‘áƒ£áƒšáƒ˜ áƒ¡áƒ˜áƒ¢áƒ§áƒ•áƒ”áƒ‘áƒ˜</string>
+	<string name="settings_delete_filter">áƒ¤áƒ˜áƒšáƒ¢áƒ áƒ˜áƒ¡ áƒ¬áƒáƒ¨áƒšáƒ</string>
+	<!-- %s is the timestamp ("tomorrow at 12:34") -->
+	<string name="filter_context_notifications">áƒ¨áƒ”áƒ¢áƒ§áƒáƒ‘áƒ˜áƒœáƒ”áƒ‘áƒ”áƒ‘áƒ˜</string>
+	<string name="filter_context_profiles">áƒžáƒ áƒáƒ¤áƒ˜áƒšáƒ”áƒ‘áƒ˜</string>
+	<string name="settings_filter_title">áƒ¡áƒáƒ®áƒ”áƒšáƒ˜</string>
+	<string name="settings_delete_filter_title">áƒ¬áƒáƒ˜áƒ¨áƒáƒšáƒáƒ¡ â€œ%sâ€ áƒ¤áƒ˜áƒšáƒ¢áƒ áƒ˜?</string>
+	<string name="settings_delete_filter_confirmation">áƒ”áƒ¡ áƒ¤áƒ˜áƒšáƒ¢áƒ áƒ˜ áƒ¬áƒáƒ˜áƒ¨áƒšáƒ”áƒ‘áƒ áƒ—áƒ¥áƒ•áƒ”áƒœáƒ˜ áƒáƒœáƒ’áƒáƒ áƒ˜áƒ¨áƒ˜áƒ“áƒáƒœ áƒ—áƒ¥áƒ•áƒ”áƒœáƒ¡ áƒ§áƒ•áƒ”áƒšáƒ áƒ›áƒáƒ¬áƒ§áƒáƒ‘áƒ˜áƒšáƒáƒ‘áƒáƒ–áƒ”.</string>
+	<string name="add_muted_word">áƒ˜áƒ’áƒœáƒáƒ áƒ˜áƒ áƒ”áƒ‘áƒ£áƒšáƒ˜ áƒ¡áƒ˜áƒ¢áƒ§áƒ•áƒ˜áƒ¡ áƒ“áƒáƒ›áƒáƒ¢áƒ”áƒ‘áƒ</string>
+	<string name="edit_muted_word">áƒ˜áƒ’áƒœáƒáƒ áƒ˜áƒ áƒ”áƒ‘áƒ£áƒšáƒ˜ áƒ¡áƒ˜áƒ¢áƒ§áƒ•áƒ˜áƒ¡ áƒ áƒ”áƒ“áƒáƒ¥áƒ¢áƒ˜áƒ áƒ”áƒ‘áƒ</string>
+	<string name="add">áƒ“áƒáƒ›áƒáƒ¢áƒ”áƒ‘áƒ</string>
+	<string name="filter_word_or_phrase">áƒ¡áƒ˜áƒ¢áƒ§áƒ•áƒ áƒáƒœ áƒ¤áƒ áƒáƒ–áƒ</string>
+	<string name="enter_selection_mode">áƒ›áƒáƒœáƒ˜áƒ¨áƒ•áƒœáƒ</string>
+	<string name="select_all">áƒ§áƒ•áƒ”áƒšáƒáƒ¡ áƒ›áƒáƒœáƒ˜áƒ¨áƒ•áƒœáƒ</string>
+	<string name="settings_filter_duration_title">áƒ¤áƒ˜áƒšáƒ¢áƒ áƒ˜áƒ¡ áƒ®áƒáƒœáƒ’áƒ áƒ«áƒšáƒ˜áƒ•áƒáƒ‘áƒ</string>
+	<!-- Shown like a content warning, %s is the name of the filter -->
+	<!-- Shown in the post header. Please keep it short -->
+	<!-- %s is the name of the post language -->
+	<!-- %1$s is the language, %2$s is the name of the translation service -->
+	<!-- Screen reader description for the menu on the home timeline screen -->
+	<!-- %s is the name of the list -->
+	<!-- %s is a username -->
+	<!-- %s is a time interval ("5 months") -->
+	<string name="do_block_server">áƒ¡áƒ”áƒ áƒ•áƒ”áƒ áƒ˜áƒ¡ áƒ“áƒáƒ‘áƒšáƒáƒ™áƒ•áƒ</string>
+	<string name="users_cant_see_blocked">áƒáƒ› áƒ¡áƒ”áƒ áƒ•áƒ”áƒ áƒ–áƒ” áƒ›áƒáƒ›áƒ®áƒ›áƒáƒ áƒ”áƒ‘áƒšáƒ”áƒ‘áƒ˜áƒ¡áƒ’áƒáƒœ áƒžáƒáƒ¡áƒ¢áƒ”áƒ‘áƒ¡áƒ áƒ“áƒ áƒ¨áƒ”áƒ¢áƒ§áƒáƒ‘áƒ˜áƒœáƒ”áƒ‘áƒ”áƒ‘áƒ¡ áƒ•áƒ”áƒ  áƒœáƒáƒ®áƒáƒ•áƒ—.</string>
+	<string name="server">áƒ¡áƒ”áƒ áƒ•áƒ”áƒ áƒ˜</string>
+	<string name="qr_code">QR code</string>
+	<string name="scan_qr_code">QR áƒ™áƒáƒ“áƒ˜áƒ¡ áƒ“áƒáƒ¡áƒ™áƒáƒœáƒ”áƒ áƒ”áƒ‘áƒ</string>
+	<!-- Shown on a button that saves a file, after it was successfully saved -->
+	<string name="saved">áƒ¨áƒ”áƒœáƒáƒ®áƒ£áƒšáƒ˜áƒ</string>
+	<string name="image_saved">áƒ¡áƒ£áƒ áƒáƒ—áƒ˜ áƒ¨áƒ”áƒœáƒáƒ®áƒ£áƒšáƒ˜áƒ.</string>
+	<string name="video_saved">áƒ•áƒ˜áƒ“áƒ”áƒ áƒ¨áƒ”áƒœáƒáƒ®áƒ£áƒšáƒ˜áƒ.</string>
+	<string name="copy_profile_link">áƒžáƒ áƒáƒ¤áƒ˜áƒšáƒ˜áƒ¡ áƒ‘áƒ›áƒ£áƒšáƒ˜áƒ¡ áƒ“áƒáƒ™áƒáƒžáƒ˜áƒ áƒ”áƒ‘áƒ</string>
+	<string name="in_app_browser">áƒáƒžáƒšáƒ˜áƒ™áƒáƒªáƒ˜áƒ˜áƒ¡ áƒ‘áƒ áƒáƒ£áƒ–áƒ”áƒ áƒ˜</string>
+	<string name="system_browser">áƒ¡áƒ˜áƒ¡áƒ¢áƒ”áƒ›áƒ£áƒ áƒ˜ áƒ‘áƒ áƒáƒ£áƒ–áƒ”áƒ áƒ˜</string>
+	<string name="tab_home">áƒ›áƒ—áƒáƒ•áƒáƒ áƒ˜</string>
+	<string name="tab_search">áƒ“áƒáƒ—áƒ•áƒáƒšáƒ˜áƒ”áƒ áƒ”áƒ‘áƒ</string>
+	<string name="tab_profile">áƒžáƒ áƒáƒ¤áƒ˜áƒšáƒ˜</string>
+	<string name="pin_post">áƒžáƒ áƒáƒ¤áƒ˜áƒšáƒ–áƒ” áƒ›áƒ˜áƒ›áƒáƒ’áƒ áƒ”áƒ‘áƒ</string>
+	<string name="unpin_post">áƒžáƒ áƒáƒ¤áƒ˜áƒšáƒ˜áƒ“áƒáƒœ áƒ›áƒáƒ®áƒ¡áƒœáƒ</string>
+	<string name="post_pinned">áƒžáƒáƒ¡áƒ¢áƒ˜ áƒ›áƒ˜áƒ›áƒáƒ’áƒ áƒ”áƒ‘áƒ£áƒšáƒ˜áƒ</string>
+	<string name="post_unpinned">áƒžáƒáƒ¡áƒ¢áƒ˜ áƒ›áƒáƒ®áƒ¡áƒœáƒ˜áƒšáƒ˜áƒ</string>
+	<!-- %s is the username -->
+	<string name="enable_new_post_notifications">áƒ¨áƒ”áƒ›áƒáƒ¢áƒ§áƒáƒ‘áƒ˜áƒœáƒ”, áƒ áƒáƒ“áƒ”áƒ¡áƒáƒª %s áƒ“áƒáƒžáƒáƒ¡áƒ¢áƒáƒ•áƒ¡</string>
+	<string name="disable_new_post_notifications">áƒáƒ¦áƒáƒ  áƒ¨áƒ”áƒ›áƒáƒ¢áƒ§áƒáƒ‘áƒ˜áƒœáƒ, áƒ áƒáƒ“áƒ”áƒ¡áƒáƒª %s áƒ“áƒáƒžáƒáƒ¡áƒ¢áƒáƒ•áƒ¡</string>
+	<string name="new_post_notifications_enabled">áƒ—áƒ¥áƒ•áƒ”áƒœ áƒ›áƒ˜áƒ˜áƒ¦áƒ”áƒ‘áƒ— áƒ¨áƒ”áƒ¢áƒ§áƒáƒ‘áƒ˜áƒœáƒ”áƒ‘áƒ”áƒ‘áƒ¡ áƒáƒ®áƒáƒšáƒ˜ áƒžáƒáƒ¡áƒ¢áƒ˜áƒ¡ áƒ¨áƒ”áƒ¡áƒáƒ®áƒ”áƒ‘.</string>
+	<string name="new_post_notifications_disabled">áƒ—áƒ¥áƒ•áƒ”áƒœ áƒáƒ¦áƒáƒ  áƒ›áƒ˜áƒ˜áƒ¦áƒ”áƒ‘áƒ— áƒ¨áƒ”áƒ¢áƒ§áƒáƒ‘áƒ˜áƒœáƒ”áƒ‘áƒ”áƒ‘áƒ¡ áƒáƒ®áƒáƒšáƒ˜ áƒžáƒáƒ¡áƒ¢áƒ˜áƒ¡ áƒ¨áƒ”áƒ¡áƒáƒ®áƒ”áƒ‘.</string>
+	<plurals name="x_new_notifications">
+		<item quantity="one">%,d áƒáƒ®áƒáƒšáƒ˜ áƒ¨áƒ”áƒ¢áƒ§áƒáƒ‘áƒ˜áƒœáƒ”áƒ‘áƒ</item>
+		<item quantity="other">%,d áƒáƒ®áƒáƒšáƒ˜ áƒ¨áƒ”áƒ¢áƒ§áƒáƒ‘áƒ˜áƒœáƒ”áƒ‘áƒ</item>
+	</plurals>
+	<string name="dismiss">áƒ’áƒáƒ£áƒ¥áƒ›áƒ”áƒ‘áƒ</string>
+	<string name="donation_once">áƒ”áƒ áƒ—áƒ®áƒ”áƒš</string>
+	<string name="donation_monthly">áƒ§áƒáƒ•áƒ”áƒšáƒ—áƒ•áƒ˜áƒ£áƒ áƒáƒ“</string>
+	<string name="donation_yearly">áƒ§áƒáƒ•áƒ”áƒšáƒ¬áƒšáƒ˜áƒ£áƒ áƒáƒ“</string>
+	<string name="currency">áƒ•áƒáƒšáƒ£áƒ¢áƒ</string>
+	<string name="donation_success_title">áƒ’áƒ›áƒáƒ“áƒšáƒáƒ‘áƒ— áƒ—áƒ¥áƒ•áƒ”áƒœáƒ˜ áƒ¬áƒ•áƒšáƒ˜áƒšáƒ˜áƒ¡áƒ—áƒ•áƒ˜áƒ¡!</string>
+	<string name="donation_success_subtitle">áƒ›áƒáƒšáƒ” áƒ£áƒœáƒ“áƒ áƒ›áƒ˜áƒ˜áƒ¦áƒáƒ— áƒ—áƒ¥áƒ•áƒ”áƒœáƒ˜ áƒ¨áƒ”áƒ›áƒáƒ¬áƒ˜áƒ áƒ£áƒšáƒáƒ‘áƒ˜áƒ¡ áƒ“áƒáƒ›áƒáƒ“áƒáƒ¡áƒ¢áƒ£áƒ áƒ”áƒ‘áƒ”áƒšáƒ˜ áƒ”áƒšáƒ¤áƒáƒ¡áƒ¢áƒ.</string>
+	<string name="donation_server_error">áƒ‘áƒáƒ“áƒ˜áƒ¨áƒ¡ áƒ’áƒ˜áƒ®áƒ“áƒ˜áƒ—, áƒ¨áƒ”áƒªáƒ“áƒáƒ›áƒ áƒ›áƒáƒ®áƒ“áƒ áƒ“áƒ áƒ—áƒ¥áƒ•áƒ”áƒœáƒ˜ áƒ¨áƒ”áƒ›áƒáƒ¬áƒ˜áƒ áƒ£áƒšáƒáƒ‘áƒ˜áƒ¡ áƒ“áƒáƒ›áƒ£áƒ¨áƒáƒ•áƒ”áƒ‘áƒ áƒ•áƒ”áƒ  áƒ¨áƒ”áƒ•áƒ«áƒ”áƒšáƒ˜áƒ—.\n\náƒ’áƒ—áƒ®áƒáƒ•áƒ—, áƒ áƒáƒ›áƒ“áƒ”áƒœáƒ˜áƒ›áƒ” áƒ¬áƒ£áƒ—áƒ¨áƒ˜ áƒ®áƒ”áƒšáƒáƒ®áƒšáƒ áƒ¡áƒªáƒáƒ“áƒáƒ—.</string>
+	<string name="settings_donate">Mastodon-áƒ˜áƒ¡áƒ—áƒ•áƒ˜áƒ¡ áƒ—áƒáƒœáƒ®áƒ˜áƒ¡ áƒ¨áƒ”áƒ›áƒáƒ¬áƒ˜áƒ áƒ•áƒ</string>
+	<string name="settings_manage_donations">áƒ“áƒáƒœáƒáƒªáƒ˜áƒ”áƒ‘áƒ˜áƒ¡ áƒ›áƒáƒ áƒ—áƒ•áƒ</string>
+	<string name="cant_load_image">áƒ¡áƒ£áƒ áƒáƒ—áƒ˜áƒ¡ áƒ©áƒáƒ¢áƒ•áƒ˜áƒ áƒ—áƒ•áƒ áƒ•áƒ”áƒ  áƒ›áƒáƒ®áƒ”áƒ áƒ®áƒ“áƒ</string>
+	<string name="poll_see_results">áƒ¨áƒ”áƒ“áƒ”áƒ’áƒ”áƒ‘áƒ˜áƒ¡ áƒ’áƒáƒ›áƒáƒ©áƒ”áƒœáƒ</string>
+	<string name="poll_hide_results">áƒ¨áƒ”áƒ“áƒ”áƒ’áƒ”áƒ‘áƒ˜áƒ¡ áƒ“áƒáƒ›áƒáƒšáƒ•áƒ</string>
+	<plurals name="x_attachments">
+		<item quantity="one">%d áƒ¤áƒáƒ˜áƒšáƒ˜</item>
+		<item quantity="other">%d áƒ¤áƒáƒ˜áƒšáƒ˜</item>
+	</plurals>
+	<!-- %1$s is your server domain, %2$s is the domain that was blocked, %3$,d is the follower count, %4$s is the `x_accounts` plural string -->
+	<plurals name="x_accounts">
+		<item quantity="one">%,d áƒáƒœáƒ’áƒáƒ áƒ˜áƒ¨áƒ˜</item>
+		<item quantity="other">%,d áƒáƒœáƒ’áƒáƒ áƒ˜áƒ¨áƒ˜</item>
+	</plurals>
+	<!-- %1$s is the domain that was blocked, %2$,d is the follower count, %3$s is the `x_accounts` plural string -->
+	<string name="relationship_severance_user_domain_block">áƒ—áƒ¥áƒ•áƒ”áƒœ áƒ“áƒáƒ‘áƒšáƒáƒ™áƒ”áƒ— %1$s, áƒ áƒ˜áƒ—áƒáƒª áƒ¬áƒáƒ¨áƒáƒšáƒ”áƒ— áƒ—áƒ¥áƒ•áƒ”áƒœáƒ˜ %2$,d áƒ’áƒáƒ›áƒáƒ›áƒ¬áƒ”áƒ áƒ˜ áƒ“áƒ %3$s áƒ—áƒ¥áƒ•áƒ”áƒœáƒ˜ áƒ’áƒáƒ›áƒáƒ¬áƒ”áƒ áƒ˜áƒšáƒ˜.</string>
+	<string name="relationship_severance_learn_more">áƒ’áƒáƒ˜áƒ’áƒ”áƒ— áƒ›áƒ”áƒ¢áƒ˜</string>
+	<string name="moderation_warning_action_none">áƒ—áƒ¥áƒ•áƒ”áƒœáƒ¡ áƒáƒœáƒ’áƒáƒ áƒ˜áƒ¨áƒ¡ áƒ›áƒáƒ“áƒ”áƒ áƒáƒªáƒ˜áƒ˜áƒ¡ áƒ’áƒáƒ¤áƒ áƒ—áƒ®áƒ˜áƒšáƒ”áƒ‘áƒ áƒ›áƒ˜áƒ”áƒªáƒ.</string>
+	<string name="moderation_warning_action_disable">áƒ—áƒ¥áƒ•áƒ”áƒœáƒ˜ áƒáƒœáƒ’áƒáƒ áƒ˜áƒ¨áƒ˜ áƒ’áƒáƒ—áƒ˜áƒ¨áƒ£áƒšáƒ˜áƒ.</string>
+	<string name="moderation_warning_action_mark_statuses_as_sensitive">áƒ—áƒ¥áƒ•áƒ”áƒœáƒ˜ áƒ–áƒáƒ’áƒ˜áƒ”áƒ áƒ—áƒ˜ áƒžáƒáƒ¡áƒ¢áƒ˜ áƒ›áƒáƒ˜áƒœáƒ˜áƒ¨áƒœáƒ áƒ áƒáƒ’áƒáƒ áƒª áƒ¡áƒ”áƒœáƒ¡áƒ˜áƒ¢áƒ˜áƒ£áƒ áƒ˜.</string>
+	<string name="moderation_warning_action_delete_statuses">áƒ—áƒ¥áƒ•áƒ”áƒœáƒ˜ áƒ–áƒáƒ’áƒ˜áƒ”áƒ áƒ—áƒ˜ áƒžáƒáƒ¡áƒ¢áƒ˜ áƒ¬áƒáƒ˜áƒ¨áƒáƒšáƒ.</string>
+	<string name="moderation_warning_action_sensitive">áƒ—áƒ¥áƒ•áƒ”áƒœáƒ˜ áƒžáƒáƒ¡áƒ¢áƒ”áƒ‘áƒ˜ áƒáƒ›áƒ˜áƒ”áƒ áƒ˜áƒ“áƒáƒœ áƒ›áƒáƒœáƒ˜áƒ¨áƒœáƒ£áƒšáƒ˜ áƒ˜áƒ¥áƒœáƒ”áƒ‘áƒ áƒ áƒáƒ’áƒáƒ áƒª áƒ¡áƒ”áƒœáƒ¡áƒ˜áƒ¢áƒ˜áƒ£áƒ áƒ˜.</string>
+	<string name="moderation_warning_action_silence">áƒ—áƒ¥áƒ•áƒ”áƒœáƒ˜ áƒáƒœáƒ’áƒáƒ áƒ˜áƒ¨áƒ˜ áƒ¨áƒ”áƒ–áƒ¦áƒ£áƒ“áƒ£áƒšáƒ˜áƒ.</string>
+	<string name="moderation_warning_action_suspend">áƒ—áƒ¥áƒ•áƒ”áƒœáƒ˜ áƒáƒœáƒ’áƒáƒ áƒ˜áƒ¨áƒ˜ áƒ¨áƒ”áƒ©áƒ”áƒ áƒ”áƒ‘áƒ£áƒšáƒ˜áƒ.</string>
+	<string name="moderation_warning_learn_more">áƒ’áƒáƒ˜áƒ’áƒ”áƒ— áƒ›áƒ”áƒ¢áƒ˜</string>
+	<string name="text_show_more">áƒ›áƒ”áƒ¢áƒ˜</string>
+	<string name="avatar_move_and_scale">áƒ’áƒáƒ“áƒáƒáƒ“áƒ’áƒ˜áƒšáƒ”áƒ‘áƒ áƒ“áƒ áƒ›áƒáƒ¡áƒ¨áƒ¢áƒáƒ‘áƒ˜áƒ áƒ”áƒ‘áƒ</string>
+	<string name="confirm_avatar_crop">áƒáƒ áƒ©áƒ”áƒ•áƒ</string>
+	<string name="settings_use_dynamic_colors">áƒ¡áƒ˜áƒ¡áƒ¢áƒ”áƒ›áƒ˜áƒ¡ áƒ“áƒ˜áƒœáƒáƒ›áƒ˜áƒ£áƒ áƒ˜ áƒ¤áƒ”áƒ áƒ˜áƒ¡ áƒ’áƒáƒ›áƒáƒ§áƒ”áƒœáƒ”áƒ‘áƒ</string>
+	<string name="settings_accounts">áƒáƒœáƒ’áƒáƒ áƒ˜áƒ¨áƒ”áƒ‘áƒ˜</string>
+	<string name="settings_add_account">áƒáƒœáƒ’áƒáƒ áƒ˜áƒ¨áƒ˜áƒ¡ áƒ“áƒáƒ›áƒáƒ¢áƒ”áƒ‘áƒ...</string>
+	<string name="settings_app_settings">áƒáƒžáƒšáƒ˜áƒ™áƒáƒªáƒ˜áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜</string>
+	<string name="account_settings">áƒáƒœáƒ’áƒáƒ áƒ˜áƒ¨áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒ›áƒ”áƒ¢áƒ áƒ”áƒ‘áƒ˜</string>
+	<string name="settings_about_this_server">áƒáƒ› áƒ¡áƒ”áƒ áƒ•áƒ”áƒ áƒ˜áƒ¡ áƒ¨áƒ”áƒ¡áƒáƒ®áƒ”áƒ‘</string>
+	<string name="manage_account">áƒáƒœáƒ’áƒáƒ áƒ˜áƒ¨áƒ˜áƒ¡ áƒ›áƒáƒ áƒ—áƒ•áƒ</string>
+	<string name="switch_to_this_account">áƒáƒ› áƒáƒœáƒ’áƒáƒ áƒ˜áƒ¨áƒ–áƒ” áƒ’áƒáƒ“áƒáƒ¡áƒ•áƒšáƒ</string>
+	<string name="delete_account">áƒáƒœáƒ’áƒáƒ áƒ˜áƒ¨áƒ˜áƒ¡ áƒ¬áƒáƒ¨áƒšáƒ</string>
+	<string name="notification_type_status">áƒáƒ®áƒáƒšáƒ˜ áƒžáƒáƒ¡áƒ¢áƒ”áƒ‘áƒ˜</string>
+	<plurals name="user_and_x_more_followed">
+		<item quantity="one">%1$s-áƒ› áƒ“áƒ %2$,d áƒ¡áƒ®áƒ•áƒáƒ› áƒ’áƒáƒ›áƒáƒ’áƒ˜áƒ¬áƒ”áƒ áƒáƒ—</item>
+		<item quantity="other">%1$s-áƒ› áƒ“áƒ %2$,d áƒ¡áƒ®áƒ•áƒáƒ› áƒ’áƒáƒ›áƒáƒ’áƒ˜áƒ¬áƒ”áƒ áƒáƒ—</item>
+	</plurals>
+	<string name="familiar_followers_one">áƒ’áƒáƒ›áƒáƒ¬áƒ”áƒ áƒ˜áƒšáƒ˜ áƒ°áƒ§áƒáƒ•áƒ¡ %s-áƒ¡</string>
+	<string name="familiar_followers_two">áƒ’áƒáƒ›áƒáƒ¬áƒ”áƒ áƒ˜áƒšáƒ˜ áƒ°áƒ§áƒáƒ•áƒ¡ %s-áƒ¡ áƒ“áƒ %s-áƒ¡</string>
+	<string name="profile_saved_posts">áƒ¨áƒ”áƒœáƒáƒ®áƒ£áƒšáƒ˜</string>
+	<string name="profile_saved_posts_explanation">áƒ—áƒ¥áƒ•áƒ”áƒœáƒ¡ áƒ›áƒ˜áƒ”áƒ  áƒ¨áƒ”áƒœáƒáƒ®áƒ£áƒšáƒ˜ áƒžáƒáƒ¡áƒ¢áƒ”áƒ‘áƒ˜ áƒ›áƒ®áƒáƒšáƒáƒ“ áƒ—áƒ¥áƒ•áƒ”áƒœáƒ—áƒ•áƒ˜áƒ¡áƒáƒ áƒ®áƒ˜áƒšáƒ£áƒšáƒ˜.</string>
+	<string name="search_people">áƒ®áƒáƒšáƒ®áƒ˜</string>
+	<plurals name="familiar_followers_many">
+		<item quantity="one">áƒ’áƒáƒ›áƒáƒ¬áƒ”áƒ áƒ˜áƒšáƒ˜ áƒ°áƒ§áƒáƒ•áƒ¡ %1$s-áƒ¡, %2$s-áƒ¡, áƒ“áƒ %3$,d áƒ¡áƒ®áƒ•áƒáƒ¡</item>
+		<item quantity="other">áƒ’áƒáƒ›áƒáƒ¬áƒ”áƒ áƒ˜áƒšáƒ˜ áƒ°áƒ§áƒáƒ•áƒ¡ %1$s-áƒ¡, %2$s-áƒ¡, áƒ“áƒ %3$,d áƒ¡áƒ®áƒ•áƒáƒ¡</item>
+	</plurals>
+	<plurals name="x_followers_you_know">
+		<item quantity="one">%,d áƒ’áƒáƒ›áƒáƒ›áƒ¬áƒ”áƒ áƒ˜, áƒ áƒáƒ›áƒ”áƒšáƒ˜áƒª áƒ˜áƒªáƒ˜áƒ—</item>
+		<item quantity="other">%,d áƒ’áƒáƒ›áƒáƒ›áƒ¬áƒ”áƒ áƒ˜, áƒ áƒáƒ›áƒ”áƒšáƒ˜áƒª áƒ˜áƒªáƒ˜áƒ—</item>
+	</plurals>
+	<!-- appears when you're about to block a server -->
+	<plurals name="server_x_followers_will_be_removed">
+		<item quantity="one">áƒáƒ› áƒ¡áƒ”áƒ áƒ•áƒ”áƒ áƒ˜áƒ“áƒáƒœ %,d áƒ’áƒáƒ›áƒáƒ›áƒ¬áƒ”áƒ áƒ˜ áƒ¬áƒáƒ˜áƒ¨áƒšáƒ”áƒ‘áƒ.</item>
+		<item quantity="other">áƒáƒ› áƒ¡áƒ”áƒ áƒ•áƒ”áƒ áƒ˜áƒ“áƒáƒœ %,d áƒ’áƒáƒ›áƒáƒ›áƒ¬áƒ”áƒ áƒ˜ áƒ¬áƒáƒ˜áƒ¨áƒšáƒ”áƒ‘áƒ.</item>
+	</plurals>
+	<!-- The complete string will look like "You will lose X followers and Y people you follow". See will_lose_x_followers and will_lose_x_following -->
+	<string name="server_x_followers_and_following_will_be_removed">áƒ—áƒ¥áƒ•áƒ”áƒœ áƒ“áƒáƒ™áƒáƒ áƒ’áƒáƒ•áƒ— %1$s-áƒ¡ áƒ“áƒ %2$s-áƒ¡.</string>
+	<plurals name="will_lose_x_followers">
+		<item quantity="one">%,d áƒ’áƒáƒ›áƒáƒ›áƒ¬áƒ”áƒ áƒ˜</item>
+		<item quantity="other">%,d áƒ’áƒáƒ›áƒáƒ›áƒ¬áƒ”áƒ áƒ˜</item>
+	</plurals>
+	<plurals name="will_lose_x_following">
+		<item quantity="one">%,d áƒžáƒ˜áƒ áƒáƒ•áƒœáƒ”áƒ‘áƒ, áƒ áƒáƒ›áƒ”áƒšáƒ¡áƒáƒª áƒ—áƒ•áƒáƒšáƒ¡ áƒáƒ“áƒ”áƒ•áƒœáƒ”áƒ‘áƒ—</item>
+		<item quantity="other">%,d áƒáƒ“áƒáƒ›áƒ˜áƒáƒœáƒ˜, áƒ áƒáƒ›áƒ”áƒšáƒ¡áƒáƒª áƒ—áƒ•áƒáƒšáƒ¡ áƒáƒ“áƒ”áƒ•áƒœáƒ”áƒ‘áƒ—</item>
+	</plurals>
+	<!-- The complete string will look like "You will lose X people you follow". See will_lose_x_following -->
+	<string name="server_x_following_will_be_removed">áƒ—áƒ¥áƒ•áƒ”áƒœ áƒ“áƒáƒ™áƒáƒ áƒ’áƒáƒ•áƒ— %s-áƒ¡.</string>
+	<string name="load_missing_posts_above">áƒ“áƒáƒ™áƒáƒ áƒ’áƒ£áƒšáƒ˜ áƒžáƒáƒ¡áƒ¢áƒ”áƒ‘áƒ˜áƒ¡ áƒ©áƒáƒ¢áƒ•áƒ˜áƒ áƒ—áƒ•áƒ áƒ–áƒ”áƒ›áƒáƒ—</string>
+	<string name="load_missing_posts_below">áƒ“áƒáƒ™áƒáƒ áƒ’áƒ£áƒšáƒ˜ áƒžáƒáƒ¡áƒ¢áƒ”áƒ‘áƒ˜áƒ¡ áƒ©áƒáƒ¢áƒ•áƒ˜áƒ áƒ—áƒ•áƒ áƒ¥áƒ•áƒ”áƒ›áƒáƒ—</string>
+	<string name="signup_password_too_short">áƒžáƒáƒ áƒáƒšáƒ˜ áƒ£áƒœáƒ“áƒ áƒ˜áƒ§áƒáƒ¡ áƒ›áƒ˜áƒœáƒ˜áƒ›áƒ£áƒ› 8 áƒ¡áƒ˜áƒ›áƒ‘áƒáƒšáƒ.</string>
+	<string name="private_reply">áƒ™áƒáƒœáƒ¤áƒ˜áƒ“áƒ”áƒœáƒªáƒ˜áƒáƒšáƒ£áƒ áƒ˜ áƒžáƒáƒ¡áƒ£áƒ®áƒ˜áƒ¡ áƒ’áƒáƒªáƒ”áƒ›áƒ</string>
+	<string name="private_mention">áƒ™áƒáƒœáƒ¤áƒ˜áƒ“áƒ”áƒœáƒªáƒ˜áƒáƒšáƒ£áƒ áƒ˜ áƒ›áƒáƒœáƒ˜áƒ¨áƒ•áƒœáƒ</string>
+	<string name="post_header_reply">áƒžáƒáƒ¡áƒ£áƒ®áƒ˜áƒ¡ áƒ’áƒáƒªáƒ”áƒ›áƒ</string>
+	<string name="post_header_mention">áƒ›áƒáƒœáƒ˜áƒ¨áƒ•áƒœáƒ</string>
+	<string name="report_reason_legal">áƒáƒ áƒáƒšáƒ”áƒ’áƒáƒšáƒ£áƒ áƒ˜áƒ</string>
+	<string name="report_reason_legal_subtitle">áƒ—áƒ¥áƒ•áƒ”áƒœ áƒ—áƒ•áƒšáƒ˜áƒ—, áƒ áƒáƒ› áƒ”áƒ¡ áƒáƒ áƒ¦áƒ•áƒ”áƒ•áƒ¡ áƒ—áƒ¥áƒ•áƒ”áƒœáƒ˜ áƒáƒœ áƒ¡áƒ”áƒ áƒ•áƒ”áƒ áƒ˜áƒ¡ áƒ¥áƒ•áƒ”áƒ§áƒœáƒ˜áƒ¡ áƒ™áƒáƒœáƒáƒœáƒ¡</string>
+	<string name="date_of_birth">áƒ“áƒáƒ‘áƒáƒ“áƒ”áƒ‘áƒ˜áƒ¡ áƒ—áƒáƒ áƒ˜áƒ¦áƒ˜</string>
+	<!-- %s is `at_least_x_years_old`. Some languages, unlike English, may require the word "years" here. -->
+	<string name="date_of_birth_explanation">áƒ©áƒ•áƒ”áƒœ áƒ£áƒœáƒ“áƒ áƒ“áƒáƒ•áƒ áƒ¬áƒ›áƒ£áƒœáƒ“áƒ”áƒ—, áƒ áƒáƒ› áƒ—áƒ¥áƒ•áƒ”áƒœ áƒ›áƒ˜áƒœáƒ˜áƒ›áƒ£áƒ› %s-áƒ¡ áƒ®áƒáƒ áƒ— Mastodon-áƒ˜áƒ¡ áƒ’áƒáƒ›áƒáƒ¡áƒáƒ§áƒ”áƒœáƒ”áƒ‘áƒšáƒáƒ“. áƒ”áƒ¡ áƒ›áƒáƒœáƒáƒªáƒ”áƒ›áƒ˜ áƒ áƒ”áƒ’áƒ˜áƒ¡áƒ¢áƒ áƒáƒªáƒ˜áƒ˜áƒ¡ áƒ¨áƒ”áƒ›áƒ“áƒ”áƒ’ áƒáƒ  áƒ¨áƒ”áƒ˜áƒœáƒáƒ®áƒ”áƒ‘áƒ.</string>
+	<string name="open_link">áƒ’áƒáƒ®áƒ¡áƒœáƒ</string>
+	<string name="copy">áƒ“áƒáƒ™áƒáƒžáƒ˜áƒ áƒ”áƒ‘áƒ</string>
+	<!-- Substituted into `date_of_birth_explanation` -->
+	<plurals name="at_least_x_years_old">
+		<item quantity="one">%d</item>
+		<item quantity="other">%d</item>
+	</plurals>
+	<string name="quote_post_unavailable">áƒžáƒáƒ¡áƒ¢áƒ˜ áƒáƒ  áƒáƒ áƒ˜áƒ¡ áƒ®áƒ”áƒšáƒ›áƒ˜áƒ¡áƒáƒ¬áƒ•áƒ“áƒáƒ›áƒ˜</string>
+	<string name="quote_post_pending">áƒžáƒáƒ¡áƒ¢áƒ˜ áƒ’áƒáƒœáƒ®áƒ˜áƒšáƒ•áƒáƒ¨áƒ˜áƒ</string>
+	<string name="quote_post_pending_explanation">Mastodon-áƒ–áƒ” áƒ¨áƒ”áƒ’áƒ˜áƒ«áƒšáƒ˜áƒáƒ— áƒáƒ™áƒáƒœáƒ¢áƒ áƒáƒšáƒáƒ—, áƒ¨áƒ”áƒ£áƒ«áƒšáƒ˜áƒ áƒ—áƒ£ áƒáƒ áƒ áƒ•áƒ˜áƒœáƒ›áƒ”áƒ¡ áƒ—áƒ¥áƒ•áƒ”áƒœáƒ˜ áƒªáƒ˜áƒ¢áƒ˜áƒ áƒ”áƒ‘áƒ. áƒ”áƒ¡ áƒžáƒáƒ¡áƒ¢áƒ˜ áƒ’áƒáƒœáƒ®áƒ˜áƒšáƒ•áƒ˜áƒ¡ áƒžáƒ áƒáƒªáƒ”áƒ¡áƒ¨áƒ˜áƒ, áƒ¡áƒáƒœáƒáƒ› áƒáƒ áƒ˜áƒ’áƒ˜áƒœáƒáƒšáƒ˜ áƒáƒ•áƒ¢áƒáƒ áƒ˜áƒ¡áƒ’áƒáƒœ áƒ“áƒáƒ›áƒ¢áƒ™áƒ˜áƒªáƒ”áƒ‘áƒáƒ¡ áƒáƒ  áƒ›áƒ˜áƒ•áƒ˜áƒ¦áƒ”áƒ‘áƒ—.</string>
+	<!-- %s is a username, i.e. @Gargron -->
+	<string name="nested_quote">áƒªáƒ˜áƒ¢áƒ˜áƒ áƒ”áƒ‘áƒ£áƒšáƒ˜áƒ %s-áƒ˜áƒ¡ áƒžáƒáƒ¡áƒ¢áƒ˜</string>
+</resources>

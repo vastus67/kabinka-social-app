@@ -1,0 +1,823 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+	<string name="log_in">ÄÄƒng nháº­p</string>
+	<string name="next">Káº¿ tiáº¿p</string>
+	<string name="loading_instance">Äang láº¥y thÃ´ng tinâ€¦</string>
+	<string name="error">Lá»—i</string>
+	<string name="not_a_mastodon_instance">%s khÃ´ng pháº£i lÃ  má»™t mÃ¡y chá»§ Mastodon.</string>
+	<string name="ok">OK</string>
+	<string name="preparing_auth">Chuáº©n bá»‹ xÃ¡c thá»±câ€¦</string>
+	<string name="finishing_auth">HoÃ n táº¥t xÃ¡c thá»±câ€¦</string>
+	<string name="user_boosted">%s Ä‘Äƒng láº¡i</string>
+	<string name="in_reply_to">tráº£ lá»i Ä‘áº¿n %s</string>
+	<string name="notifications">ThÃ´ng bÃ¡o</string>
+	<string name="user_followed_you">%s Ä‘Ã£ theo dÃµi báº¡n</string>
+	<string name="user_sent_follow_request">%s yÃªu cáº§u theo dÃµi báº¡n</string>
+	<string name="user_favorited">%s Ä‘Ã£ thÃ­ch:</string>
+	<string name="notification_boosted">%s Ä‘Äƒng láº¡i:</string>
+	<string name="share_toot_title">Chia sáº»</string>
+	<string name="settings">CÃ i Ä‘áº·t</string>
+	<string name="publish">ÄÄƒng</string>
+	<string name="discard_draft">Bá» báº£n nhÃ¡p?</string>
+	<string name="discard">Bá» Ä‘i</string>
+	<string name="cancel">Há»§y bá»</string>
+	<plurals name="followers">
+		<item quantity="other">ngÆ°á»i theo dÃµi</item>
+	</plurals>
+	<plurals name="following">
+		<item quantity="other">theo dÃµi</item>
+	</plurals>
+	<string name="posts">TÃºt</string>
+	<string name="posts_and_replies">Tráº£ lá»i</string>
+	<string name="media">Media</string>
+	<string name="profile_about">Giá»›i thiá»‡u</string>
+	<string name="button_follow">Theo dÃµi</string>
+	<string name="button_following">Äang theo dÃµi</string>
+	<string name="edit_profile">Sá»­a há»“ sÆ¡</string>
+	<string name="share_user">Chia sáº» há»“ sÆ¡</string>
+	<string name="mute_user">áº¨n %s</string>
+	<string name="unmute_user">Bá» áº©n %s</string>
+	<string name="block_user">Cháº·n %s</string>
+	<string name="unblock_user">Bá» cháº·n %s</string>
+	<string name="report_user">BÃ¡o cÃ¡o %s</string>
+	<string name="block_domain">Cháº·n %s</string>
+	<string name="unblock_domain">Bá» cháº·n %s</string>
+	<plurals name="x_posts">
+		<item quantity="other">%,d tÃºt</item>
+	</plurals>
+	<string name="profile_joined">ÄÃ£ tham gia</string>
+	<string name="done">Xong</string>
+	<string name="loading">Äang táº£iâ€¦</string>
+	<string name="field_label">NhÃ£n</string>
+	<string name="field_content">Ná»™i dung</string>
+	<string name="saving">Äang lÆ°uâ€¦</string>
+	<string name="post_from_user">TÃºt cá»§a %s</string>
+	<string name="poll_option_hint">Lá»±a chá»n %d</string>
+	<plurals name="x_minutes">
+		<item quantity="other">%d phÃºt</item>
+	</plurals>
+	<plurals name="x_hours">
+		<item quantity="other">%d giá»</item>
+	</plurals>
+	<plurals name="x_days">
+		<item quantity="other">%d ngÃ y</item>
+	</plurals>
+	<plurals name="x_seconds_left">
+		<item quantity="other">%d giÃ¢y cÃ²n láº¡i</item>
+	</plurals>
+	<plurals name="x_minutes_left">
+		<item quantity="other">%d phÃºt cÃ²n láº¡i</item>
+	</plurals>
+	<plurals name="x_hours_left">
+		<item quantity="other">%d giá» cÃ²n láº¡i</item>
+	</plurals>
+	<plurals name="x_days_left">
+		<item quantity="other">%d ngÃ y cÃ²n láº¡i</item>
+	</plurals>
+	<plurals name="x_votes">
+		<item quantity="other">%,d ngÆ°á»i bÃ¬nh chá»n</item>
+	</plurals>
+	<string name="poll_closed">ÄÃ³ng</string>
+	<string name="do_mute">áº¨n</string>
+	<string name="do_block">Cháº·n</string>
+	<string name="button_blocked">ÄÃ£ cháº·n</string>
+	<string name="action_vote">BÃ¬nh chá»n</string>
+	<string name="confirm">XÃ¡c nháº­n</string>
+	<string name="delete">XÃ³a</string>
+	<string name="confirm_delete_title">XÃ³a tÃºt</string>
+	<string name="confirm_delete">Báº¡n cÃ³ cháº¯c muá»‘n xÃ³a tÃºt nÃ y khÃ´ng?</string>
+	<string name="deleting">Äang xÃ³aâ€¦</string>
+	<string name="notification_channel_audio_player">Ã‚m thanh trÃ¬nh phÃ¡t media</string>
+	<string name="play">PhÃ¡t</string>
+	<string name="pause">Táº¡m dá»«ng</string>
+	<string name="log_out">ÄÄƒng xuáº¥t</string>
+	<string name="add_account">ThÃªm tÃ i khoáº£n</string>
+	<string name="search_hint">TÃ¬m kiáº¿m</string>
+	<string name="hashtags">Hashtag</string>
+	<string name="news">Tin tá»©c</string>
+	<string name="for_you">DÃ nh cho baÌ£n</string>
+	<string name="all_notifications">ToÃ n bá»™</string>
+	<string name="mentions">LÆ°á»£t nháº¯c Ä‘áº¿n</string>
+	<plurals name="x_people_talking">
+		<item quantity="other">%d ngÆ°á»i Ä‘ang tháº£o luáº­n</item>
+	</plurals>
+	<string name="report_title">BÃ¡o cÃ¡o %s</string>
+	<string name="report_choose_reason">CÃ³ váº¥n Ä‘á» gÃ¬ vá»›i tÃºt nÃ y?</string>
+	<string name="report_choose_reason_account">CÃ³ váº¥n Ä‘á» gÃ¬ vá»›i %s?</string>
+	<string name="report_choose_reason_subtitle">Chá»n lÃ½ do khá»›p nháº¥t</string>
+	<string name="report_reason_personal">TÃ´i khÃ´ng thÃ­ch nÃ³</string>
+	<string name="report_reason_personal_subtitle">ÄÃ³ khÃ´ng pháº£i lÃ  thá»© gÃ¬ mÃ  báº¡n muá»‘n tháº¥y</string>
+	<string name="report_reason_spam">ÄÃ¢y lÃ  spam</string>
+	<string name="report_reason_spam_subtitle">LiÃªn káº¿t Ä‘á»™c háº¡i, táº¡o tÆ°Æ¡ng tÃ¡c giáº£ hoáº·c tráº£ lá»i láº·p Ä‘i láº·p láº¡i</string>
+	<string name="report_reason_violation">Vi pháº¡m ná»™i quy mÃ¡y chá»§</string>
+	<string name="report_reason_violation_subtitle">Báº¡n nháº­n tháº¥y nÃ³ vi pháº¡m ná»™i quy mÃ¡y chá»§</string>
+	<string name="report_reason_other">Má»™t lÃ½ do khÃ¡c</string>
+	<string name="report_reason_other_subtitle">Váº¥n Ä‘á» khÃ´ng náº±m trong nhá»¯ng má»¥c trÃªn</string>
+	<string name="report_choose_rule">Vi pháº¡m ná»™i quy nÃ o?</string>
+	<string name="report_choose_rule_subtitle">Chá»n táº¥t cáº£ nhá»¯ng gÃ¬ phÃ¹ há»£p</string>
+	<string name="report_choose_posts">Báº¡n muá»‘n gá»­i tÃºt nÃ o kÃ¨m bÃ¡o cÃ¡o nÃ y?</string>
+	<string name="report_choose_posts_subtitle">Chá»n táº¥t cáº£ nhá»¯ng gÃ¬ phÃ¹ há»£p</string>
+	<string name="report_comment_title">Báº¡n nghÄ© chÃºng tÃ´i nÃªn biáº¿t thÃªm Ä‘iá»u gÃ¬?</string>
+	<string name="report_comment_hint">Ã kiáº¿n â€‹â€‹bá»• sung</string>
+	<string name="sending_report">Äang gá»­i bÃ¡o cÃ¡oâ€¦</string>
+	<string name="report_sent_title">Cáº£m Æ¡n Ä‘Ã£ bÃ¡o cÃ¡o, chÃºng tÃ´i sáº½ xem xÃ©t ká»¹.</string>
+	<string name="report_sent_subtitle">Trong lÃºc chá» chÃºng tÃ´i xem xÃ©t, báº¡n cÃ³ thá»ƒ Ã¡p dá»¥ng hÃ nh Ä‘á»™ng vá»›i %s:</string>
+	<string name="unfollow_user">Bá» theo dÃµi %s</string>
+	<string name="unfollow">Bá» theo dÃµi</string>
+	<string name="mute_user_explain">Báº¡n sáº½ khÃ´ng tháº¥y tÃºt cá»§a há» ná»¯a. Há» cÅ©ng khÃ´ng thá»ƒ theo dÃµi hoáº·c tháº¥y tÃºt cá»§a báº¡n. Há» sáº½ khÃ´ng biáº¿t lÃ  há» Ä‘Ã£ bá»‹ báº¡n áº©n.</string>
+	<string name="block_user_explain">Báº¡n sáº½ khÃ´ng tháº¥y tÃºt cá»§a há» ná»¯a. Há» cÅ©ng khÃ´ng thá»ƒ theo dÃµi hoáº·c tháº¥y tÃºt cá»§a báº¡n. Há» sáº½ biáº¿t lÃ  há» Ä‘Ã£ bá»‹ cháº·n.</string>
+	<string name="report_personal_title">KhÃ´ng muá»‘n xem thá»© nÃ y?</string>
+	<string name="report_personal_subtitle">ÄÃ¢y lÃ  má»™t sá»‘ cÃ¡ch Ä‘á»ƒ kiá»ƒm soÃ¡t thá»© báº¡n nhÃ¬n tháº¥y trÃªn Mastodon:</string>
+	<string name="back">Quay láº¡i</string>
+	<string name="search_communities">TÃªn mÃ¡y chá»§ hoáº·c URL</string>
+	<string name="instance_rules_title">Ná»™i quy mÃ¡y chá»§</string>
+	<string name="instance_rules_subtitle">Tiáº¿p tá»¥c nghÄ©a lÃ  báº¡n Ä‘á»“ng Ã½ tuÃ¢n theo cÃ¡c quy táº¯c sau do kiá»ƒm duyá»‡t viÃªn %s Ä‘áº·t ra vÃ  thá»±c thi.</string>
+	<string name="signup_title">Táº¡o tÃ i khoáº£n</string>
+	<string name="display_name">Biá»‡t danh</string>
+	<string name="username">TÃªn ngÆ°á»i dÃ¹ng</string>
+	<string name="email">Email</string>
+	<string name="password">Máº­t kháº©u</string>
+	<string name="confirm_password">Nháº­p láº¡i máº­t kháº©u</string>
+	<string name="category_general">Chung</string>
+	<string name="confirm_email_title">Kiá»ƒm tra email cá»§a báº¡n</string>
+	<!-- %s is the email address -->
+	<string name="confirm_email_subtitle">Nháº¥n vÃ o liÃªn káº¿t chÃºng tÃ´i vá»«a gá»­i Ä‘á»ƒ xÃ¡c minh %s. Nhanh nhÃ© báº¡n.</string>
+	<string name="confirm_email_didnt_get">KhÃ´ng nháº­n Ä‘Æ°á»£c mÃ£?</string>
+	<string name="resend">Gá»­i láº¡i</string>
+	<string name="open_email_app">Má»Ÿ á»©ng dá»¥ng email</string>
+	<string name="resent_email">ÄÃ£ gá»­i email xÃ¡c minh</string>
+	<string name="compose_hint">Cho tháº¿ giá»›i biáº¿t báº¡n Ä‘ang nghÄ© gÃ¬</string>
+	<string name="content_warning">Ná»™i dung áº©n</string>
+	<string name="save">LÆ°u</string>
+	<string name="add_alt_text">ThÃªm vÄƒn báº£n thay tháº¿</string>
+	<string name="visibility_public">CÃ´ng khai</string>
+	<string name="visibility_followers_only">NgÆ°á»i theo dÃµi</string>
+	<string name="visibility_private">NgÆ°á»i cá»¥ thá»ƒ</string>
+	<string name="recent_searches">Gáº§n Ä‘Ã¢y</string>
+	<string name="notification_type_follow">NgÆ°á»i theo dÃµi má»›i</string>
+	<string name="notification_type_favorite">LÆ°á»£t thÃ­ch</string>
+	<string name="notification_type_reblog">LÆ°á»£t Ä‘Äƒng láº¡i</string>
+	<string name="notification_type_mention">LÆ°á»£t nháº¯c Ä‘áº¿n</string>
+	<string name="notification_type_poll">Cuá»™c bÃ¬nh chá»n</string>
+	<string name="choose_account">Chá»n tÃ i khoáº£n</string>
+	<string name="err_not_logged_in">HÃ£y Ä‘Äƒng nháº­p Mastodon trÆ°á»›c</string>
+	<plurals name="cant_add_more_than_x_attachments">
+		<item quantity="other">Báº¡n chá»‰ cÃ³ thá»ƒ Ä‘Ã­nh kÃ¨m tá»‘i Ä‘a %d media</item>
+	</plurals>
+	<string name="media_attachment_unsupported_type">KhÃ´ng há»— trá»£ Ä‘á»‹nh dáº¡ng cá»§a táº­p tin %s</string>
+	<string name="media_attachment_too_big">Táº­p tin %1$s vÆ°á»£t quÃ¡ giá»›i háº¡n %2$s MB</string>
+	<string name="settings_theme">Giao diá»‡n</string>
+	<string name="theme_auto">Giá»‘ng thiáº¿t bá»‹</string>
+	<string name="theme_light">SÃ¡ng</string>
+	<string name="theme_dark">Tá»‘i</string>
+	<string name="settings_behavior">Thao tÃ¡c</string>
+	<string name="settings_gif">áº¢nh Ä‘áº¡i diá»‡n vÃ  emoji Ä‘á»™ng</string>
+	<string name="settings_custom_tabs">Má»Ÿ liÃªn káº¿t trong</string>
+	<string name="settings_notifications">ThÃ´ng bÃ¡o</string>
+	<string name="settings_contribute">ÄÃ³ng gÃ³p cho Mastodon</string>
+	<string name="settings_tos">Äiá»u khoáº£n dá»‹ch vá»¥</string>
+	<string name="settings_privacy_policy">ChÃ­nh sÃ¡ch báº£o máº­t</string>
+	<string name="settings_clear_cache">XÃ³a bá»™ nhá»› Ä‘á»‡m</string>
+	<string name="settings_app_version">Mastodon for Android v%1$s (%2$d)</string>
+	<string name="media_cache_cleared">ÄÃ£ xÃ³a bá»™ nhá»› Ä‘á»‡m</string>
+	<string name="confirm_log_out">ÄÄƒng xuáº¥t %s?</string>
+	<string name="sensitive_content_explain">Media nháº¡y cáº£m</string>
+	<string name="avatar_description">Xem há»“ sÆ¡ %s</string>
+	<string name="more_options">Nhiá»u tÃ¹y chá»n hÆ¡n</string>
+	<string name="new_post">Soáº¡n tÃºt</string>
+	<string name="button_reply">Tráº£ lá»i</string>
+	<string name="button_reblog">ÄÄƒng láº¡i</string>
+	<string name="button_favorite">ThÃ­ch</string>
+	<string name="button_share">Chia sáº»</string>
+	<string name="media_no_description">Media chÆ°a cÃ³ mÃ´ táº£</string>
+	<string name="add_media">ThÃªm media</string>
+	<string name="add_poll">Táº¡o bÃ¬nh chá»n</string>
+	<string name="emoji">Emoji</string>
+	<string name="home_timeline">Trang chá»§</string>
+	<string name="my_profile">Há»“ sÆ¡ cá»§a tÃ´i</string>
+	<string name="media_viewer">Xem media</string>
+	<string name="follow_user">Theo dÃµi %s</string>
+	<string name="unfollowed_user">Bá» theo dÃµi %s</string>
+	<string name="followed_user">Báº¡n Ä‘Ã£ theo dÃµi %s</string>
+	<string name="following_user_requested">YÃªu cáº§u theo dÃµi %s</string>
+	<string name="open_in_browser">Má»Ÿ trong trÃ¬nh duyá»‡t</string>
+	<string name="hide_boosts_from_user">Ã‚Ì‰n lÆ°á»£t Ä‘Äƒng láº¡i</string>
+	<string name="show_boosts_from_user">Hiá»‡n lÆ°á»£t Ä‘Äƒng láº¡i</string>
+	<string name="signup_reason">VÃ¬ sao báº¡n muá»‘n tham gia?</string>
+	<string name="signup_reason_note">Äiá»u nÃ y sáº½ giÃºp chÃºng tÃ´i phÃª duyá»‡t Ä‘Äƒng kÃ½ cá»§a báº¡n.</string>
+	<string name="clear">XoÌa</string>
+	<string name="profile_header">áº¢nh bÃ¬a</string>
+	<string name="profile_picture">áº¢nh Ä‘áº¡i diá»‡n</string>
+	<string name="reorder">Sáº¯p xáº¿p láº¡i</string>
+	<string name="download">Táº£i vá»</string>
+	<string name="permission_required">YÃªu cáº§u cáº¥p quyá»n</string>
+	<string name="storage_permission_to_download">á»¨ng dá»¥ng cáº§n truy cáº­p bá»™ nhá»› Ä‘iá»‡n thoáº¡i Ä‘á»ƒ lÆ°u táº­p tin nÃ y.</string>
+	<string name="open_settings">Má»Ÿ cÃ i Ä‘áº·t</string>
+	<string name="error_saving_file">Lá»—i lÆ°u táº­p tin</string>
+	<string name="downloading">Äang táº£i vá»â€¦</string>
+	<string name="no_app_to_handle_action">KhÃ´ng tÃ¬m tháº¥y á»©ng dá»¥ng Ä‘á»ƒ thá»±c hiá»‡n thao tÃ¡c nÃ y</string>
+	<string name="local_timeline">Báº£ng tin</string>
+	<string name="trending_posts_info_banner">ÄÃ¢y lÃ  nhá»¯ng tÃºt Ä‘ang thu hÃºt nhiá»u sá»± chÃº Ã½ trÃªn Mastodon.</string>
+	<string name="trending_links_info_banner">ÄÃ¢y lÃ  nhá»¯ng tin tá»©c Ä‘ang Ä‘Æ°á»£c tháº£o luáº­n nhiá»u trÃªn Mastodon.</string>
+	<!-- %s is the server domain -->
+	<string name="local_timeline_info_banner">ÄÃ¢y lÃ  nhá»¯ng tÃºt tá»« ngÆ°á»i trÃªn mÃ¡y chá»§ cá»§a báº¡n (%s)</string>
+	<string name="recommended_accounts_info_banner">CÃ³ thá»ƒ báº¡n quen nhá»¯ng ngÆ°á»i nÃ y chÄƒng?!</string>
+	<string name="see_new_posts">Nhá»¯ng tÃºt má»›i</string>
+	<string name="follow_back">Theo dÃµi láº¡i</string>
+	<string name="button_follow_pending">Äang chá»</string>
+	<string name="follows_you">Äang theo dÃµi báº¡n</string>
+	<string name="manually_approves_followers">Duyá»‡t ngÆ°á»i theo dÃµi thá»§ cÃ´ng</string>
+	<!-- translators: %,d is a valid placeholder, it formats the number with locale-dependent grouping separators -->
+	<plurals name="x_followers">
+		<item quantity="other">%,d ngÆ°á»i theo dÃµi</item>
+	</plurals>
+	<plurals name="x_following">
+		<item quantity="other">%,d theo dÃµi</item>
+	</plurals>
+	<plurals name="x_favorites">
+		<item quantity="other">%,d lÆ°á»£t thÃ­ch</item>
+	</plurals>
+	<plurals name="x_reblogs">
+		<item quantity="other">%,d Ä‘Äƒng láº¡i</item>
+	</plurals>
+	<string name="time_now">vá»«a xong</string>
+	<string name="edit_history">Lá»‹ch sá»­ chá»‰nh sá»­a</string>
+	<string name="last_edit_at_x">Sá»­a láº§n cuá»‘i %s</string>
+	<string name="time_just_now">vá»«a xong</string>
+	<plurals name="x_seconds_ago">
+		<item quantity="other">%d giÃ¢y</item>
+	</plurals>
+	<plurals name="x_minutes_ago">
+		<item quantity="other">%d phÃºt</item>
+	</plurals>
+	<string name="edited_timestamp">%s (Ä‘Ã£ sá»­a)</string>
+	<string name="edit_original_post">TÃºt gá»‘c</string>
+	<string name="edit_text_edited">Ná»™i dung chá»‰nh sá»­a</string>
+	<string name="edit_spoiler_added">ThÃªm cáº£nh bÃ¡o ná»™i dung</string>
+	<string name="edit_spoiler_edited">Sá»­a cáº£nh bÃ¡o ná»™i dung</string>
+	<string name="edit_spoiler_removed">XÃ³a cáº£nh bÃ¡o ná»™i dung</string>
+	<string name="edit_poll_added">ThÃªm bÃ¬nh chá»n</string>
+	<string name="edit_poll_edited">Sá»­a bÃ¬nh chá»n</string>
+	<string name="edit_poll_removed">XÃ³a bÃ¬nh chá»n</string>
+	<string name="edit_media_added">ThÃªm media</string>
+	<string name="edit_media_removed">XÃ³a media</string>
+	<string name="edit_media_reordered">Xáº¿p láº¡i media</string>
+	<string name="edit_marked_sensitive">ÄÃ¡nh dáº¥u nháº¡y cáº£m</string>
+	<string name="edit_marked_not_sensitive">ÄÃ¡nh dáº¥u lÃ  bÃ¬nh thÆ°á»ng</string>
+	<string name="edit_multiple_changed">TÃºt Ä‘Ã£ sá»­a</string>
+	<string name="edit">Sá»­a</string>
+	<string name="discard_changes">Há»§y bá» cÃ¡c thay Ä‘á»•i?</string>
+	<string name="upload_failed">Táº£i lÃªn khÃ´ng thÃ nh cÃ´ng</string>
+	<string name="file_size_bytes">%d bytes</string>
+	<string name="file_size_kb">%.2f KB</string>
+	<string name="file_size_mb">%.2f MB</string>
+	<string name="file_size_gb">%.2f GB</string>
+	<string name="upload_processing">Äang táº£i lÃªnâ€¦</string>
+	<!-- %s is file size -->
+	<string name="download_update">Táº£i vá» (%s)</string>
+	<string name="install_update">CÃ i Ä‘áº·t</string>
+	<string name="privacy_policy_title">Sá»± riÃªng tÆ° cá»§a báº¡n</string>
+	<string name="privacy_policy_subtitle">Máº·c dÃ¹ á»©ng dá»¥ng Mastodon khÃ´ng thu tháº­p báº¥t ká»³ dá»¯ liá»‡u nÃ o, mÃ¡y chá»§ mÃ  báº¡n Ä‘Äƒng kÃ½ cÃ³ thá»ƒ cÃ³ chÃ­nh sÃ¡ch khÃ¡c.\n\nNáº¿u khÃ´ng Ä‘á»“ng Ã½ vá»›i chÃ­nh sÃ¡ch dÃ nh cho %s, báº¡n cÃ³ thá»ƒ quay láº¡i vÃ  chá»n má»™t mÃ¡y chá»§ khÃ¡c.</string>
+	<string name="i_agree">TÃ´i Ä‘á»“ng Ã½</string>
+	<string name="empty_list">Trá»‘ng.</string>
+	<string name="instance_signup_closed">MÃ¡y chá»§ nÃ y khÃ´ng cháº¥p nháº­n Ä‘Äƒng kÃ­ má»›i.</string>
+	<string name="text_copied">ÄÃ£ sao chÃ©p vÃ o bá»™ nhá»› táº¡m</string>
+	<string name="add_bookmark">LÆ°u</string>
+	<string name="remove_bookmark">Bá» lÆ°u</string>
+	<string name="bookmarks">Nhá»¯ng tÃºt Ä‘Ã£ lÆ°u</string>
+	<string name="your_favorites">Nhá»¯ng tÃºt Ä‘Ã£ thÃ­ch</string>
+	<string name="login_title">ChÃ o má»«ng trá»Ÿ láº¡i</string>
+	<string name="login_subtitle">ÄÄƒng nháº­p vá»›i mÃ¡y chá»§ nÆ¡i báº¡n táº¡o tÃ i khoáº£n.</string>
+	<string name="server_url">URL MÃ¡y chá»§</string>
+	<string name="server_filter_any_language">Má»i ngÃ´n ngá»¯</string>
+	<string name="server_filter_instant_signup">Duyá»‡t tá»± Ä‘á»™ng</string>
+	<string name="server_filter_manual_review">Duyá»‡t thá»§ cÃ´ng</string>
+	<string name="server_filter_any_signup_speed">Má»i hÃ¬nh thá»©c duyá»‡t</string>
+	<string name="server_filter_region_europe">ChÃ¢u Ã‚u</string>
+	<string name="server_filter_region_north_america">Báº¯c Má»¹</string>
+	<string name="server_filter_region_south_america">Nam Má»¹</string>
+	<string name="server_filter_region_africa">ChÃ¢u Phi</string>
+	<string name="server_filter_region_asia">ChÃ¢u Ã</string>
+	<string name="server_filter_region_oceania">ChÃ¢u Äáº¡i DÆ°Æ¡ng</string>
+	<string name="not_accepting_new_members">Táº¡m dá»«ng Ä‘Äƒng kÃ½ má»›i</string>
+	<string name="category_special_interests">Sá»Ÿ thÃ­ch Ä‘áº·c biá»‡t</string>
+	<string name="signup_passwords_dont_match">Máº­t kháº©u khÃ´ng khá»›p</string>
+	<string name="profile_add_row">ThÃªm hÃ ng</string>
+	<string name="profile_setup">Thiáº¿t láº­p há»“ sÆ¡</string>
+	<string name="profile_setup_subtitle">Báº¡n cÃ³ thá»ƒ sá»­a sau trong má»¥c Há»“ sÆ¡.</string>
+	<string name="follow_all">Theo dÃµi táº¥t cáº£</string>
+	<string name="server_rules_disagree">KhÃ´ng Ä‘á»“ng Ã½</string>
+	<string name="privacy_policy_explanation">TL;DR: ChÃºng tÃ´i khÃ´ng thu tháº­p báº¥t cá»© gÃ¬.</string>
+	<!-- %s is server domain -->
+	<string name="server_policy_disagree">KhÃ´ng Ä‘á»“ng Ã½ vá»›i %s</string>
+	<string name="profile_bio">Giá»›i thiá»‡u</string>
+	<!-- Shown in a progress dialog when you tap "follow all" -->
+	<string name="sending_follows">Äang theo dÃµi ngÆ°á»i nÃ yâ€¦</string>
+	<!-- %1$s is server domain, %2$s is email domain. You can reorder these placeholders to fit your language better. -->
+	<string name="signup_email_domain_blocked">%1$s khÃ´ng cho phÃ©p Ä‘Äƒng kÃ½ báº±ng %2$s. DÃ¹ng cÃ¡i khÃ¡c hoáº·c &lt;a&gt;chá»n mÃ¡y chá»§ khÃ¡c&lt;/a&gt;.</string>
+	<string name="spoiler_show">Nháº¥n Ä‘á»ƒ xem</string>
+	<string name="spoiler_hide">áº¨n láº¡i</string>
+	<string name="poll_multiple_choice">Chá»n má»™t hoáº·c nhiá»u</string>
+	<string name="save_changes">LÆ°u thay Ä‘á»•i</string>
+	<string name="profile_featured">NÃ´Ì‰i bÃ¢Ì£t</string>
+	<string name="profile_timeline">TÆ°á»ng</string>
+	<string name="view_all">Xem táº¥t cáº£</string>
+	<string name="profile_endorsed_accounts">TÃ i khoáº£n</string>
+	<string name="verified_link">LiÃªn káº¿t xÃ¡c minh</string>
+	<string name="show">Hiá»‡n</string>
+	<string name="hide">áº¨n</string>
+	<string name="join_default_server">Tham gia %s</string>
+	<string name="pick_server">TÃ¬m mÃ¡y chá»§ khÃ¡c</string>
+	<string name="signup_or_login">hoáº·c</string>
+	<string name="learn_more">TÃ¬m hiá»ƒu thÃªm</string>
+	<string name="welcome_to_mastodon">ChÃ o má»«ng Ä‘áº¿n vá»›i Mastodon</string>
+	<string name="welcome_paragraph1">Mastodon lÃ  má»™t máº¡ng xÃ£ há»™i phi táº­p trung, khÃ´ng cÃ³ cÃ´ng ty nÃ o kiá»ƒm soÃ¡t. NÃ³ bao gá»“m nhiá»u mÃ¡y chá»§ Ä‘á»™c láº­p Ä‘Æ°á»£c káº¿t ná»‘i vá»›i nhau.</string>
+	<string name="what_are_servers">MÃ¡y chá»§ lÃ  gÃ¬?</string>
+	<string name="welcome_paragraph2">Má»—i tÃ i khoáº£n Mastodon Ä‘Æ°á»£c lÆ°u trá»¯ trÃªn má»™t mÃ¡y chá»§ â€” vá»›i ná»™i quy &amp; quáº£n trá»‹ viÃªn riÃªng. Báº¥t ká»ƒ báº¡n chá»n mÃ¡y chá»§ nÃ o, báº¡n cÃ³ thá»ƒ theo dÃµi vÃ  tÆ°Æ¡ng tÃ¡c vá»›i má»i ngÆ°á»i trÃªn mÃ¡y chá»§ khÃ¡c.</string>
+	<string name="opening_link">Má»Ÿ liÃªn káº¿tâ€¦</string>
+	<string name="link_not_supported">App khÃ´ng há»— trá»£ liÃªn káº¿t nÃ y</string>
+	<string name="log_out_all_accounts">ÄÄƒng xuáº¥t khá»i má»i tÃ i khoáº£n</string>
+	<string name="confirm_log_out_all_accounts">ÄÄƒng xuáº¥t khá»i má»i tÃ i khoáº£n?</string>
+	<string name="retry">Thá»­ láº¡i</string>
+	<string name="post_failed">KhÃ´ng Ä‘Äƒng Ä‘Æ°á»£c</string>
+	<!-- %s is formatted file size ("467 KB image") -->
+	<string name="attachment_description_image">%s áº£nh</string>
+	<string name="attachment_description_video">%s video</string>
+	<string name="attachment_description_audio">%s Ã¢m thanh</string>
+	<string name="attachment_description_unknown">%s táº­p tin</string>
+	<string name="attachment_type_image">HÃ¬nh áº£nh</string>
+	<string name="attachment_type_video">Video</string>
+	<string name="attachment_type_audio">Ã‚m thanh</string>
+	<string name="attachment_type_gif">GIF</string>
+	<string name="attachment_type_unknown">Táº­p tin</string>
+	<string name="attachment_x_percent_uploaded">ÄÃ£ táº£i lÃªn %d%%</string>
+	<string name="add_poll_option">ThÃªm tÃ¹y chá»n</string>
+	<string name="poll_length">Thá»i háº¡n bÃ¬nh chá»n</string>
+	<string name="poll_style">Loáº¡i</string>
+	<string name="compose_poll_single_choice">Má»™t lá»±a chá»n</string>
+	<string name="compose_poll_multiple_choice">Nhiá»u lá»±a chá»n</string>
+	<string name="delete_poll_option">XÃ³a lá»±a chá»n</string>
+	<string name="poll_style_title">Loáº¡i bÃ¬nh chá»n</string>
+	<string name="alt_text">VÄƒn báº£n thay tháº¿</string>
+	<string name="help">Trá»£ giÃºp</string>
+	<string name="what_is_alt_text">VÄƒn báº£n thay tháº¿ lÃ  gÃ¬?</string>
+	<string name="alt_text_help">VÄƒn báº£n thay tháº¿ cung cáº¥p mÃ´ táº£ hÃ¬nh áº£nh cho nhá»¯ng ngÆ°á»i bá»‹ suy giáº£m thá»‹ lá»±c, káº¿t ná»‘i bÄƒng thÃ´ng tháº¥p hoáº·c nhá»¯ng ngÆ°á»i muá»‘n biáº¿t ngá»¯ cáº£nh bá»• sung.\n\nBáº¡n cÃ³ thá»ƒ cáº£i thiá»‡n kháº£ nÄƒng tiáº¿p cáº­n vÃ  giáº£i thÃ­ch ká»¹ hÆ¡n cho má»i ngÆ°á»i báº±ng cÃ¡ch viáº¿t vÄƒn báº£n thay tháº¿ rÃµ rÃ ng, ngáº¯n gá»n vÃ  khÃ¡ch quan.\n\n<ul><li>Cho biáº¿t thÃ nh pháº§n quan trá»ng</li>\n<li>TÃ³m táº¯t vÄƒn báº£n trong hÃ¬nh</li>\n<li>DÃ¹ng cáº¥u trÃºc cÃ¢u Ä‘Æ¡n</li>\n<li>TrÃ¡nh giáº£i thÃ­ch rá»‘i ráº¯m</li>\n<li>Táº­p trung vÃ o cÃ¡c xu hÆ°á»›ng vÃ  phÃ¡t hiá»‡n chÃ­nh trong hÃ¬nh áº£nh phá»©c táº¡p (trong biá»ƒu Ä‘á»“ hoáº·c báº£n Ä‘á»“)</li></ul></string>
+	<string name="edit_post">Sá»­a tÃºt</string>
+	<string name="no_verified_link">KhÃ´ng xÃ¡c minh</string>
+	<string name="compose_autocomplete_emoji_empty">TÃ¬m emoji</string>
+	<string name="compose_autocomplete_users_empty">NgÆ°á»i mÃ  báº¡n Ä‘ang tÃ¬m</string>
+	<string name="no_search_results">KhÃ´ng tÃ¬m tháº¥y káº¿t quáº£ trÃ¹ng khá»›p</string>
+	<string name="language">NgÃ´n ngá»¯</string>
+	<string name="language_default">Máº·c Ä‘á»‹nh</string>
+	<string name="language_system">Há»‡ thá»‘ng</string>
+	<string name="language_detecting">PhÃ¡t hiá»‡n ngÃ´n ngá»¯</string>
+	<string name="language_cant_detect">KhÃ´ng xÃ¡c Ä‘á»‹nh Ä‘Æ°á»£c ngÃ´n ngá»¯</string>
+	<string name="language_detected">Gá»£i Ã½</string>
+	<string name="media_hidden">Media Ä‘Ã£ bá»‹ áº©n</string>
+	<string name="post_hidden">TÃºt Ä‘Ã£ áº©n</string>
+	<string name="report_title_post">BÃ¡o cÃ¡o tÃºt</string>
+	<string name="forward_report_explanation">NgÆ°á»i nÃ y thuá»™c mÃ¡y chá»§ khÃ¡c. Gá»­i má»™t bÃ¡o cÃ¡o áº©n danh tá»›i mÃ¡y chá»§ Ä‘Ã³?</string>
+	<!-- %s is the server domain -->
+	<string name="forward_report_to_server">Chuyá»ƒn Ä‘áº¿n %s</string>
+	<!-- Shown on the "stamp" on the screen that appears after you report a post/user. Please keep the translation short, preferably a single word -->
+	<string name="reported">BÃ¡o cÃ¡o</string>
+	<string name="report_unfollow_explanation">Äá»ƒ áº©n tÃºt cá»§a há» khá»i báº£ng tin, bá» theo dÃµi.</string>
+	<string name="muted_user">áº¨n %s</string>
+	<string name="report_sent_already_blocked">Báº¡n Ä‘Ã£ cháº·n ngÆ°á»i nÃ y vÃ  chÃºng tÃ´i sáº½ xem xÃ©t bÃ¡o cÃ¡o.</string>
+	<string name="report_personal_already_blocked">Báº¡n Ä‘Ã£ cháº·n ngÆ°á»i nÃ y.\n\nCáº£m Æ¡n Ä‘Ã£ giÃºp Mastodon trá»Ÿ nÃªn sáº¡ch sáº½ hÆ¡n!</string>
+	<string name="blocked_user">ÄÃ£ cháº·n %s</string>
+	<string name="mark_all_notifications_read">ÄÃ¡nh dáº¥u táº¥t cáº£ lÃ  Ä‘Ã£ Ä‘á»c</string>
+	<string name="settings_display">Hiá»ƒn thá»‹</string>
+	<string name="settings_filters">Bá»™ lá»c</string>
+	<string name="settings_server_explanation">Tá»•ng quan, ná»™i quy, kiá»ƒm duyá»‡t</string>
+	<!-- %s is the app name (Mastodon, key app_name). I made it a placeholder so everything Just Worksâ„¢ with forks -->
+	<string name="about_app">Vá» %s</string>
+	<string name="default_post_language">NgÃ´n ngá»¯ Ä‘Äƒng máº·c Ä‘á»‹nh</string>
+	<string name="settings_alt_text_reminders">Nháº¯c thÃªm vÄƒn báº£n thay tháº¿</string>
+	<string name="settings_confirm_unfollow">Há»i trÆ°á»›c khi bá» theo dÃµi</string>
+	<string name="settings_confirm_boost">Há»i trÆ°á»›c khi Ä‘Äƒng láº¡i</string>
+	<string name="settings_confirm_delete_post">Há»i trÆ°á»›c khi xÃ³a tÃºt</string>
+	<string name="pause_all_notifications">KhÃ´ng lÃ m phiá»n</string>
+	<string name="pause_notifications_off">Táº¯t</string>
+	<string name="notifications_policy_anyone">Báº¥t cá»© ai</string>
+	<string name="notifications_policy_followed">Nhá»¯ng ngÆ°á»i theo dÃµi</string>
+	<string name="notifications_policy_follower">Nhá»¯ng ngÆ°á»i tÃ´i theo dÃµi</string>
+	<string name="notifications_policy_no_one">KhÃ´ng ai</string>
+	<string name="settings_notifications_policy">Nháº­n thÃ´ng bÃ¡o tá»«</string>
+	<string name="notification_type_mentions_and_replies">LÆ°á»£t nháº¯c vÃ  tráº£ lá»i</string>
+	<string name="pause_all_notifications_title">Táº¡m ngá»«ng táº¥t cáº£ thÃ´ng bÃ¡o</string>
+	<plurals name="x_weeks">
+		<item quantity="other">%d tuáº§n</item>
+	</plurals>
+	<!-- %1$s is the date (may be relative, e.g. "today" or "yesterday"), %2$s is the time. You can reorder these placeholders if that works better for your language -->
+	<string name="date_at_time">%1$s lÃºc %2$s</string>
+	<string name="today">hÃ´m nay</string>
+	<string name="yesterday">hÃ´m qua</string>
+	<string name="tomorrow">ngÃ y mai</string>
+	<!-- %s is the timestamp ("tomorrow at 12:34") -->
+	<string name="pause_notifications_ends">Káº¿t thÃºc %s</string>
+	<!-- %s is the timestamp ("tomorrow at 12:34") -->
+	<string name="pause_notifications_banner">ThÃ´ng bÃ¡o sáº½ tiáº¿p tá»¥c sau %s phÃºt.</string>
+	<string name="resume_notifications_now">Tiáº¿p tá»¥c</string>
+	<string name="open_system_notification_settings">Thiáº¿t láº­p thÃ´ng bÃ¡o</string>
+	<string name="about_server">Giá»›i thiá»‡u</string>
+	<string name="server_rules">Ná»™i quy</string>
+	<string name="server_administrator">Quáº£n trá»‹ viÃªn</string>
+	<string name="send_email_to_server_admin">Nháº¯n cho quáº£n trá»‹ viÃªn</string>
+	<string name="notifications_disabled_in_system">Báº­t thÃ´ng bÃ¡o tá»« cÃ i Ä‘áº·t thiáº¿t bá»‹ cá»§a báº¡n Ä‘á»ƒ xem chÃºng tá»« má»i nÆ¡i.</string>
+	<string name="settings_even_more">Nhiá»u hÆ¡n</string>
+	<string name="settings_show_cws">Hiá»‡n ná»™i dung áº©n</string>
+	<string name="settings_hide_sensitive_media">LÃ m má» ná»™i dung nháº¡y cáº£m</string>
+	<string name="settings_show_interaction_counts">Hiá»‡n sá»‘ tÆ°Æ¡ng tÃ¡c trÃªn tÃºt</string>
+	<string name="settings_show_emoji_in_names">Hiá»‡n emoji trÃªn biá»‡t danh</string>
+	<plurals name="in_x_seconds">
+		<item quantity="other">trong %d giÃ¢y</item>
+	</plurals>
+	<plurals name="in_x_minutes">
+		<item quantity="other">trong %d phÃºt</item>
+	</plurals>
+	<plurals name="in_x_hours">
+		<item quantity="other">trong %d giá»</item>
+	</plurals>
+	<plurals name="x_hours_ago">
+		<item quantity="other">%d giá»</item>
+	</plurals>
+	<string name="alt_text_reminder_title">Thiáº¿u vÄƒn báº£n thay tháº¿</string>
+	<plurals name="alt_text_reminder_x_images">
+		<item quantity="other">%s hÃ¬nh thiáº¿u vÄƒn báº£n liÃªn káº¿t. Váº«n cá»© Ä‘Äƒng?</item>
+	</plurals>
+	<plurals name="alt_text_reminder_x_attachments">
+		<item quantity="other">%s media thiáº¿u vÄƒn báº£n liÃªn káº¿t. Váº«n cá»© Ä‘Äƒng?</item>
+	</plurals>
+	<string name="count_one">Má»™t</string>
+	<string name="count_two">Hai</string>
+	<string name="count_three">Ba</string>
+	<string name="count_four">Bá»‘n</string>
+	<string name="alt_text_reminder_post_anyway">ÄÄƒng</string>
+	<!-- %s is the username -->
+	<string name="unfollow_confirmation">Bá» theo dÃµi %s?</string>
+	<string name="filter_active">Hoáº¡t Ä‘á»™ng</string>
+	<string name="filter_inactive">KhÃ´ng hoáº¡t Ä‘á»™ng</string>
+	<string name="settings_add_filter">Táº¡o bá»™ lá»c</string>
+	<string name="settings_edit_filter">Sá»­a bá»™ lá»c</string>
+	<string name="settings_filter_duration">Thá»i háº¡n</string>
+	<string name="settings_filter_muted_words">Bá»™ lá»c tá»« ngá»¯</string>
+	<string name="settings_filter_context">áº¨n khá»i</string>
+	<string name="settings_filter_show_cw">Hiá»‡n ná»™i dung áº©n</string>
+	<string name="settings_filter_show_cw_explanation">Váº«n hiá»‡n tÃºt khá»›p bá»™ lá»c nÃ y, nhÆ°ng áº©n trong cáº£nh bÃ¡o ná»™i dung</string>
+	<string name="settings_delete_filter">XÃ³a bá»™ lá»c</string>
+	<string name="filter_duration_forever">VÄ©nh viá»…n</string>
+	<!-- %s is the timestamp ("tomorrow at 12:34") -->
+	<string name="settings_filter_ends">Káº¿t thÃºc %s</string>
+	<plurals name="settings_x_muted_words">
+		<item quantity="other">%d tá»« hoáº·c cá»¥m tá»« Ä‘Ã£ áº©n</item>
+	</plurals>
+	<string name="selection_2_options">%1$s vÃ  %2$s</string>
+	<string name="selection_3_options">%1$s, %2$s vÃ  %3$s</string>
+	<string name="selection_4_or_more">%1$s, %2$s vÃ  %3$d ná»¯a</string>
+	<string name="filter_context_home_lists">Báº£ng tin &amp; danh sÃ¡ch</string>
+	<string name="filter_context_notifications">ThÃ´ng bÃ¡o</string>
+	<string name="filter_context_public_timelines">Báº£ng tin cÃ´ng khai</string>
+	<string name="filter_context_threads_replies">Tháº£o luáº­n &amp; tráº£ lá»i</string>
+	<string name="filter_context_profiles">Má»i ngÆ°á»i</string>
+	<string name="settings_filter_title">TÃªn</string>
+	<string name="settings_delete_filter_title">XÃ³a bá»™ lá»c â€œ%sâ€?</string>
+	<string name="settings_delete_filter_confirmation">Bá»™ lá»c nÃ y sáº½ bá»‹ xÃ³a khá»i tÃ i khoáº£n cá»§a báº¡n.</string>
+	<string name="add_muted_word">ThÃªm tá»« muá»‘n áº©n</string>
+	<string name="edit_muted_word">Sá»­a chá»¯ áº©n</string>
+	<string name="add">ThÃªm</string>
+	<string name="filter_word_or_phrase">Tá»« hoáº·c cá»¥m tá»«</string>
+	<string name="filter_add_word_help">CÃ¡c tá»« khÃ³a khÃ´ng phÃ¢n biá»‡t chá»¯ hoa chá»¯ thÆ°á»ng vÃ  chá»‰ khá»›p vá»›i cÃ¡c tá»« Ä‘áº§y Ä‘á»§.\n\nNáº¿u báº¡n lá»c tá»« khÃ³a â€œAppleâ€, nÃ³ sáº½ áº©n cÃ¡c tÃºt cÃ³ chá»©a â€œappleâ€ hoáº·c â€œaPpLeâ€ nhÆ°ng khÃ´ng áº©n â€œpineappleâ€</string>
+	<string name="settings_delete_filter_word">XÃ³a tá»« â€œ%sâ€?</string>
+	<string name="enter_selection_mode">ChoÌ£n</string>
+	<string name="select_all">Chá»n táº¥t cáº£</string>
+	<string name="settings_filter_duration_title">Thá»i háº¡n lá»c</string>
+	<string name="filter_duration_custom">TÃ¹y chá»‰nh</string>
+	<plurals name="settings_delete_x_filter_words">
+		<item quantity="other">XÃ³a %d tá»«?</item>
+	</plurals>
+	<plurals name="x_items_selected">
+		<item quantity="other">%d Ä‘Ã£ Ä‘Æ°á»£c chá»n</item>
+	</plurals>
+	<string name="required_form_field_blank">KhÃ´ng Ä‘Æ°á»£c Ä‘á»ƒ trá»‘ng</string>
+	<string name="filter_word_already_in_list">ÄÃ£ cÃ³ trong danh sÃ¡ch</string>
+	<string name="app_update_ready">ÄÃ£ sáºµn sÃ ng cáº­p nháº­t</string>
+	<string name="app_update_version">PhiÃªn báº£n %s</string>
+	<string name="downloading_update">Äang táº£i (%d%%)</string>
+	<!-- Shown like a content warning, %s is the name of the filter -->
+	<string name="post_matches_filter_x">Khá»›p bá»™ lá»c â€œ%sâ€</string>
+	<string name="search_mastodon">TÃ¬m kiáº¿m trÃªn Mastodon</string>
+	<string name="clear_all">XÃ³a táº¥t cáº£</string>
+	<string name="search_open_url">Má»Ÿ liÃªn káº¿t trong Mastodon</string>
+	<string name="posts_matching_hashtag">Hashtag â€œ%sâ€</string>
+	<string name="search_go_to_account">Xem trang %s</string>
+	<string name="posts_matching_string">TÃºt nháº¯c Ä‘áº¿n â€œ%sâ€</string>
+	<string name="accounts_matching_string">NgÆ°á»i tÃªn â€œ%sâ€</string>
+	<!-- Shown in the post header. Please keep it short -->
+	<string name="time_seconds_ago_short">%ds</string>
+	<string name="time_minutes_ago_short">%dp</string>
+	<string name="time_hours_ago_short">%dh</string>
+	<string name="time_days_ago_short">%d ngÃ y</string>
+	<!-- %s is the name of the post language -->
+	<string name="translate_post">Dá»‹ch tá»« %s</string>
+	<!-- %1$s is the language, %2$s is the name of the translation service -->
+	<string name="post_translated">Dá»‹ch tá»« %1$s báº±ng %2$s</string>
+	<string name="translation_show_original">Báº£n gá»‘c</string>
+	<string name="translation_failed">Dá»‹ch khÃ´ng thÃ nh cÃ´ng. CÃ³ thá»ƒ quáº£n trá»‹ viÃªn chÆ°a báº­t dá»‹ch trÃªn mÃ¡y chá»§ nÃ y hoáº·c mÃ¡y chá»§ nÃ y Ä‘ang cháº¡y phiÃªn báº£n cÅ© hÆ¡n cá»§a Mastodon chÆ°a há»— trá»£ dá»‹ch.</string>
+	<string name="settings_privacy">RiÃªng tÆ° vÃ  tiáº¿p cáº­n</string>
+	<string name="settings_discoverable">Cho phÃ©p khÃ¡m phÃ¡ há»“ sÆ¡</string>
+	<string name="settings_indexable">Cho phÃ©p hiá»‡n tÃºt cÃ´ng khai trong káº¿t quáº£ tÃ¬m kiáº¿m</string>
+	<plurals name="x_participants">
+		<item quantity="other">%,d ngÆ°á»i tháº£o luáº­n</item>
+	</plurals>
+	<plurals name="x_posts_today">
+		<item quantity="other">%,d tÃºt hÃ´m nay</item>
+	</plurals>
+	<string name="error_playing_video">Lá»—i khi phÃ¡t video</string>
+	<string name="timeline_following">Trang chá»§</string>
+	<string name="lists">Danh sÃ¡ch</string>
+	<string name="followed_hashtags">Hashtag t.dÃµi</string>
+	<string name="manage_lists">Quáº£n lÃ½ danh sÃ¡ch</string>
+	<string name="manage_hashtags">Quáº£n lÃ½ hashtag</string>
+	<!-- Screen reader description for the menu on the home timeline screen -->
+	<string name="dropdown_menu">Menu xá»• xuá»‘ng</string>
+	<string name="edit_list">Sá»­a danh sÃ¡ch</string>
+	<string name="list_members">Liá»‡t kÃª cÃ¡c thÃ nh viÃªn</string>
+	<string name="delete_list">XÃ³a danh sÃ¡ch</string>
+	<!-- %s is the name of the list -->
+	<string name="delete_list_confirm">XÃ³a â€œ%sâ€?</string>
+	<string name="list_exclusive">áº¨n ngÆ°á»i Ä‘ang theo dÃµi</string>
+	<string name="list_exclusive_subtitle">Náº¿u ai Ä‘Ã³ cÃ³ trong danh sÃ¡ch nÃ y, áº©n há» trong báº£ng tin Äang theo dÃµi Ä‘á»ƒ trÃ¡nh tháº¥y tÃºt cá»§a há» hiá»‡n trÃ¹ng láº·p.</string>
+	<string name="list_name">TÃªn danh sÃ¡ch</string>
+	<string name="list_show_replies_to">Hiá»‡n tráº£ lá»i vá»›i</string>
+	<string name="list_replies_no_one">KhÃ´ng ai</string>
+	<string name="list_replies_members">NgÆ°á»i trong danh sÃ¡ch</string>
+	<string name="list_replies_anyone">NgÆ°á»i tÃ´i theo dÃµi</string>
+	<string name="confirm_remove_list_members">XÃ³a ngÆ°á»i nÃ y?</string>
+	<string name="remove">XÃ³a</string>
+	<string name="add_list_member">ThÃªm ngÆ°á»i</string>
+	<string name="search_among_people_you_follow">TÃ¬m nhá»¯ng ngÆ°á»i mÃ  báº¡n quan tÃ¢m</string>
+	<string name="add_user_to_list">Sá»­a danh sÃ¡ch</string>
+	<string name="add_user_to_list_title">ThÃªm vÃ o danh sÃ¡ch</string>
+	<!-- %s is a username -->
+	<string name="manage_user_lists">%s sáº½ xáº¿p trong danh sÃ¡ch</string>
+	<string name="remove_from_list">XÃ³a khá»i danh sÃ¡ch</string>
+	<string name="confirm_remove_list_member">XÃ³a ngÆ°á»i nÃ y?</string>
+	<string name="no_followed_hashtags_title">Theo dÃµi nhá»¯ng hashtag báº¡n thÃ­ch</string>
+	<string name="no_followed_hashtags_subtitle">ChÃºng sáº½ xuáº¥t hiá»‡n á»Ÿ Ä‘Ã¢y</string>
+	<string name="no_lists_title">Sáº¯p xáº¿p báº£ng tin báº±ng Danh sÃ¡ch</string>
+	<string name="no_lists_subtitle">Danh sÃ¡ch sáº½ xuáº¥t hiá»‡n á»Ÿ Ä‘Ã¢y</string>
+	<string name="manage_accounts">ThÃªm hoáº·c Ä‘á»•i tÃ i khoáº£n</string>
+	<plurals name="x_posts_recently">
+		<item quantity="other">%,d tÃºt má»›i</item>
+	</plurals>
+	<string name="create_list">Táº¡o danh sÃ¡ch</string>
+	<string name="step_x_of_y">BÆ°á»›c %1$d trong %2$d</string>
+	<string name="create">Táº¡o</string>
+	<string name="manage_list_members">Quáº£n lÃ½ danh sÃ¡ch</string>
+	<string name="list_no_members">ChÆ°a cÃ³ ngÆ°á»i nÃ o</string>
+	<string name="list_find_users">TÃ¬m ngÆ°á»i Ä‘á»ƒ thÃªm vÃ o</string>
+	<string name="reply_to_user">Tráº£ lá»i Ä‘áº¿n %s</string>
+	<string name="posted_at">ÄÆ°Æ¡Ì£c Ä‘Äƒng táº¡i %s</string>
+	<string name="non_mutual_sheet_title">ChÃ o káº¿t ná»‘i má»›i!</string>
+	<string name="non_mutual_sheet_text">Báº¡n sáº¯p tráº£ lá»i tÃºt cá»§a má»™t ngÆ°á»i chÆ°a quen biáº¿t. HÃ£y táº¡o thiá»‡n cáº£m Ä‘áº§u tiÃªn nhÃ©.</string>
+	<string name="got_it">ÄÃ£ hiá»ƒu</string>
+	<string name="dont_remind_again">KhÃ´ng nháº¯c láº¡i</string>
+	<!-- %s is a time interval ("5 months") -->
+	<string name="old_post_sheet_title">TÃºt Ä‘Äƒng %s trÆ°á»›c</string>
+	<string name="old_post_sheet_text">Báº¡n váº«n cÃ³ thá»ƒ tráº£ lá»i nhÆ°ng nÃ³ cÃ³ thá»ƒ khÃ´ng cÃ²n phÃ¹ há»£p ná»¯a.</string>
+	<plurals name="x_months">
+		<item quantity="other">%,d thÃ¡ng</item>
+	</plurals>
+	<string name="more_than_two_years">hÆ¡n 2 nÄƒm</string>
+	<string name="non_mutual_title1">TÃ´n trá»ng &amp; Ä‘Ãºng chá»§ Ä‘á»</string>
+	<string name="non_mutual_text1">Äáº£m báº£o tráº£ lá»i lá»‹ch sá»± vÃ  liÃªn quan tÃºt.</string>
+	<string name="non_mutual_title2">NÃ³i chuyá»‡n tá»­ táº¿</string>
+	<string name="non_mutual_text2">ThÃ¡i Ä‘á»™ tÃ­ch cá»±c luÃ´n Ä‘Æ°á»£c Ä‘Ã¡nh giÃ¡ cao.</string>
+	<string name="non_mutual_title3">Cá»Ÿi má»Ÿ</string>
+	<string name="non_mutual_text3">Phong cÃ¡ch trÃ² chuyá»‡n cá»§a má»—i ngÆ°á»i lÃ  duy nháº¥t. HÃ£y sáºµn sÃ ng Ä‘á»ƒ thÃ­ch nghi.</string>
+	<string name="make_profile_discoverable">Báº­t khÃ¡m phÃ¡ cho há»“ sÆ¡ cá»§a tÃ´i</string>
+	<string name="discoverability">KhÃ¡m phÃ¡</string>
+	<string name="discoverability_help">Khi báº¡n chá»n báº­t khÃ¡m phÃ¡ trÃªn Mastodon, tÃºt cá»§a báº¡n sáº½ Ä‘Æ°á»£c xuáº¥t hiá»‡n trong káº¿t quáº£ tÃ¬m kiáº¿m vÃ  thá»‹nh hÃ nh.\n\nHá»“ sÆ¡ cá»§a báº¡n cÃ³ thá»ƒ Ä‘Æ°á»£c Ä‘á» xuáº¥t cho nhá»¯ng ngÆ°á»i cÃ³ cÃ¹ng sá»Ÿ thÃ­ch vá»›i báº¡n.\n\nViá»‡c táº¯t khÃ¡m phÃ¡ sáº½ khÃ´ng lÃ m áº©n há»“ sÆ¡ cá»§a báº¡n náº¿u ai Ä‘Ã³ tÃ¬m kiáº¿m báº¡n.</string>
+	<string name="app_version_copied">Sá»‘ phiÃªn báº£n Ä‘Ã£ Ä‘Æ°á»£c sao chÃ©p vÃ o bá»™ nhá»› táº¡m</string>
+	<string name="onboarding_recommendations_intro">Báº¡n quáº£n lÃ½ trang chá»§ cá»§a riÃªng báº¡n.
+Báº¡n cÃ ng theo dÃµi nhiá»u ngÆ°á»i thÃ¬ nÃ³ sáº½ cÃ ng sÃ´i Ä‘á»™ng vÃ  thÃº vá»‹.</string>
+	<string name="onboarding_recommendations_title">CÃ¡ nhÃ¢n hÃ³a trang chá»§</string>
+	<string name="article_by_author">Bá»Ÿi %s</string>
+	<string name="button_reblogged">ÄÃ£ Ä‘Äƒng láº¡i</string>
+	<string name="button_favorited">ÄÃ£ thÃ­ch</string>
+	<string name="join_server_x_with_invite">Tham gia %s qua lá»i má»i</string>
+	<string name="expired_invite_link">Lá»i má»i háº¿t háº¡n</string>
+	<string name="expired_clipboard_invite_link_alert">Lá»i má»i %1$s trong bá»™ nhá»› táº¡m Ä‘Ã£ háº¿t háº¡n vÃ  khÃ´ng dÃ¹ng Ä‘á»ƒ Ä‘Äƒng kÃ½ Ä‘Æ°á»£c.\n\nBáº¡n hÃ£y yÃªu cáº§u lá»i má»i má»›i, Ä‘Äƒng kÃ½ qua %2$s, hoáº·c chá»n má»™t mÃ¡y chá»§ khÃ¡c.</string>
+	<string name="invalid_invite_link">Lá»i má»i khÃ´ng há»£p lá»‡</string>
+	<string name="invalid_clipboard_invite_link_alert">Lá»i má»i %1$s trong bá»™ nhá»› táº¡m khÃ´ng há»£p lá»‡ vÃ  khÃ´ng dÃ¹ng Ä‘á»ƒ Ä‘Äƒng kÃ½ Ä‘Æ°á»£c.\n\nBáº¡n hÃ£y yÃªu cáº§u lá»i má»i má»›i, Ä‘Äƒng kÃ½ qua %2$s, hoáº·c chá»n má»™t mÃ¡y chá»§ khÃ¡c.</string>
+	<string name="use_invite_link">DÃ¹ng lá»i má»i</string>
+	<string name="enter_invite_link">Nháº­p lá»i má»i</string>
+	<string name="this_invite_is_invalid">Lá»i má»i nÃ y khÃ´ng há»£p lá»‡.</string>
+	<string name="this_invite_has_expired">Lá»i má»i nÃ y Ä‘Ã£ háº¿t háº¡n.</string>
+	<string name="invite_link_pasted">ÄÃ£ sao chÃ©p vÃ o bá»™ nhá»› táº¡m.</string>
+	<string name="need_invite_to_join_server">Äá»ƒ tham gia %s, báº¡n cáº§n pháº£i cÃ³ lá»i má»i tá»« má»™t thÃ nh viÃªn.</string>
+	<string name="mute_user_confirm_title">áº¨n ngÆ°á»i nÃ y?</string>
+	<string name="user_wont_know_muted">Há» sáº½ khÃ´ng biáº¿t Ä‘Ã£ bá»‹ báº¡n áº©n.</string>
+	<string name="user_can_still_see_your_posts">Báº¡n sáº½ khÃ´ng nhÃ¬n tháº¥y tÃºt cá»§a há».</string>
+	<string name="you_wont_see_user_mentions">Báº¡n sáº½ khÃ´ng nhÃ¬n tháº¥y tÃºt cÃ³ nháº¯c Ä‘áº¿n há».</string>
+	<string name="user_can_mention_and_follow_you">Há» cÃ³ thá»ƒ nháº¯c Ä‘áº¿n vÃ  theo dÃµi báº¡n, nhÆ°ng báº¡n khÃ´ng tháº¥y há».</string>
+	<string name="unmuted_user_x">Bá» áº©n %s</string>
+	<string name="block_user_confirm_title">Cháº·n ngÆ°á»i nÃ y?</string>
+	<string name="user_can_see_blocked">Há» sáº½ biáº¿t Ä‘Ã£ bá»‹ báº¡n cháº·n.</string>
+	<string name="user_cant_see_each_other_posts">Báº¡n vÃ  há» sáº½ khÃ´ng nhÃ¬n tháº¥y tÃºt cá»§a nhau.</string>
+	<string name="user_cant_mention_or_follow_you">Há» khÃ´ng thá»ƒ nháº¯c Ä‘áº¿n hay theo dÃµi báº¡n.</string>
+	<string name="unblocked_user_x">Bá» cháº·n %s</string>
+	<string name="block_domain_confirm_title">Cháº·n mÃ¡y chá»§?</string>
+	<string name="do_block_server">Cháº·n mÃ¡y chá»§</string>
+	<string name="block_user_x_instead">Chá»‰ cháº·n %s</string>
+	<string name="users_cant_see_blocked">Báº¡n sáº½ khÃ´ng tháº¥y tÃºt hoáº·c thÃ´ng bÃ¡o tá»« thÃ nh viÃªn mÃ¡y chá»§ nÃ y.</string>
+	<string name="you_wont_see_server_posts">Báº¡n sáº½ khÃ´ng tháº¥y tÃºt tá»« thÃ nh viÃªn mÃ¡y chá»§ nÃ y.</string>
+	<string name="server_cant_mention_or_follow_you">KhÃ´ng ai trÃªn mÃ¡y chá»§ nÃ y cÃ³ thá»ƒ theo dÃµi báº¡n.</string>
+	<string name="server_can_interact_with_older">ThÃ nh viÃªn mÃ¡y chá»§ nÃ y cÃ³ thá»ƒ tÆ°Æ¡ng tÃ¡c vá»›i cÃ¡c tÃºt cÅ© cá»§a báº¡n.</string>
+	<string name="unblocked_domain_x">Bá» cháº·n mÃ¡y chá»§ %s</string>
+	<string name="handle_help_title">Äá»‹a chá»‰ Mastodon lÃ  gÃ¬?</string>
+	<string name="handle_title">Äá»‹a chá»‰ Mastodon cá»§a ngÆ°á»i nÃ y</string>
+	<string name="handle_username_explanation">Äá»™c nháº¥t trÃªn mÃ¡y chá»§ nÃ y. Nhá»¯ng mÃ¡y chá»§ khÃ¡c cÃ³ thá»ƒ cÅ©ng cÃ³ tÃªn ngÆ°á»i dÃ¹ng giá»‘ng váº­y.</string>
+	<string name="handle_title_own">Äá»‹a chá»‰ Mastodon cá»§a báº¡n</string>
+	<string name="handle_username_explanation_own">Chá»‰ riÃªng báº¡n trÃªn mÃ¡y chá»§ nÃ y. Nhá»¯ng mÃ¡y chá»§ khÃ¡c cÃ³ thá»ƒ cÅ©ng cÃ³ tÃªn ngÆ°á»i dÃ¹ng giá»‘ng váº­y.</string>
+	<string name="server">MÃ¡y chá»§</string>
+	<string name="handle_server_explanation">NÆ¡i lÆ°u trá»¯ tÃºt cá»§a ngÆ°á»i nÃ y.</string>
+	<string name="handle_explanation">VÃ¬ Ä‘á»‹a chá»‰ Mastodon cho biáº¿t má»™t ngÆ°á»i lÃ  ai vÃ  há» á»Ÿ Ä‘Ã¢u, nÃªn báº¡n cÃ³ thá»ƒ tÆ°Æ¡ng tÃ¡c vá»›i má»i ngÆ°á»i trÃªn cÃ¡c ná»n táº£ng cÃ³ &lt;a&gt;há»— trá»£ ActivityPub&lt;/a&gt;.</string>
+	<string name="handle_server_explanation_own">NÆ¡i lÆ°u trá»¯ tÃºt cá»§a báº¡n. KhÃ´ng thÃ­ch á»Ÿ Ä‘Ã¢y? Chuyá»ƒn sang mÃ¡y chá»§ khÃ¡c vÃ  giá»¯ nguyÃªn ngÆ°á»i theo dÃµi cá»§a báº¡n.</string>
+	<string name="handle_explanation_own">VÃ¬ Ä‘á»‹a chá»‰ Mastodon cho biáº¿t báº¡n lÃ  ai vÃ  báº¡n á»Ÿ Ä‘Ã¢u, nÃªn báº¡n cÃ³ thá»ƒ tÆ°Æ¡ng tÃ¡c vá»›i má»i ngÆ°á»i trÃªn cÃ¡c ná»n táº£ng cÃ³ &lt;a&gt;há»— trá»£ ActivityPub&lt;/a&gt;.</string>
+	<string name="what_is_activitypub_title">ActivityPub lÃ  gÃ¬?</string>
+	<string name="what_is_activitypub">ActivityPub giá»‘ng nhÆ° ngÃ´n ngá»¯ Mastodon giao tiáº¿p vá»›i cÃ¡c máº¡ng xÃ£ há»™i khÃ¡c.\n\nNÃ³ giÃºp báº¡n káº¿t ná»‘i vÃ  tÆ°Æ¡ng tÃ¡c vá»›i má»i ngÆ°á»i, khÃ´ng chá»‰ trÃªn Mastodon mÃ  cÃ²n trÃªn cÃ¡c ná»n táº£ng khÃ¡c.</string>
+	<string name="handle_copied">ÄÃ£ sao chÃ©p Ä‘á»‹a chá»‰ Mastodon.</string>
+	<string name="qr_code">MÃ£ QR</string>
+	<string name="scan_qr_code">QuÃ©t mÃ£ QR</string>
+	<!-- Shown on a button that saves a file, after it was successfully saved -->
+	<string name="saved">ÄÃ£ lÆ°u</string>
+	<string name="image_saved">ÄaÌƒ lÆ°u aÌ‰nh.</string>
+	<string name="video_saved">ÄÃ£ lÆ°u video.</string>
+	<string name="view_file">Xem</string>
+	<string name="share_sheet_preview_profile">%s trÃªn Mastodon</string>
+	<string name="share_sheet_preview_post">%1$s trÃªn Mastodon: â€œ%2$sâ€</string>
+	<string name="copy_profile_link">Sao chÃ©p Ä‘á»‹a chá»‰ Mastodon</string>
+	<string name="in_app_browser">TrÃ¬nh duyá»‡t tÃ­ch há»£p</string>
+	<string name="system_browser">TrÃ¬nh duyá»‡t há»‡ thá»‘ng</string>
+	<string name="add_muted_word_short">ThÃªm tá»«</string>
+	<string name="tab_home">Trang chá»§</string>
+	<string name="tab_search">KhÃ¡m phÃ¡</string>
+	<string name="tab_profile">Há»“ sÆ¡</string>
+	<string name="pin_post">Ghim lÃªn há»“ sÆ¡</string>
+	<string name="unpin_post">Bá» ghim trÃªn há»“ sÆ¡</string>
+	<string name="post_pinned">ÄÃ£ ghim tÃºt</string>
+	<string name="post_unpinned">ÄÃ£ bá» ghim tÃºt</string>
+	<!-- %s is the username -->
+	<string name="enable_new_post_notifications">Nháº­n thÃ´ng bÃ¡o khi @%s Ä‘Äƒng tÃºt</string>
+	<string name="disable_new_post_notifications">Táº¯t thÃ´ng bÃ¡o khi @%s Ä‘Äƒng tÃºt</string>
+	<string name="new_post_notifications_enabled">Báº¡n sáº½ nháº­n thÃ´ng bÃ¡o khi cÃ³ tÃºt má»›i.</string>
+	<string name="new_post_notifications_disabled">Báº¡n sáº½ khÃ´ng cÃ²n nháº­n thÃ´ng bÃ¡o khi cÃ³ tÃºt má»›i.</string>
+	<string name="mute_conversation">KhÃ´ng quan tÃ¢m ná»¯a</string>
+	<string name="unmute_conversation">Tiáº¿p tá»¥c quan tÃ¢m</string>
+	<string name="visibility_unlisted">Háº¡n cháº¿</string>
+	<string name="filtered_notifications">ThÃ´ng bÃ¡o Ä‘Ã£ lá»c</string>
+	<string name="filter_notifications">Quáº£n lÃ½ thÃ´ng bÃ¡o tá»«â€¦</string>
+	<string name="notification_filter_following">Nhá»¯ng ngÆ°á»i báº¡n khÃ´ng theo dÃµi</string>
+	<string name="notification_filter_following_explanation">Cho tá»›i khi báº¡n duyá»‡t há»</string>
+	<string name="notification_filter_followers">Nhá»¯ng ngÆ°á»i khÃ´ng theo dÃµi báº¡n</string>
+	<string name="notification_filter_followers_explanation">Bao gá»“m nhá»¯ng ngÆ°á»i Ä‘Ã£ theo dÃµi báº¡n Ã­t hÆ¡n 3 ngÃ y</string>
+	<string name="notification_filter_new_accounts">TÃ i khoáº£n má»›i</string>
+	<string name="notification_filter_new_accounts_explanation">ÄÃ£ táº¡o trong vÃ²ng 30 ngÃ y</string>
+	<string name="notification_filter_mentions">LÆ°á»£t nháº¯n riÃªng khÃ´ng mong muá»‘n</string>
+	<string name="notification_filter_mentions_explanation">Trá»« khi nÃ³ tráº£ lá»i lÆ°á»£t nháº¯c tá»« báº¡n hoáº·c náº¿u báº¡n cÃ³ theo dÃµi ngÆ°á»i gá»­i</string>
+	<string name="allow_notifications">Cho phÃ©p gá»­i thÃ´ng bÃ¡o</string>
+	<string name="mute_notifications">Bá» qua yÃªu cáº§u thÃ´ng bÃ¡o</string>
+	<plurals name="x_people_you_may_know">
+		<item quantity="other">%,d ngÆ°á»i báº¡n cÃ³ thá»ƒ biáº¿t</item>
+	</plurals>
+	<string name="notifications_from_user">ThÃ´ng bÃ¡o tá»« %s</string>
+	<string name="notifications_muted">ThÃ´ng bÃ¡o tá»« %s Ä‘Ã£ bá»‹ bá» qua.</string>
+	<string name="notifications_allowed">%s sáº½ xuáº¥t hiá»‡n trong danh sÃ¡ch thÃ´ng bÃ¡o cá»§a báº¡n.</string>
+	<string name="visibility_subtitle_public">Báº¥t cá»© ai</string>
+	<string name="visibility_subtitle_unlisted">Ãt hÆ°á»›ng thuáº­t toÃ¡n hÆ¡n</string>
+	<string name="visibility_subtitle_followers">Chá»‰ ngÆ°á»i theo dÃµi</string>
+	<string name="visibility_subtitle_private">Nhá»¯ng ngÆ°á»i Ä‘Æ°á»£c nháº¯c trong tÃºt</string>
+	<string name="view_boosts">Xem lÆ°á»£t Ä‘Äƒng láº¡i</string>
+	<string name="view_favorites">Xem lÆ°á»£t thÃ­ch</string>
+	<string name="undo_reblog">Bá» Ä‘Äƒng láº¡i</string>
+	<string name="undo_favorite">Bá» thÃ­ch</string>
+	<string name="could_not_reach_server">Kiá»ƒm tra káº¿t ná»‘i cá»§a báº¡n vÃ  thá»­ láº¡i</string>
+	<string name="connection_timed_out">Háº¿t thá»i gian chá». Kiá»ƒm tra káº¿t ná»‘i cá»§a báº¡n vÃ  thá»­ láº¡i?</string>
+	<string name="server_error">Xáº£y ra lá»—i khi káº¿t ná»‘i vá»›i mÃ¡y chá»§ cá»§a báº¡n. ÄÃ³ cÃ³ thá»ƒ khÃ´ng pháº£i lÃ  lá»—i cá»§a báº¡n. Thá»­ láº¡i?</string>
+	<string name="not_found">NÃ³ cÃ³ thá»ƒ Ä‘Ã£ bá»‹ xÃ³a hoáº·c cÃ³ thá»ƒ chÆ°a bao giá» tá»“n táº¡i.</string>
+	<string name="no_servers_found">KhÃ´ng tÃ¬m tháº¥y mÃ¡y chá»§ â€œ%sâ€</string>
+	<string name="signup_username_taken">TÃªn ngÆ°á»i dÃ¹ng Ä‘Ã£ tá»“n táº¡i. Thá»­ tÃªn khÃ¡c hoáº·c &lt;a&gt;chá»n mÃ¡y chá»§ khÃ¡c&lt;/a&gt;.</string>
+	<string name="signup_email_invalid">ÄÃ¢y khÃ´ng pháº£i Ä‘á»‹a chá»‰ email há»£p lá»‡.</string>
+	<string name="signup_email_taken">Äá»‹a chá»‰ email Ä‘Ã£ tá»“n táº¡i. Báº¡n bá»‹ &lt;a&gt;quÃªn máº­t kháº©u&lt;/a&gt;?</string>
+	<plurals name="x_new_notifications">
+		<item quantity="other">%,d thÃ´ng bÃ¡o má»›i</item>
+	</plurals>
+	<string name="dismiss">Bá» qua</string>
+	<string name="donation_once">Má»™t láº§n</string>
+	<string name="donation_monthly">HÃ ng thÃ¡ng</string>
+	<string name="donation_yearly">HÃ ng nÄƒm</string>
+	<string name="currency">Loáº¡i tiá»n</string>
+	<string name="donation_success_share">Chia sáº» thÃ´ng Ä‘iá»‡p</string>
+	<string name="donation_success_title">Cáº£m Æ¡n sá»± Ä‘Ã³ng gÃ³p cá»§a báº¡n!</string>
+	<string name="donation_success_subtitle">Báº¡n sáº½ sá»›m nháº­n má»™t email xÃ¡c nháº­n viá»‡c quyÃªn gÃ³p.</string>
+	<string name="donation_server_error">Ráº¥t tiáº¿c, Ä‘Ã£ xáº£y ra lá»—i nÃªn chÆ°a thá»ƒ xá»­ lÃ½ viá»‡c quyÃªn gÃ³p cá»§a báº¡n.\n\nHÃ£y thá»­ láº¡i sau vÃ i phÃºt.</string>
+	<string name="settings_donate">QuyÃªn gÃ³p cho Mastodon</string>
+	<string name="settings_manage_donations">Quáº£n lÃ½ Ä‘Ã³ng gÃ³p</string>
+	<string name="cant_load_image">KhÃ´ng thá»ƒ táº£i áº£nh</string>
+	<string name="poll_see_results">Xem káº¿t quáº£</string>
+	<string name="poll_hide_results">áº¨n káº¿t quáº£</string>
+	<plurals name="x_attachments">
+		<item quantity="other">%d Ä‘Ã­nh kÃ¨m</item>
+	</plurals>
+	<plurals name="user_and_x_more_favorited">
+		<item quantity="other">%1$s vÃ  %2$,d ngÆ°á»i khÃ¡c Ä‘Ã£ thÃ­ch:</item>
+	</plurals>
+	<plurals name="user_and_x_more_boosted">
+		<item quantity="other">%1$s vÃ  %2$,d ngÆ°á»i khÃ¡c Ä‘Ã£ Ä‘Äƒng láº¡i:</item>
+	</plurals>
+	<plurals name="poll_ended_x_voters">
+		<item quantity="other">%1$s Ä‘Ã£ káº¿t thÃºc bÃ¬nh chá»n mÃ  báº¡n %2$,d vÃ  ngÆ°á»i khÃ¡c tham gia</item>
+	</plurals>
+	<string name="own_poll_ended">Cuá»™c bÃ¬nh chá»n cá»§a báº¡n Ä‘Ã£ káº¿t thÃºc</string>
+	<string name="user_just_posted">%s Ä‘Äƒng tÃºt má»›i</string>
+	<string name="user_edited_post">%s Ä‘Ã£ sá»­a má»™t tÃºt mÃ  báº¡n cÃ³ tÆ°Æ¡ng tÃ¡c</string>
+	<string name="relationship_severance_account_suspension">Quáº£n trá»‹ viÃªn %1$s Ä‘Ã£ vÃ´ hiá»‡u hÃ³a %2$s, Ä‘iá»u nÃ y cÃ³ nghÄ©a lÃ  báº¡n khÃ´ng cÃ²n cÃ³ thá»ƒ nháº­n Ä‘Æ°á»£c cáº­p nháº­t tá»« há» hoáº·c tÆ°Æ¡ng tÃ¡c vá»›i há» ná»¯a.</string>
+	<!-- %1$s is your server domain, %2$s is the domain that was blocked, %3$,d is the follower count, %4$s is the `x_accounts` plural string -->
+	<string name="relationship_severance_domain_block">Quáº£n trá»‹ viÃªn %1$s Ä‘Ã£ cháº·n %2$s, nÆ¡i cÃ³ %3$,d ngÆ°á»i theo dÃµi báº¡n vÃ  %4$s ngÆ°á»i báº¡n theo dÃµi.</string>
+	<plurals name="x_accounts">
+		<item quantity="other">%,d tÃ i khoáº£n</item>
+	</plurals>
+	<!-- %1$s is the domain that was blocked, %2$,d is the follower count, %3$s is the `x_accounts` plural string -->
+	<string name="relationship_severance_user_domain_block">Báº¡n Ä‘Ã£ cháº·n %1$s, xÃ³a %2$,d ngÆ°á»i theo dÃµi báº¡n vÃ  %3$s ngÆ°á»i báº¡n theo dÃµi.</string>
+	<string name="relationship_severance_learn_more">TÃ¬m hiá»ƒu</string>
+	<string name="moderation_warning_action_none">Báº¡n vá»«a nháº­n má»™t cáº£nh bÃ¡o kiá»ƒm duyá»‡t.</string>
+	<string name="moderation_warning_action_disable">TÃ i khoáº£n cá»§a báº¡n Ä‘Ã£ bá»‹ vÃ´ hiá»‡u hÃ³a.</string>
+	<string name="moderation_warning_action_mark_statuses_as_sensitive">VÃ i tÃºt báº¡n bá»‹ Ä‘Ã¡nh dáº¥u nháº¡y cáº£m.</string>
+	<string name="moderation_warning_action_delete_statuses">Má»™t vÃ i tÃºt cá»§a báº¡n bá»‹ gá»¡.</string>
+	<string name="moderation_warning_action_sensitive">TÃºt cá»§a báº¡n sáº½ bá»‹ Ä‘Ã¡nh dáº¥u nháº¡y cáº£m ká»ƒ tá»« bÃ¢y giá».</string>
+	<string name="moderation_warning_action_silence">TÃ i khoáº£n cá»§a báº¡n Ä‘Ã£ bá»‹ háº¡n cháº¿.</string>
+	<string name="moderation_warning_action_suspend">TÃ i khoáº£n cá»§a báº¡n Ä‘Ã£ bá»‹ vÃ´ hiá»‡u hÃ³a.</string>
+	<string name="moderation_warning_learn_more">TÃ¬m hiá»ƒu</string>
+	<string name="text_show_more">Xem thÃªm</string>
+	<string name="avatar_move_and_scale">KÃ©o vÃ  thu phÃ³ng</string>
+	<string name="confirm_avatar_crop">Chá»n</string>
+	<string name="settings_use_dynamic_colors">Giá»‘ng há»‡ thá»‘ng</string>
+	<string name="settings_accounts">TÃ i khoáº£n</string>
+	<string name="settings_add_account">ThÃªm tÃ i khoáº£n</string>
+	<string name="settings_app_settings">CÃ i Ä‘áº·t á»©ng dá»¥ng</string>
+	<string name="account_settings">CÃ i Ä‘áº·t tÃ i khoáº£n</string>
+	<string name="settings_about_this_server">Vá» mÃ¡y chá»§ nÃ y</string>
+	<string name="manage_account">Quáº£n lÃ½ tÃ i khoáº£n</string>
+	<string name="switch_to_this_account">Chuyá»ƒn sang tÃ i khoáº£n nÃ y</string>
+	<string name="delete_account">XÃ³a tÃ i khoáº£n</string>
+	<string name="notification_type_status">Nhá»¯ng tÃºt má»›i</string>
+	<plurals name="user_and_x_more_followed">
+		<item quantity="other">%1$s vÃ  %2$,d ngÆ°á»i khÃ¡c Ä‘Ã£ theo dÃµi báº¡n</item>
+	</plurals>
+	<string name="familiar_followers_one">Theo dÃµi bá»Ÿi %s</string>
+	<string name="familiar_followers_two">Theo dÃµi bá»Ÿi %s vÃ  %s</string>
+	<string name="profile_saved_posts">ÄÃ£ lÆ°u</string>
+	<string name="profile_saved_posts_explanation">Nhá»¯ng tÃºt báº¡n lÆ°u chá»‰ hiá»ƒn thá»‹ vá»›i báº¡n.</string>
+	<string name="search_people">NgÆ°á»i</string>
+	<plurals name="familiar_followers_many">
+		<item quantity="other">Theo dÃµi bá»Ÿi %1$s, %2$s, vÃ  %3$,d ngÆ°á»i khÃ¡c</item>
+	</plurals>
+	<plurals name="x_followers_you_know">
+		<item quantity="other">%,d ngÆ°á»i theo dÃµi báº¡n biáº¿t</item>
+	</plurals>
+	<!-- appears when you're about to block a server -->
+	<plurals name="server_x_followers_will_be_removed">
+		<item quantity="other">%,d ngÆ°á»i theo dÃµi báº¡n á»Ÿ mÃ¡y chá»§ nÃ y sáº½ bá»‹ xÃ³a.</item>
+	</plurals>
+	<!-- The complete string will look like "You will lose X followers and Y people you follow". See will_lose_x_followers and will_lose_x_following -->
+	<string name="server_x_followers_and_following_will_be_removed">Báº¡n sáº½ máº¥t %1$s vÃ  %2$s.</string>
+	<plurals name="will_lose_x_followers">
+		<item quantity="other">%,d ngÆ°á»i theo dÃµi</item>
+	</plurals>
+	<plurals name="will_lose_x_following">
+		<item quantity="other">%,d ngÆ°á»i báº¡n theo dÃµi</item>
+	</plurals>
+	<!-- The complete string will look like "You will lose X people you follow". See will_lose_x_following -->
+	<string name="server_x_following_will_be_removed">Báº¡n sáº½ máº¥t %s.</string>
+	<string name="load_missing_posts_above">Táº£i tÃºt chÆ°a Ä‘á»c á»Ÿ trÃªn</string>
+	<string name="load_missing_posts_below">Táº£i tÃºt chÆ°a Ä‘á»c á»Ÿ dÆ°á»›i</string>
+	<string name="signup_password_too_short">Máº­t kháº©u tá»‘i thiá»ƒu 8 kÃ½ tá»±.</string>
+	<string name="private_reply">Tráº£ lá»i riÃªng</string>
+	<string name="private_mention">Nháº¯n riÃªng</string>
+	<string name="post_header_reply">Tráº£ lá»i</string>
+	<string name="post_header_mention">LÆ°á»£t nháº¯c</string>
+	<string name="report_reason_legal">Vi pháº¡m phÃ¡p luáº­t</string>
+	<string name="report_reason_legal_subtitle">Vi pháº¡m phÃ¡p luáº­t á»Ÿ nÆ¡i Ä‘áº·t mÃ¡y chá»§ hoáº·c nÆ°á»›c báº¡n</string>
+	<string name="date_of_birth">NgÃ y sinh</string>
+	<!-- %s is `at_least_x_years_old`. Some languages, unlike English, may require the word "years" here. -->
+	<string name="date_of_birth_explanation">ChÃºng tÃ´i pháº£i Ä‘áº£m báº£o ráº±ng báº¡n Ã­t nháº¥t %s tuá»•i Ä‘á»ƒ sá»­ dá»¥ng Mastodon. ChÃºng tÃ´i khÃ´ng lÆ°u trá»¯ thÃ´ng tin nÃ y.</string>
+	<string name="open_link">Má»Ÿ</string>
+	<string name="copy">Sao chÃ©p</string>
+	<!-- Substituted into `date_of_birth_explanation` -->
+	<plurals name="at_least_x_years_old">
+		<item quantity="other">%d</item>
+	</plurals>
+	<!-- %s is a username, i.e. @Gargron -->
+</resources>

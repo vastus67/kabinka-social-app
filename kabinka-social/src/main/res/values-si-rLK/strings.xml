@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+	<string name="log_in">à¶´à·’à·€à·’à·ƒà·™à¶±à·Šà¶±</string>
+	<string name="next">à¶Šà·…à¶Ÿ</string>
+	<string name="error">à¶¯à·à·‚à¶ºà¶šà·’</string>
+	<string name="ok">à·„à¶»à·’</string>
+	<string name="notifications">à¶¯à·à¶±à·”à¶¸à·Šà¶¯à·“à¶¸à·Š</string>
+	<string name="share_toot_title">à¶¶à·™à¶¯à·à¶œà¶±à·Šà¶±</string>
+	<string name="settings">à·ƒà·à¶šà·ƒà·”à¶¸à·Š</string>
+	<string name="publish">à¶´à·Šâ€à¶»à¶šà·à·à¶±à¶º</string>
+	<string name="discard">à¶‰à·€à¶­à¶½à¶±à·Šà¶±</string>
+	<string name="cancel">à¶…à·€à¶½à¶‚à¶œà·”</string>
+	<string name="media">à¶¸à·à¶°à·Šâ€à¶º</string>
+	<string name="profile_about">à¶´à·’à·…à·’à¶¶à¶³à·€</string>
+	<string name="mute_user">%s à¶±à·’à·„à¶¬</string>
+	<string name="unmute_user">%s à¶±à·œà¶±à·’à·„à¶¬</string>
+	<string name="block_user">%s à¶…à·€à·„à·’à¶»</string>
+	<string name="unblock_user">%s à¶…à¶±à·€à·„à·’à¶»</string>
+	<string name="report_user">%s à·€à·à¶»à·Šà¶­à·à·€</string>
+	<string name="block_domain">%s à¶…à·€à·„à·’à¶»</string>
+	<string name="unblock_domain">%s à¶…à¶±à·€à·„à·’à¶»</string>
+	<string name="profile_joined">à¶‘à¶šà·Š à·€à·’à¶º</string>
+	<string name="done">à¶…à·„à·€à¶»à¶ºà·’</string>
+	<string name="loading">à¶´à·–à¶»à¶«à¶º à·€à·™à¶¸à·’à¶±à·Šâ€¦</string>
+	<string name="field_label">à¶±à¶¸à·Šà¶´à¶­</string>
+	<string name="field_content">à¶…à¶±à·Šà¶­à¶»à·Šà¶œà¶­à¶º</string>
+	<string name="saving">à·ƒà·”à¶»à·à¶šà·™à¶¸à·’à¶±à·Šâ€¦</string>
+	<plurals name="x_minutes">
+		<item quantity="one">à·€à·’à¶±à·à¶©à·’ %d</item>
+		<item quantity="other">à·€à·’à¶±à·à¶©à·’ %d</item>
+	</plurals>
+	<plurals name="x_hours">
+		<item quantity="one">à¶´à·à¶º %d</item>
+		<item quantity="other">à¶´à·à¶º %d</item>
+	</plurals>
+	<plurals name="x_days">
+		<item quantity="one">à¶¯à·€à·ƒà·Š %d</item>
+		<item quantity="other">à¶¯à·€à·ƒà·Š %d</item>
+	</plurals>
+	<string name="poll_closed">à·€à·ƒà· à¶‡à¶­</string>
+	<string name="do_block">à¶…à·€à·„à·’à¶»</string>
+	<string name="pause">à·€à·’à¶»à·à¶¸à¶º</string>
+	<string name="add_account">à¶œà·’à¶«à·”à¶¸à¶šà·Š à¶¯à¶¸à¶±à·Šà¶±</string>
+	<string name="search_hint">à·ƒà·œà¶ºà¶±à·Šà¶±</string>
+	<string name="news">à¶´à·”à·€à¶­à·Š</string>
+	<string name="for_you">à¶”à¶¶à¶§</string>
+	<string name="mentions">à·ƒà·à¶³à·„à·”à¶¸à·Š</string>
+	<string name="report_title">%s à·€à·à¶»à·Šà¶­à·à·€</string>
+	<!-- %s is the email address -->
+	<!-- %s is the server domain -->
+	<!-- translators: %,d is a valid placeholder, it formats the number with locale-dependent grouping separators -->
+	<string name="time_now">à¶¯à·à¶±à·Š</string>
+	<string name="edit_history">à·ƒà¶‚à·à·à¶°à¶± à¶‰à¶­à·’à·„à·à·ƒà¶º</string>
+	<string name="file_size_mb">à¶¸à·™.à¶¶. %.2f</string>
+	<string name="file_size_gb">à¶œà·’.à¶¶. %.2f</string>
+	<!-- %s is file size -->
+	<string name="download_update">à¶¶à·à¶œà¶±à·Šà¶± (%s)</string>
+	<string name="install_update">à·ƒà·Šà¶®à·à¶´à¶±à¶º</string>
+	<!-- %s is server domain -->
+	<!-- Shown in a progress dialog when you tap "follow all" -->
+	<!-- %1$s is server domain, %2$s is email domain. You can reorder these placeholders to fit your language better. -->
+	<!-- %s is formatted file size ("467 KB image") -->
+	<!-- %s is the server domain -->
+	<!-- Shown on the "stamp" on the screen that appears after you report a post/user. Please keep the translation short, preferably a single word -->
+	<!-- %s is the app name (Mastodon, key app_name). I made it a placeholder so everything Just Worksâ„¢ with forks -->
+	<!-- %1$s is the date (may be relative, e.g. "today" or "yesterday"), %2$s is the time. You can reorder these placeholders if that works better for your language -->
+	<!-- %s is the timestamp ("tomorrow at 12:34") -->
+	<!-- %s is the timestamp ("tomorrow at 12:34") -->
+	<!-- %s is the username -->
+	<!-- %s is the timestamp ("tomorrow at 12:34") -->
+	<!-- Shown like a content warning, %s is the name of the filter -->
+	<!-- Shown in the post header. Please keep it short -->
+	<!-- %s is the name of the post language -->
+	<!-- %1$s is the language, %2$s is the name of the translation service -->
+	<!-- Screen reader description for the menu on the home timeline screen -->
+	<!-- %s is the name of the list -->
+	<!-- %s is a username -->
+	<!-- %s is a time interval ("5 months") -->
+	<!-- Shown on a button that saves a file, after it was successfully saved -->
+	<!-- %s is the username -->
+	<!-- %1$s is your server domain, %2$s is the domain that was blocked, %3$,d is the follower count, %4$s is the `x_accounts` plural string -->
+	<!-- %1$s is the domain that was blocked, %2$,d is the follower count, %3$s is the `x_accounts` plural string -->
+	<!-- appears when you're about to block a server -->
+	<!-- The complete string will look like "You will lose X followers and Y people you follow". See will_lose_x_followers and will_lose_x_following -->
+	<!-- The complete string will look like "You will lose X people you follow". See will_lose_x_following -->
+	<!-- %s is `at_least_x_years_old`. Some languages, unlike English, may require the word "years" here. -->
+	<!-- Substituted into `date_of_birth_explanation` -->
+	<!-- %s is a username, i.e. @Gargron -->
+</resources>

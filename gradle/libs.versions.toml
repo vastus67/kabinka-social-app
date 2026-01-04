@@ -1,0 +1,30 @@
+[versions]
+kotlin = "2.1.0"
+agp = "8.12.3"
+compose-bom = "2024.09.00"
+compose-compiler = "1.5.14"
+androidx-activity = "1.9.2"
+androidx-core = "1.13.1"
+nav = "2.8.0"
+room-runtime = "2.6.1"
+room-ktx = "2.6.1"
+room-runtime-version = "2.8.1"
+
+[libraries]
+androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
+androidx-activity = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity" }
+compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
+compose-ui = { module = "androidx.compose.ui:ui" }
+compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+compose-foundation = { module = "androidx.compose.foundation:foundation" }
+compose-material3 = { module = "androidx.compose.material3:material3" }
+compose-navigation = { module = "androidx.navigation:navigation-compose", version.ref = "nav" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room-runtime" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room-ktx" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room-runtime-version" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library     = { id = "com.android.library",     version.ref = "agp" }
+kotlin-android      = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+

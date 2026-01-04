@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+	<string name="log_in">PrihlÃ¡siÅ¥ sa</string>
+	<string name="next">ÄŽalÅ¡Ã­</string>
+	<string name="loading_instance">ZÃ­skavam informÃ¡cie o serveriâ€¦</string>
+	<string name="error">Chyba</string>
+	<string name="not_a_mastodon_instance">ZdÃ¡ sa, Å¾e %s nie je Mastodon server.</string>
+	<string name="ok">OK</string>
+	<string name="preparing_auth">PrÃ­prava na autentizÃ¡ciuâ€¦</string>
+	<string name="finishing_auth">DokonÄujem autentizÃ¡ciuâ€¦</string>
+	<string name="user_boosted">%s boostol</string>
+	<string name="in_reply_to">v odpovedi na %s</string>
+	<string name="notifications">Upozornenia</string>
+	<string name="user_followed_you">%s vÃ¡s zaÄal sledovaÅ¥</string>
+	<string name="user_sent_follow_request">%s vÃ¡m poslal Å¾iadosÅ¥ o sledovanie</string>
+	<string name="share_toot_title">ZdielaÅ¥</string>
+	<string name="settings">Nastavenia</string>
+	<string name="publish">ZverejniÅ¥</string>
+	<string name="discard_draft">Å½elÃ¡te si zahodiÅ¥ koncept?</string>
+	<string name="discard">ZahodiÅ¥</string>
+	<string name="cancel">ZruÅ¡iÅ¥</string>
+	<plurals name="followers">
+		<item quantity="one">sledovateÄ¾</item>
+		<item quantity="few">sledovatelia</item>
+		<item quantity="many">sledovateÄ¾ov</item>
+		<item quantity="other">sledovateÄ¾ov</item>
+	</plurals>
+	<string name="posts">PrÃ­spevky</string>
+	<string name="posts_and_replies">PrÃ­spevky a odpovede</string>
+	<string name="media">SÃºbory</string>
+	<string name="button_follow">SledovaÅ¥</string>
+	<string name="button_following">SledovanÃ©</string>
+	<string name="edit_profile">UpraviÅ¥ profil</string>
+	<string name="share_user">ZdielaÅ¥ profil cezâ€¦</string>
+	<string name="mute_user">StlmiÅ¥ %s</string>
+	<string name="unmute_user">ZruÅ¡iÅ¥ stlmenie pre %s</string>
+	<string name="block_user">ZablokovaÅ¥ %s</string>
+	<string name="unblock_user">OdblokovaÅ¥ %s</string>
+	<string name="report_user">NahlÃ¡siÅ¥ %s</string>
+	<string name="block_domain">ZablokovaÅ¥ %s</string>
+	<string name="unblock_domain">OdblokovaÅ¥ %s</string>
+	<string name="done">Hotovo</string>
+	<string name="loading">NaÄÃ­tavamâ€¦</string>
+	<string name="field_content">Obsah</string>
+	<string name="saving">UkladÃ¡mâ€¦</string>
+	<string name="post_from_user">PrÃ­spevky pouÅ¾Ã­vateÄ¾a %s</string>
+	<string name="poll_option_hint">MoÅ¾nosÅ¥ %d</string>
+	<plurals name="x_minutes">
+		<item quantity="one">%d minÃºta</item>
+		<item quantity="few">%d minÃºty</item>
+		<item quantity="many">%d minÃºt</item>
+		<item quantity="other">%d minÃºt</item>
+	</plurals>
+	<plurals name="x_hours">
+		<item quantity="one">%d hodina</item>
+		<item quantity="few">%d hodiny</item>
+		<item quantity="many">%d hodÃ­n</item>
+		<item quantity="other">%d hodÃ­n</item>
+	</plurals>
+	<plurals name="x_days">
+		<item quantity="one">%d deÅˆ</item>
+		<item quantity="few">%d dni</item>
+		<item quantity="many">%d dnÃ­</item>
+		<item quantity="other">%d dnÃ­</item>
+	</plurals>
+	<plurals name="x_seconds_left">
+		<item quantity="one">%d sekunda</item>
+		<item quantity="few">%d sekundy</item>
+		<item quantity="many">%d sekÃºnd</item>
+		<item quantity="other">%d sekÃºnd</item>
+	</plurals>
+	<plurals name="x_minutes_left">
+		<item quantity="one">ZostÃ¡va %d minÃºta</item>
+		<item quantity="few">ZostÃ¡vajÃº %d minÃºty</item>
+		<item quantity="many">ZostÃ¡va %d minÃºt</item>
+		<item quantity="other">ZostÃ¡va %d minÃºt</item>
+	</plurals>
+	<plurals name="x_hours_left">
+		<item quantity="one">ZostÃ¡va %d hodina</item>
+		<item quantity="few">ZostÃ¡vajÃº %d hodiny</item>
+		<item quantity="many">ZÃ¡stava %d hodÃ­n</item>
+		<item quantity="other">ZÃ¡stava %d hodÃ­n</item>
+	</plurals>
+	<plurals name="x_days_left">
+		<item quantity="one">ZostÃ¡va %d deÅˆ</item>
+		<item quantity="few">ZostÃ¡vajÃº %d dni</item>
+		<item quantity="many">ZostÃ¡va %d dnÃ­</item>
+		<item quantity="other">ZostÃ¡va %d dnÃ­</item>
+	</plurals>
+	<string name="for_you">Pre vÃ¡s</string>
+	<string name="all_notifications">VÅ¡etko</string>
+	<string name="report_title">NahlÃ¡siÅ¥ %s</string>
+	<string name="report_choose_rule_subtitle">Vyberte vÅ¡etky relevantnÃ© moÅ¾nosti</string>
+	<string name="report_choose_posts_subtitle">Vyberte vÅ¡etky, ktorÃ© sa vzÅ¥ahujÃº</string>
+	<string name="report_comment_title">Je eÅ¡te nieÄo, Äo by sme mali vedieÅ¥?</string>
+	<string name="report_comment_hint">DoplÅˆujÃºce poznÃ¡mky</string>
+	<string name="sending_report">Odosielanie hlÃ¡seniaâ€¦</string>
+	<string name="report_sent_title">ÄŽakujeme za nahlÃ¡senie, pozrieme sa na to.</string>
+	<string name="report_sent_subtitle">KÃ½m to vyhodnotÃ­me, mÃ´Å¾ete podniknÃºÅ¥ kroky voÄi %s:</string>
+	<string name="back">SpÃ¤Å¥</string>
+	<string name="search_communities">NÃ¡zov alebo URL adresa servera</string>
+	<string name="instance_rules_title">PravidlÃ¡ servera</string>
+	<string name="instance_rules_subtitle">PokraÄovanÃ­m sÃºhlasÃ­te s nasledujÃºcimi pravidlami, ktorÃ© sÃº nastavenÃ© a vynucovanÃ© %s moderÃ¡tormi.</string>
+	<string name="signup_title">VytvoriÅ¥ ÃºÄet</string>
+	<string name="display_name">Meno</string>
+	<string name="username">PouÅ¾Ã­vateÄ¾skÃ© meno</string>
+	<string name="email">Email</string>
+	<string name="password">Heslo</string>
+	<string name="confirm_password">PotvrdiÅ¥ heslo</string>
+	<string name="category_general">VÅ¡eobecnÃ©</string>
+	<string name="confirm_email_title">Skontrolujte si svoju emailovÃº schrÃ¡nku</string>
+	<!-- %s is the email address -->
+	<string name="confirm_email_subtitle">Kliknite na odkaz, ktorÃ½ sme vÃ¡m poslali, aby ste overili %s. PoÄkÃ¡me tu na vÃ¡s.</string>
+	<string name="confirm_email_didnt_get">Nedostali ste odkaz?</string>
+	<string name="resend">PoslaÅ¥ znovu</string>
+	<string name="open_email_app">OtvoriÅ¥ emailovÃº aplikÃ¡ciu</string>
+	<string name="resent_email">PotvrdzovacÃ­ email bol odoslanÃ½</string>
+	<string name="compose_hint">NapÃ­Å¡te alebo vloÅ¾te Äo mÃ¡te na mysli</string>
+	<string name="content_warning">Varovanie o obsahu</string>
+	<string name="save">UloÅ¾iÅ¥</string>
+	<string name="add_alt_text">PridaÅ¥ alternatÃ­vny text</string>
+	<string name="visibility_public">VerejnÃ©</string>
+	<string name="visibility_followers_only">Sledovatelia</string>
+	<string name="visibility_private">KonkrÃ©tny Ä¾udia</string>
+	<string name="recent_searches">NedÃ¡vne</string>
+	<string name="notification_type_follow">NovÃ½ sledovateÄ¾</string>
+	<string name="notification_type_favorite">ObÄ¾ÃºbenÃ©</string>
+	<!-- %s is the server domain -->
+	<!-- translators: %,d is a valid placeholder, it formats the number with locale-dependent grouping separators -->
+	<!-- %s is file size -->
+	<!-- %s is server domain -->
+	<!-- Shown in a progress dialog when you tap "follow all" -->
+	<!-- %1$s is server domain, %2$s is email domain. You can reorder these placeholders to fit your language better. -->
+	<!-- %s is formatted file size ("467 KB image") -->
+	<!-- %s is the server domain -->
+	<!-- Shown on the "stamp" on the screen that appears after you report a post/user. Please keep the translation short, preferably a single word -->
+	<!-- %s is the app name (Mastodon, key app_name). I made it a placeholder so everything Just Worksâ„¢ with forks -->
+	<!-- %1$s is the date (may be relative, e.g. "today" or "yesterday"), %2$s is the time. You can reorder these placeholders if that works better for your language -->
+	<!-- %s is the timestamp ("tomorrow at 12:34") -->
+	<!-- %s is the timestamp ("tomorrow at 12:34") -->
+	<!-- %s is the username -->
+	<!-- %s is the timestamp ("tomorrow at 12:34") -->
+	<!-- Shown like a content warning, %s is the name of the filter -->
+	<!-- Shown in the post header. Please keep it short -->
+	<!-- %s is the name of the post language -->
+	<!-- %1$s is the language, %2$s is the name of the translation service -->
+	<!-- Screen reader description for the menu on the home timeline screen -->
+	<!-- %s is the name of the list -->
+	<!-- %s is a username -->
+	<!-- %s is a time interval ("5 months") -->
+	<!-- Shown on a button that saves a file, after it was successfully saved -->
+	<!-- %s is the username -->
+	<!-- %1$s is your server domain, %2$s is the domain that was blocked, %3$,d is the follower count, %4$s is the `x_accounts` plural string -->
+	<!-- %1$s is the domain that was blocked, %2$,d is the follower count, %3$s is the `x_accounts` plural string -->
+	<!-- appears when you're about to block a server -->
+	<!-- The complete string will look like "You will lose X followers and Y people you follow". See will_lose_x_followers and will_lose_x_following -->
+	<!-- The complete string will look like "You will lose X people you follow". See will_lose_x_following -->
+	<!-- %s is `at_least_x_years_old`. Some languages, unlike English, may require the word "years" here. -->
+	<!-- Substituted into `date_of_birth_explanation` -->
+	<!-- %s is a username, i.e. @Gargron -->
+</resources>

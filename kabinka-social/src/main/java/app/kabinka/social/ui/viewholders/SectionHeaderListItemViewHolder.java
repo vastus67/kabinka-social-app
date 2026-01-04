@@ -1,0 +1,28 @@
+package app.kabinka.social.ui.viewholders;
+
+import android.content.Context;
+import android.text.TextUtils;
+import android.view.ViewGroup;
+
+import app.kabinka.social.R;
+import app.kabinka.social.model.viewmodel.SectionHeaderListItem;
+
+public class SectionHeaderListItemViewHolder extends ListItemViewHolder<SectionHeaderListItem>{
+	public SectionHeaderListItemViewHolder(Context context, ViewGroup parent){
+		super(context, R.layout.item_generic_list_header, parent);
+	}
+
+	@Override
+	public void onBind(SectionHeaderListItem item){
+		if(TextUtils.isEmpty(item.title))
+			title.setText(item.titleRes);
+		else
+			title.setText(item.title);
+	}
+
+	public void setPopupMenuStyle(){
+		title.setSingleLine(false);
+		title.setMaxLines(2);
+		((ViewGroup.MarginLayoutParams)itemView.getLayoutParams()).topMargin=0;
+	}
+}
