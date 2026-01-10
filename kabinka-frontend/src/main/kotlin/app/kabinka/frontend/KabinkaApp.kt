@@ -15,14 +15,17 @@ import app.kabinka.frontend.navigation.Screen
 import app.kabinka.frontend.screens.HomeTimelineScreen
 import app.kabinka.frontend.screens.LoginScreen
 import app.kabinka.frontend.screens.LoginChooserScreen
+import app.kabinka.frontend.screens.ExploreScreen
 import app.kabinka.coreui.components.KabinkaBottomNav
 import app.kabinka.coreui.components.KabinkaDrawer
+import app.kabinka.social.api.session.AccountSessionManager
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun KabinkaApp(
-    sessionManager: SessionStateManager
+    sessionManager: SessionStateManager,
+    onNavigateToLogin: () -> Unit = {}
 ) {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -35,20 +38,21 @@ fun KabinkaApp(
     
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
-
-    // Determine start destination based on session state
-    // Default to Login since we start with LoggedOut state
-    val startDestination = when (sessionState) {
-        is SessionState.LoggedIn -> Screen.Home.route
-        is SessionState.LoggedOut -> Screen.Login.route
-    }
     
-    // Show bottom bar only when logged in and on main screens
-    val showBottomBar = when {
-        sessionState !is SessionState.LoggedIn -> false
-        currentRoute.startsWith("login") -> false
-        else -> true
+    // Get current account for drawer
+    val currentAccount = remember {
+        try {
+            AccountSessionManager.getInstance().lastActiveAccount?.self
+        } catch (e: Exception) {
+            null
+        }
     }
+
+    // Always start at Home - login/logout is handled by the onboarding flow
+    val startDestination = Screen.Home.route
+    
+    // Always show bottom bar since we're inside the app shell
+    val showBottomBar = true
 
     val bottomNavRoutes = listOf(
         Screen.Home.route,
@@ -72,7 +76,10 @@ fun KabinkaApp(
                     scope.launch {
                         drawerState.close()
                     }
-                }
+                },
+                profileAvatarUrl = currentAccount?.avatar,
+                profileDisplayName = currentAccount?.displayName,
+                profileUsername = currentAccount?.let { "@${it.username}@${it.getDomain()}" }
             )
         }
     ) {
@@ -99,36 +106,16 @@ fun KabinkaApp(
                 startDestination = startDestination,
                 modifier = Modifier.padding(paddingValues)
             ) {
-                composable(Screen.Login.route) {
-                    LoginScreen(
-                        onLoginSuccess = {
-                            // Refresh session state and navigate to home
-                            sessionManager.checkSessionState()
-                            navController.navigate(Screen.Home.route) {
-                                popUpTo(Screen.Login.route) { inclusive = true }
-                            }
-                        },
-                        onNavigateToLoginChooser = {
-                            navController.navigate("login_chooser")
-                        }
-                    )
-                }
-                
-                composable("login_chooser") {
-                    LoginChooserScreen(
-                        onBack = {
-                            navController.popBackStack()
-                        }
-                    )
-                }
-                
                 composable(Screen.Home.route) {
-                    HomeTimelineScreen(sessionManager = sessionManager)
+                    HomeTimelineScreen(
+                        sessionManager = sessionManager,
+                        onNavigateToLogin = onNavigateToLogin
+                    )
                 }
                 
                 // Placeholder screens for other navigation items
                 composable(Screen.Search.route) {
-                    PlaceholderScreen("Search")
+                    ExploreScreen()
                 }
                 
                 composable(Screen.Compose.route) {
@@ -148,7 +135,7 @@ fun KabinkaApp(
 }
 
 @Composable
-private fun PlaceholderScreen(title: String) {
+fun PlaceholderScreen(title: String) {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center

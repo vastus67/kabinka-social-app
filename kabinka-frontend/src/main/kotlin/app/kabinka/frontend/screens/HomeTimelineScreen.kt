@@ -34,7 +34,6 @@ fun HomeTimelineScreen(
     val viewModel: TimelineViewModel = viewModel { TimelineViewModel(sessionManager) }
     val uiState by viewModel.uiState.collectAsState()
     var selectedTab by remember { mutableStateOf(0) }
-    var selectedNavItem by remember { mutableStateOf(0) }
     var showMenu by remember { mutableStateOf(false) }
     val tabs = listOf("Home", "Local", "Federated")
     
@@ -110,6 +109,8 @@ fun HomeTimelineScreen(
                                                     app.kabinka.social.api.session.AccountSessionManager.getInstance()
                                                         .removeAccount(it.getID())
                                                 }
+                                                // Set anonymous mode after logout
+                                                sessionManager.setAnonymousMode(true)
                                             } catch (e: Exception) {
                                                 android.util.Log.e("HomeTimeline", "Error logging out", e)
                                             }
@@ -144,104 +145,6 @@ fun HomeTimelineScreen(
                         )
                     }
                 }
-            }
-        },
-        bottomBar = {
-            NavigationBar(
-                containerColor = MaterialTheme.colorScheme.surface,
-                tonalElevation = 8.dp
-            ) {
-                NavigationBarItem(
-                    selected = selectedNavItem == 0,
-                    onClick = { selectedNavItem = 0 },
-                    icon = {
-                        Icon(
-                            imageVector = if (selectedNavItem == 0) Icons.Filled.Home else Icons.Outlined.Home,
-                            contentDescription = "Home"
-                        )
-                    },
-                    label = { Text("Home", style = MaterialTheme.typography.labelSmall) },
-                    colors = NavigationBarItemDefaults.colors(
-                        selectedIconColor = MaterialTheme.colorScheme.primary,
-                        selectedTextColor = MaterialTheme.colorScheme.primary,
-                        indicatorColor = MaterialTheme.colorScheme.primaryContainer,
-                        unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                        unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                )
-                
-                NavigationBarItem(
-                    selected = selectedNavItem == 1,
-                    onClick = { selectedNavItem = 1 },
-                    icon = {
-                        Icon(
-                            imageVector = if (selectedNavItem == 1) Icons.Filled.Search else Icons.Outlined.Search,
-                            contentDescription = "Search"
-                        )
-                    },
-                    label = { Text("Search", style = MaterialTheme.typography.labelSmall) },
-                    colors = NavigationBarItemDefaults.colors(
-                        selectedIconColor = MaterialTheme.colorScheme.primary,
-                        selectedTextColor = MaterialTheme.colorScheme.primary,
-                        indicatorColor = MaterialTheme.colorScheme.primaryContainer,
-                        unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                        unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                )
-                
-                // Center FAB for compose
-                Spacer(modifier = Modifier.weight(0.1f))
-                FloatingActionButton(
-                    onClick = { /* TODO: Compose post */ },
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = MaterialTheme.colorScheme.onPrimary,
-                    shape = CircleShape,
-                    modifier = Modifier.size(56.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.Add,
-                        contentDescription = "Compose"
-                    )
-                }
-                Spacer(modifier = Modifier.weight(0.1f))
-                
-                NavigationBarItem(
-                    selected = selectedNavItem == 2,
-                    onClick = { selectedNavItem = 2 },
-                    icon = {
-                        Icon(
-                            imageVector = if (selectedNavItem == 2) Icons.Filled.Notifications else Icons.Outlined.Notifications,
-                            contentDescription = "Notifications"
-                        )
-                    },
-                    label = { Text("Notifications", style = MaterialTheme.typography.labelSmall) },
-                    colors = NavigationBarItemDefaults.colors(
-                        selectedIconColor = MaterialTheme.colorScheme.primary,
-                        selectedTextColor = MaterialTheme.colorScheme.primary,
-                        indicatorColor = MaterialTheme.colorScheme.primaryContainer,
-                        unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                        unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                )
-                
-                NavigationBarItem(
-                    selected = selectedNavItem == 3,
-                    onClick = { selectedNavItem = 3 },
-                    icon = {
-                        Icon(
-                            imageVector = if (selectedNavItem == 3) Icons.Filled.Person else Icons.Outlined.Person,
-                            contentDescription = "Profile"
-                        )
-                    },
-                    label = { Text("Profile", style = MaterialTheme.typography.labelSmall) },
-                    colors = NavigationBarItemDefaults.colors(
-                        selectedIconColor = MaterialTheme.colorScheme.primary,
-                        selectedTextColor = MaterialTheme.colorScheme.primary,
-                        indicatorColor = MaterialTheme.colorScheme.primaryContainer,
-                        unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                        unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                )
             }
         }
     ) { padding ->

@@ -83,7 +83,16 @@ class MainActivity : ComponentActivity() {
                     }
                 }
                 
-                val startDestination = if (state.onboardingCompleted) {
+                // Check if user has an active session to determine start destination
+                val hasActiveSession = remember {
+                    try {
+                        app.kabinka.social.api.session.AccountSessionManager.getInstance().lastActiveAccount != null
+                    } catch (e: Exception) {
+                        false
+                    }
+                }
+                
+                val startDestination = if (hasActiveSession) {
                     OnboardingRoute.AppShell.route
                 } else {
                     OnboardingRoute.Splash.route

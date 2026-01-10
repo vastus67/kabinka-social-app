@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import app.kabinka.frontend.auth.SessionStateManager
-import app.kabinka.frontend.screens.HomeTimelineScreen
+import app.kabinka.frontend.KabinkaApp
 
 // NOTE: Phase 1 - Mastodon-only onboarding.
 // Do not add future-proofing or abstractions for chat or media onboarding.
@@ -18,8 +18,8 @@ fun AppShell(
     sessionManager: SessionStateManager,
     onNavigateToLogin: () -> Unit = {}
 ) {
-    // Show the home timeline screen (works in anonymous mode or with Mastodon account)
-    HomeTimelineScreen(
+    // Show the full app with bottom navigation
+    KabinkaApp(
         sessionManager = sessionManager,
         onNavigateToLogin = onNavigateToLogin
     )

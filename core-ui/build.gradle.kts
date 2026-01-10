@@ -29,4 +29,5 @@ dependencies {
   implementation(libs.compose.material3)
   implementation("androidx.compose.material:material-icons-extended")
   implementation(libs.androidx.activity)
+  implementation("io.coil-kt:coil-compose:2.5.0")
 }

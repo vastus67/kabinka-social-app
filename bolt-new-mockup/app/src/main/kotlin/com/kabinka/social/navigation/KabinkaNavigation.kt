@@ -205,13 +205,6 @@ fun KabinkaNavigation(
             )
         }
 
-        composable(Screen.Explore.route) {
-            ExploreScreen(
-                onNavigate = { route -> navController.navigate(route) },
-                onBack = { navController.navigateUp() }
-            )
-        }
-
         composable(Screen.Notifications.route) {
             NotificationsScreen(
                 onNavigate = { route -> navController.navigate(route) }

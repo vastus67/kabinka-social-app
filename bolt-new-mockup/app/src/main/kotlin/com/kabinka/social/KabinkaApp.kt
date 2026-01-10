@@ -62,12 +62,17 @@ fun KabinkaApp() {
                     KabinkaBottomNav(
                         currentRoute = currentRoute,
                         onNavigate = { route ->
-                            navController.navigate(route) {
-                                popUpTo(Screen.Home.route) {
-                                    saveState = true
+                            // Navigate to bottom nav destinations
+                            if (route in bottomNavRoutes) {
+                                navController.navigate(route) {
+                                    popUpTo(Screen.Home.route) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
                                 }
-                                launchSingleTop = true
-                                restoreState = true
+                            } else {
+                                navController.navigate(route)
                             }
                         }
                     )

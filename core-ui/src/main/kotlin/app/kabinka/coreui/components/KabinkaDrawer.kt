@@ -9,18 +9,23 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 
 @Composable
 fun KabinkaDrawer(
     onNavigate: (String) -> Unit,
     onDismiss: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    profileAvatarUrl: String? = null,
+    profileDisplayName: String? = null,
+    profileUsername: String? = null
 ) {
     ModalDrawerSheet(
         modifier = modifier,
@@ -33,36 +38,53 @@ fun KabinkaDrawer(
         ) {
             Spacer(modifier = Modifier.height(24.dp))
 
-            Box(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .size(64.dp)
-                    .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.primaryContainer)
-                    .clickable {
-                        onNavigate("profile")
-                        onDismiss()
-                    },
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = "A",
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer
+            // Profile Avatar
+            if (profileAvatarUrl != null) {
+                AsyncImage(
+                    model = profileAvatarUrl,
+                    contentDescription = "Profile avatar",
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .size(64.dp)
+                        .clip(CircleShape)
+                        .clickable {
+                            onNavigate("profile")
+                            onDismiss()
+                        },
+                    contentScale = ContentScale.Crop
                 )
+            } else {
+                Box(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .size(64.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.primaryContainer)
+                        .clickable {
+                            onNavigate("profile")
+                            onDismiss()
+                        },
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = profileDisplayName?.firstOrNull()?.toString()?.uppercase() ?: "?",
+                        style = MaterialTheme.typography.headlineMedium,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = "Alex Nomad",
+                text = profileDisplayName ?: "Not logged in",
                 modifier = Modifier.padding(horizontal = 16.dp),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface
             )
 
             Text(
-                text = "@alex@mastodon.social",
+                text = profileUsername ?: "Sign in to continue",
                 modifier = Modifier.padding(horizontal = 16.dp),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
