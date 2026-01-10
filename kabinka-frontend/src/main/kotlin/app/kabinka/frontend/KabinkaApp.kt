@@ -40,11 +40,25 @@ fun KabinkaApp(
     val scope = rememberCoroutineScope()
     
     // Get current account for drawer
-    val currentAccount = remember {
+    val currentAccountSession = remember {
         try {
-            AccountSessionManager.getInstance().lastActiveAccount?.self
+            AccountSessionManager.getInstance().lastActiveAccount
         } catch (e: Exception) {
             null
+        }
+    }
+    
+    val currentAccount = currentAccountSession?.self
+    
+    // Get domain from account session
+    val accountDomain = remember(currentAccountSession, currentAccount) {
+        currentAccount?.let { account ->
+            val domain = currentAccountSession?.domain ?: account.getDomain()
+            if (domain != null) {
+                "@${account.username}@$domain"
+            } else {
+                "@${account.username}"
+            }
         }
     }
 
@@ -79,7 +93,7 @@ fun KabinkaApp(
                 },
                 profileAvatarUrl = currentAccount?.avatar,
                 profileDisplayName = currentAccount?.displayName,
-                profileUsername = currentAccount?.let { "@${it.username}@${it.getDomain()}" }
+                profileUsername = accountDomain
             )
         }
     ) {

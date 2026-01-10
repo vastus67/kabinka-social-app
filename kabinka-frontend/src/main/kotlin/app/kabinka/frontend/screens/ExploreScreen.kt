@@ -21,12 +21,15 @@ import app.kabinka.social.api.requests.trends.GetTrendingStatuses
 import app.kabinka.social.api.requests.trends.GetTrendingHashtags
 import app.kabinka.social.api.requests.trends.GetTrendingLinks
 import app.kabinka.social.api.requests.accounts.GetFollowSuggestions
+import app.kabinka.social.api.requests.search.GetSearchResults
 import app.kabinka.social.api.session.AccountSessionManager
 import app.kabinka.social.model.Status
 import app.kabinka.social.model.Hashtag
 import app.kabinka.social.model.Card
 import app.kabinka.social.model.FollowSuggestion
 import app.kabinka.social.model.Attachment
+import app.kabinka.social.model.SearchResults
+import app.kabinka.social.model.Account
 import coil.compose.AsyncImage
 import me.grishka.appkit.api.Callback
 import me.grishka.appkit.api.ErrorResponse
@@ -47,6 +50,31 @@ fun ExploreScreen() {
     }
     
     var searchQuery by remember { mutableStateOf("") }
+    var searchResults by remember { mutableStateOf<SearchResults?>(null) }
+    var isSearching by remember { mutableStateOf(false) }
+    
+    // Perform search when query changes
+    LaunchedEffect(searchQuery) {
+        if (searchQuery.isNotBlank() && isLoggedIn) {
+            isSearching = true
+            val accountId = AccountSessionManager.getInstance().lastActiveAccountID
+            if (accountId != null) {
+                val request = GetSearchResults(searchQuery, null, false, null, 0, 20)
+                request.setCallback(object : Callback<SearchResults> {
+                    override fun onSuccess(result: SearchResults) {
+                        searchResults = result
+                        isSearching = false
+                    }
+                    override fun onError(errorResponse: ErrorResponse) {
+                        isSearching = false
+                    }
+                }).exec(accountId)
+            }
+        } else {
+            searchResults = null
+            isSearching = false
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -91,31 +119,449 @@ fun ExploreScreen() {
                 )
             }
             
-            // Tabs
-            TabRow(
-                selectedTabIndex = selectedTab,
-                containerColor = MaterialTheme.colorScheme.surface
-            ) {
-                tabs.forEachIndexed { index, title ->
-                    Tab(
-                        selected = selectedTab == index,
-                        onClick = { selectedTab = index },
-                        text = { 
-                            Text(
-                                title,
-                                style = MaterialTheme.typography.labelLarge
-                            ) 
-                        }
-                    )
+            // Show search results if searching, otherwise show tabs
+            if (searchQuery.isNotBlank()) {
+                SearchResultsContent(
+                    searchResults = searchResults,
+                    isSearching = isSearching,
+                    searchQuery = searchQuery
+                )
+            } else {
+                // Tabs
+                TabRow(
+                    selectedTabIndex = selectedTab,
+                    containerColor = MaterialTheme.colorScheme.surface
+                ) {
+                    tabs.forEachIndexed { index, title ->
+                        Tab(
+                            selected = selectedTab == index,
+                            onClick = { selectedTab = index },
+                            text = { 
+                                Text(
+                                    title,
+                                    style = MaterialTheme.typography.labelLarge
+                                ) 
+                            }
+                        )
+                    }
+                }
+
+                // Tab content
+                when (selectedTab) {
+                    0 -> PostsTab(isLoggedIn = isLoggedIn)
+                    1 -> HashtagsTab()
+                    2 -> NewsTab(isLoggedIn = isLoggedIn)
+                    3 -> ForYouTab(isLoggedIn = isLoggedIn)
                 }
             }
+        }
+    }
+}
 
-            // Tab content
-            when (selectedTab) {
-                0 -> PostsTab(isLoggedIn = isLoggedIn)
-                1 -> HashtagsTab()
-                2 -> NewsTab(isLoggedIn = isLoggedIn)
-                3 -> ForYouTab(isLoggedIn = isLoggedIn)
+// SEARCH RESULTS
+@Composable
+private fun SearchResultsContent(
+    searchResults: SearchResults?,
+    isSearching: Boolean,
+    searchQuery: String = ""
+) {
+    when {
+        isSearching -> {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                CircularProgressIndicator()
+            }
+        }
+        searchResults != null -> {
+            LazyColumn(
+                modifier = Modifier.fillMaxSize(),
+                contentPadding = PaddingValues(vertical = 8.dp)
+            ) {
+                // Quick filter options at the top
+                if (searchQuery.isNotBlank()) {
+                    item {
+                        SearchQuickFilters(searchQuery = searchQuery, searchResults = searchResults)
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Divider()
+                        Spacer(modifier = Modifier.height(8.dp))
+                    }
+                }
+                
+                // People section
+                if (!searchResults.accounts.isNullOrEmpty()) {
+                    item {
+                        Text(
+                            text = "People",
+                            style = MaterialTheme.typography.titleMedium,
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                        )
+                    }
+                    items(searchResults.accounts) { account ->
+                        SearchAccountItem(account = account)
+                    }
+                }
+                
+                // Posts section
+                if (!searchResults.statuses.isNullOrEmpty()) {
+                    item {
+                        Text(
+                            text = "Posts",
+                            style = MaterialTheme.typography.titleMedium,
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                        )
+                    }
+                    items(searchResults.statuses) { status ->
+                        SearchPostItem(status = status)
+                    }
+                }
+                
+                // Hashtags section
+                if (!searchResults.hashtags.isNullOrEmpty()) {
+                    item {
+                        Text(
+                            text = "Hashtags",
+                            style = MaterialTheme.typography.titleMedium,
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                        )
+                    }
+                    items(searchResults.hashtags) { hashtag ->
+                        SearchHashtagItem(hashtag = hashtag)
+                    }
+                }
+            }
+        }
+        else -> {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Start typing to search",
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun SearchQuickFilters(
+    searchQuery: String,
+    searchResults: SearchResults
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+    ) {
+        // Posts with "#searchQuery"
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { },
+            color = MaterialTheme.colorScheme.surface
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Box(
+                    modifier = Modifier.size(24.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = "#",
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+                Spacer(modifier = Modifier.width(16.dp))
+                Text(
+                    text = "Posts with \"#$searchQuery\"",
+                    style = MaterialTheme.typography.bodyLarge
+                )
+            }
+        }
+        
+        // Go to @account (if exact account match exists)
+        searchResults.accounts?.firstOrNull()?.let { firstAccount ->
+            if (firstAccount.acct.contains(searchQuery, ignoreCase = true)) {
+                Surface(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { },
+                    color = MaterialTheme.colorScheme.surface
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp, vertical = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Person,
+                            contentDescription = "Account",
+                            modifier = Modifier.size(24.dp),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Text(
+                            text = "Go to @${firstAccount.acct}",
+                            style = MaterialTheme.typography.bodyLarge
+                        )
+                    }
+                }
+            }
+        }
+        
+        // Posts with "searchQuery"
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { },
+            color = MaterialTheme.colorScheme.surface
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.Search,
+                    contentDescription = "Search posts",
+                    modifier = Modifier.size(24.dp),
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Spacer(modifier = Modifier.width(16.dp))
+                Text(
+                    text = "Posts with \"$searchQuery\"",
+                    style = MaterialTheme.typography.bodyLarge
+                )
+            }
+        }
+        
+        // People with "searchQuery"
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { },
+            color = MaterialTheme.colorScheme.surface
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Outlined.AccountCircle,
+                    contentDescription = "Search people",
+                    modifier = Modifier.size(24.dp),
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Spacer(modifier = Modifier.width(16.dp))
+                Text(
+                    text = "People with \"$searchQuery\"",
+                    style = MaterialTheme.typography.bodyLarge
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun SearchAccountItem(account: Account) {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 1.dp),
+        color = MaterialTheme.colorScheme.surface,
+        shape = RoundedCornerShape(0.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { }
+                .padding(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                imageVector = Icons.Outlined.Person,
+                contentDescription = "Person",
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier
+                    .size(40.dp)
+                    .padding(end = 12.dp)
+            )
+            
+            AsyncImage(
+                model = account.avatar,
+                contentDescription = "Avatar",
+                modifier = Modifier
+                    .size(40.dp)
+                    .clip(CircleShape),
+                contentScale = ContentScale.Crop
+            )
+            
+            Spacer(modifier = Modifier.width(12.dp))
+            
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = account.displayName.takeIf { it.isNotBlank() } ?: account.username,
+                    style = MaterialTheme.typography.bodyLarge,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(
+                    text = "@${account.acct}",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun SearchPostItem(status: Status) {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 1.dp),
+        color = MaterialTheme.colorScheme.surface,
+        shape = RoundedCornerShape(0.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { }
+                .padding(12.dp),
+            verticalAlignment = Alignment.Top
+        ) {
+            Icon(
+                imageVector = Icons.Outlined.Email,
+                contentDescription = "Post",
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier
+                    .size(40.dp)
+                    .padding(end = 12.dp)
+            )
+            
+            Column(modifier = Modifier.weight(1f)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    AsyncImage(
+                        model = status.account.avatar,
+                        contentDescription = "Avatar",
+                        modifier = Modifier
+                            .size(20.dp)
+                            .clip(CircleShape),
+                        contentScale = ContentScale.Crop
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(
+                        text = status.account.displayName.takeIf { it.isNotBlank() } 
+                            ?: status.account.username,
+                        style = MaterialTheme.typography.bodyMedium,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+                
+                Spacer(modifier = Modifier.height(4.dp))
+                
+                Text(
+                    text = status.content.replace(Regex("<[^>]*>"), ""),
+                    style = MaterialTheme.typography.bodyMedium,
+                    maxLines = 3,
+                    overflow = TextOverflow.Ellipsis,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                
+                // Show image if available
+                status.mediaAttachments?.firstOrNull()?.let { attachment ->
+                    if (attachment.type == Attachment.Type.IMAGE) {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        AsyncImage(
+                            model = attachment.previewUrl ?: attachment.url,
+                            contentDescription = "Post image",
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(150.dp)
+                                .clip(RoundedCornerShape(8.dp)),
+                            contentScale = ContentScale.Crop
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun SearchHashtagItem(hashtag: Hashtag) {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 1.dp),
+        color = MaterialTheme.colorScheme.surface,
+        shape = RoundedCornerShape(0.dp)
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { }
+                .padding(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(40.dp)
+                    .padding(end = 12.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "#",
+                    style = MaterialTheme.typography.headlineMedium,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
+            
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = "#${hashtag.name}",
+                    style = MaterialTheme.typography.bodyLarge,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis
+                )
+                
+                val usageText = buildString {
+                    hashtag.history?.firstOrNull()?.let { history ->
+                        val uses = try { history.uses?.toInt() ?: 0 } catch (e: Exception) { 0 }
+                        val accounts = try { history.accounts?.toInt() ?: 0 } catch (e: Exception) { 0 }
+                        append("$uses posts")
+                        if (accounts > 0) {
+                            append(" • $accounts people")
+                        }
+                    }
+                }
+                
+                if (usageText.isNotBlank()) {
+                    Text(
+                        text = usageText,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
             }
         }
     }
