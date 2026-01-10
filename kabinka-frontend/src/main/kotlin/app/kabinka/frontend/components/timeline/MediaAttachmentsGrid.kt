@@ -1,12 +1,11 @@
 package app.kabinka.frontend.components.timeline
 
+import compose.icons.FeatherIcons
+import compose.icons.feathericons.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -196,7 +195,7 @@ private fun BoxScope.VideoIndicator() {
     ) {
         Box(contentAlignment = Alignment.Center) {
             Icon(
-                imageVector = Icons.Filled.PlayArrow,
+                imageVector = FeatherIcons.Play,
                 contentDescription = "Video",
                 tint = MaterialTheme.colorScheme.onSurface
             )
@@ -218,7 +217,7 @@ private fun BoxScope.SensitiveOverlay(onClick: () -> Unit) {
             verticalArrangement = Arrangement.Center
         ) {
             Icon(
-                imageVector = Icons.Filled.Warning,
+                imageVector = FeatherIcons.AlertTriangle,
                 contentDescription = "Sensitive content",
                 modifier = Modifier.size(48.dp),
                 tint = MaterialTheme.colorScheme.primary

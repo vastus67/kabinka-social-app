@@ -131,6 +131,9 @@ dependencies {
     // Coil for image loading
     implementation("io.coil-kt:coil-compose:2.5.0")
     
+    // Feather Icons for Compose
+    implementation("br.com.devsrsouza.compose.icons:feather:1.1.0")
+    
     // AppAuth for OAuth
     implementation("net.openid:appauth:0.11.1")
     

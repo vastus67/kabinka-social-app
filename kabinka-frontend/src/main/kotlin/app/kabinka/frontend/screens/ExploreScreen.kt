@@ -7,8 +7,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -33,6 +31,9 @@ import app.kabinka.social.model.Account
 import coil.compose.AsyncImage
 import me.grishka.appkit.api.Callback
 import me.grishka.appkit.api.ErrorResponse
+import compose.icons.FeatherIcons
+import compose.icons.feathericons.*
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -102,12 +103,12 @@ fun ExploreScreen() {
                     modifier = Modifier.fillMaxWidth(),
                     placeholder = { Text("Search Mastodon") },
                     leadingIcon = {
-                        Icon(Icons.Outlined.Search, "Search")
+                        Icon(FeatherIcons.Search, "Search")
                     },
                     trailingIcon = {
                         if (searchQuery.isNotBlank()) {
                             IconButton(onClick = { searchQuery = "" }) {
-                                Icon(Icons.Outlined.Close, "Clear")
+                                Icon(FeatherIcons.X, "Clear")
                             }
                         }
                     },
@@ -136,6 +137,18 @@ fun ExploreScreen() {
                         Tab(
                             selected = selectedTab == index,
                             onClick = { selectedTab = index },
+                            icon = {
+                                Icon(
+                                    imageVector = when (index) {
+                                        0 -> FeatherIcons.FileText
+                                        1 -> FeatherIcons.Hash
+                                        2 -> FeatherIcons.File
+                                        3 -> FeatherIcons.User
+                                        else -> FeatherIcons.FileText
+                                    },
+                                    contentDescription = title
+                                )
+                            },
                             text = { 
                                 Text(
                                     title,
@@ -304,7 +317,7 @@ private fun SearchQuickFilters(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
-                            imageVector = Icons.Outlined.Person,
+                            imageVector = FeatherIcons.User,
                             contentDescription = "Account",
                             modifier = Modifier.size(24.dp),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
@@ -333,7 +346,7 @@ private fun SearchQuickFilters(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
-                    imageVector = Icons.Outlined.Search,
+                    imageVector = FeatherIcons.Search,
                     contentDescription = "Search posts",
                     modifier = Modifier.size(24.dp),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant
@@ -360,7 +373,7 @@ private fun SearchQuickFilters(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
-                    imageVector = Icons.Outlined.AccountCircle,
+                    imageVector = FeatherIcons.Users,
                     contentDescription = "Search people",
                     modifier = Modifier.size(24.dp),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant
@@ -392,7 +405,7 @@ private fun SearchAccountItem(account: Account) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                imageVector = Icons.Outlined.Person,
+                imageVector = FeatherIcons.User,
                 contentDescription = "Person",
                 tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
@@ -447,7 +460,7 @@ private fun SearchPostItem(status: Status) {
             verticalAlignment = Alignment.Top
         ) {
             Icon(
-                imageVector = Icons.Outlined.Email,
+                imageVector = FeatherIcons.MessageSquare,
                 contentDescription = "Post",
                 tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
@@ -548,7 +561,7 @@ private fun SearchHashtagItem(hashtag: Hashtag) {
                         val accounts = try { history.accounts?.toInt() ?: 0 } catch (e: Exception) { 0 }
                         append("$uses posts")
                         if (accounts > 0) {
-                            append(" • $accounts people")
+                            append(" â€¢ $accounts people")
                         }
                     }
                 }
@@ -757,7 +770,7 @@ private fun ForYouTab(isLoggedIn: Boolean) {
                     modifier = Modifier.align(Alignment.Center).padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Icon(Icons.Outlined.AccountCircle, null, modifier = Modifier.size(64.dp))
+                    Icon(FeatherIcons.User, null, modifier = Modifier.size(64.dp))
                     Spacer(modifier = Modifier.height(16.dp))
                     Text("Sign in to see personalized suggestions")
                 }

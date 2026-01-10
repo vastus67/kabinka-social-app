@@ -5,8 +5,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
+import compose.icons.FeatherIcons
+import compose.icons.feathericons.*
+
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -176,7 +177,7 @@ private fun BoostIndicator(account: Account) {
         modifier = Modifier.padding(bottom = 4.dp)
     ) {
         Icon(
-            imageVector = Icons.Outlined.Refresh,
+            imageVector = FeatherIcons.RefreshCw,
             contentDescription = "Boosted",
             modifier = Modifier.size(16.dp),
             tint = MaterialTheme.colorScheme.primary
@@ -197,7 +198,7 @@ private fun ReplyIndicator() {
         modifier = Modifier.padding(bottom = 4.dp)
     ) {
         Icon(
-            imageVector = Icons.Outlined.ArrowBack,
+            imageVector = FeatherIcons.CornerUpLeft,
             contentDescription = "Reply",
             modifier = Modifier.size(16.dp),
             tint = MaterialTheme.colorScheme.onSurfaceVariant
@@ -218,7 +219,7 @@ private fun PinnedIndicator() {
         modifier = Modifier.padding(bottom = 4.dp)
     ) {
         Icon(
-            imageVector = Icons.Outlined.Star,
+            imageVector = FeatherIcons.Star,
             contentDescription = "Pinned",
             modifier = Modifier.size(16.dp),
             tint = MaterialTheme.colorScheme.primary
@@ -306,13 +307,13 @@ private fun StatusHeader(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
-                    text = " · ${formatTimeAgo(createdAt)}",
+                    text = " Â· ${formatTimeAgo(createdAt)}",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 if (editedAt != null) {
                     Text(
-                        text = " · edited",
+                        text = " Â· edited",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         fontStyle = androidx.compose.ui.text.font.FontStyle.Italic
@@ -323,7 +324,7 @@ private fun StatusHeader(
 
         IconButton(onClick = onMore) {
             Icon(
-                imageVector = Icons.Outlined.MoreVert,
+                imageVector = FeatherIcons.MoreVertical,
                 contentDescription = "More options",
                 tint = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -358,7 +359,7 @@ private fun StatusContent(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Icon(
-                        imageVector = Icons.Outlined.Warning,
+                        imageVector = FeatherIcons.AlertTriangle,
                         contentDescription = null,
                         modifier = Modifier.size(18.dp),
                         tint = MaterialTheme.colorScheme.onSecondaryContainer

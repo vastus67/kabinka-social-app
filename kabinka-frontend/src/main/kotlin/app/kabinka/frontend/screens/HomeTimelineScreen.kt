@@ -7,9 +7,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -21,9 +18,14 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import app.kabinka.frontend.auth.SessionStateManager
 import app.kabinka.frontend.timeline.TimelineUiState
 import app.kabinka.frontend.timeline.TimelineViewModel
+import app.kabinka.frontend.timeline.TimelineType
 import app.kabinka.social.model.Status
 import java.time.Duration
 import java.time.Instant
+import app.kabinka.frontend.ui.icons.TimelineRemixIcons
+import compose.icons.FeatherIcons
+import compose.icons.feathericons.*
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,6 +41,17 @@ fun HomeTimelineScreen(
     
     // Check if user is logged in
     val isLoggedIn = sessionManager.getCurrentSession() != null
+    
+    // Handle tab changes - load appropriate timeline
+    LaunchedEffect(selectedTab) {
+        val timelineType = when (selectedTab) {
+            0 -> TimelineType.HOME
+            1 -> TimelineType.LOCAL
+            2 -> TimelineType.FEDERATED
+            else -> TimelineType.HOME
+        }
+        viewModel.loadTimeline(timelineType)
+    }
 
     Scaffold(
         topBar = {
@@ -69,7 +82,7 @@ fun HomeTimelineScreen(
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = "🧡",
+                                text = "ðŸ§¡",
                                 style = MaterialTheme.typography.titleSmall
                             )
                         }
@@ -77,7 +90,7 @@ fun HomeTimelineScreen(
                     actions = {
                         IconButton(onClick = { /* TODO: Open chat */ }) {
                             Icon(
-                                imageVector = Icons.Outlined.Email,
+                                imageVector = FeatherIcons.MessageSquare,
                                 contentDescription = "Chat",
                                 tint = MaterialTheme.colorScheme.primary
                             )
@@ -87,7 +100,7 @@ fun HomeTimelineScreen(
                         Box {
                             IconButton(onClick = { showMenu = true }) {
                                 Icon(
-                                    imageVector = Icons.Outlined.MoreVert,
+                                    imageVector = FeatherIcons.MoreVertical,
                                     contentDescription = "Menu",
                                     tint = MaterialTheme.colorScheme.onSurface
                                 )
@@ -141,49 +154,115 @@ fun HomeTimelineScreen(
                         Tab(
                             selected = selectedTab == index,
                             onClick = { selectedTab = index },
-                            text = { Text(title) }
+                            icon = {
+                                Icon(
+                                    imageVector = when (index) {
+                                        0 -> TimelineRemixIcons.home(selectedTab == index)
+                                        1 -> TimelineRemixIcons.local(selectedTab == index)
+                                        2 -> TimelineRemixIcons.federated(selectedTab == index)
+                                        else -> TimelineRemixIcons.home(selectedTab == index)
+                                    },
+                                    contentDescription = title
+                                )
+                            },
+                            text = { 
+                                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                    Text(title)
+                                    // Subtle indicator of timeline scope
+                                    if (selectedTab == index) {
+                                        Text(
+                                            text = when (index) {
+                                                0 -> "Your feed"
+                                                1 -> "This instance"
+                                                2 -> "Fediverse"
+                                                else -> ""
+                                            },
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
+                                    }
+                                }
+                            }
                         )
                     }
                 }
             }
         }
     ) { padding ->
-        when (val state = uiState) {
-            is TimelineUiState.Loading -> {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(padding),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
-                }
-            }
-            
-            is TimelineUiState.Content -> {
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(padding),
-                    contentPadding = PaddingValues(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    items(state.statuses) { status ->
-                        app.kabinka.frontend.components.timeline.StatusCardComplete(
-                            status = status,
-                            onStatusClick = { /* TODO */ },
-                            onProfileClick = { /* TODO */ },
-                            onReply = { /* TODO */ },
-                            onBoost = { /* TODO */ },
-                            onFavorite = { /* TODO */ },
-                            onBookmark = { /* TODO */ },
-                            onMore = { /* TODO */ }
-                        )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(padding)
+        ) {
+            when (val state = uiState) {
+                is TimelineUiState.Loading -> {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
                     }
                 }
-            }
-            
-            is TimelineUiState.Error -> {
+                
+                is TimelineUiState.Content -> {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                    ) {
+                        items(state.statuses) { status ->
+                            app.kabinka.frontend.components.timeline.StatusCardComplete(
+                                status = status,
+                                onStatusClick = { /* TODO */ },
+                                onProfileClick = { /* TODO */ },
+                                onReply = { /* TODO */ },
+                                onBoost = { /* TODO */ },
+                                onFavorite = { /* TODO */ },
+                                onBookmark = { /* TODO */ },
+                                onMore = { /* TODO */ }
+                            )
+                        }
+                    }
+                }
+                
+                is TimelineUiState.Empty -> {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.padding(24.dp)
+                        ) {
+                            Icon(
+                                imageVector = when (selectedTab) {
+                                    0 -> FeatherIcons.Home
+                                    1 -> FeatherIcons.MapPin
+                                    2 -> FeatherIcons.Globe
+                                    else -> FeatherIcons.Info
+                                },
+                                contentDescription = null,
+                                modifier = Modifier.size(64.dp),
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                            Spacer(modifier = Modifier.height(16.dp))
+                            Text(
+                                text = state.message,
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                            )
+                            if (state.isLoginRequired) {
+                                Spacer(modifier = Modifier.height(16.dp))
+                                Button(onClick = onNavigateToLogin) {
+                                    Text("Log In")
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                is TimelineUiState.Error -> {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -195,7 +274,7 @@ fun HomeTimelineScreen(
                         modifier = Modifier.padding(24.dp)
                     ) {
                         Icon(
-                            imageVector = Icons.Outlined.Info,
+                            imageVector = FeatherIcons.AlertTriangle,
                             contentDescription = null,
                             modifier = Modifier.size(64.dp),
                             tint = MaterialTheme.colorScheme.error
@@ -226,7 +305,7 @@ fun HomeTimelineScreen(
                             )
                         ) {
                             Icon(
-                                imageVector = Icons.Outlined.Refresh,
+                                imageVector = FeatherIcons.RefreshCw,
                                 contentDescription = null,
                                 modifier = Modifier.size(18.dp)
                             )
@@ -235,6 +314,7 @@ fun HomeTimelineScreen(
                         }
                     }
                 }
+            }
             }
         }
     }
@@ -285,7 +365,7 @@ private fun ModernStatusCard(status: Status) {
                         overflow = TextOverflow.Ellipsis
                     )
                     Text(
-                        text = "@${status.account.username} · ${formatTimeAgo(status.createdAt.toString())}",
+                        text = "@${status.account.username} Â· ${formatTimeAgo(status.createdAt.toString())}",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -293,7 +373,7 @@ private fun ModernStatusCard(status: Status) {
 
                 IconButton(onClick = { /* TODO: More options */ }) {
                     Icon(
-                        imageVector = Icons.Outlined.MoreVert,
+                        imageVector = FeatherIcons.MoreVertical,
                         contentDescription = "More options",
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -312,7 +392,7 @@ private fun ModernStatusCard(status: Status) {
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
-                            imageVector = Icons.Outlined.Warning,
+                            imageVector = FeatherIcons.AlertTriangle,
                             contentDescription = null,
                             modifier = Modifier.size(16.dp),
                             tint = MaterialTheme.colorScheme.onSecondaryContainer
@@ -342,20 +422,20 @@ private fun ModernStatusCard(status: Status) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 StatusActionButton(
-                    icon = Icons.Outlined.Phone,
+                    icon = FeatherIcons.Phone,
                     count = status.repliesCount.toInt(),
                     onClick = { /* TODO: Reply */ }
                 )
 
                 StatusActionButton(
-                    icon = Icons.Outlined.Refresh,
+                    icon = FeatherIcons.RefreshCw,
                     count = status.reblogsCount.toInt(),
                     isActive = status.reblogged,
                     onClick = { /* TODO: Boost */ }
                 )
 
                 StatusActionButton(
-                    icon = if (status.favourited) Icons.Outlined.Favorite else Icons.Outlined.FavoriteBorder,
+                    icon = if (status.favourited) FeatherIcons.Heart else FeatherIcons.Heart,
                     count = status.favouritesCount.toInt(),
                     isActive = status.favourited,
                     onClick = { /* TODO: Favorite */ }
@@ -363,7 +443,7 @@ private fun ModernStatusCard(status: Status) {
 
                 IconButton(onClick = { /* TODO: Share */ }) {
                     Icon(
-                        imageVector = Icons.Outlined.Share,
+                        imageVector = FeatherIcons.Share2,
                         contentDescription = "Share",
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )

@@ -1,13 +1,15 @@
 package app.kabinka.coreui.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
+import compose.icons.FeatherIcons
+import compose.icons.feathericons.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 
@@ -20,36 +22,36 @@ sealed class BottomNavItem(
     object Home : BottomNavItem(
         "home",
         "Home",
-        Icons.Filled.Home,
-        Icons.Outlined.Home
+        FeatherIcons.Home,
+        FeatherIcons.Home
     )
 
     object Search : BottomNavItem(
         "search",
         "Search",
-        Icons.Filled.Search,
-        Icons.Outlined.Search
+        FeatherIcons.Search,
+        FeatherIcons.Search
     )
 
     object Compose : BottomNavItem(
         "compose",
         "Compose",
-        Icons.Filled.Add,
-        Icons.Outlined.Add
+        FeatherIcons.Edit,
+        FeatherIcons.Edit
     )
 
     object Notifications : BottomNavItem(
         "notifications",
         "Notifications",
-        Icons.Filled.Notifications,
-        Icons.Outlined.Notifications
+        FeatherIcons.Bell,
+        FeatherIcons.Bell
     )
 
     object Profile : BottomNavItem(
         "profile",
         "Profile",
-        Icons.Filled.Person,
-        Icons.Outlined.Person
+        FeatherIcons.User,
+        FeatherIcons.User
     )
 }
 
@@ -97,10 +99,25 @@ fun KabinkaBottomNav(
                     selected = selected,
                     onClick = { onNavigate(item.route) },
                     icon = {
-                        Icon(
-                            imageVector = if (selected) item.selectedIcon else item.unselectedIcon,
-                            contentDescription = item.label
-                        )
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(3.dp)
+                                    .background(
+                                        if (selected) MaterialTheme.colorScheme.primary
+                                        else MaterialTheme.colorScheme.surface
+                                    )
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Icon(
+                                imageVector = if (selected) item.selectedIcon else item.unselectedIcon,
+                                contentDescription = item.label
+                            )
+                        }
                     },
                     label = {
                         Text(
@@ -111,7 +128,7 @@ fun KabinkaBottomNav(
                     colors = NavigationBarItemDefaults.colors(
                         selectedIconColor = MaterialTheme.colorScheme.primary,
                         selectedTextColor = MaterialTheme.colorScheme.primary,
-                        indicatorColor = MaterialTheme.colorScheme.primaryContainer,
+                        indicatorColor = Color.Transparent,
                         unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
                         unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant
                     )

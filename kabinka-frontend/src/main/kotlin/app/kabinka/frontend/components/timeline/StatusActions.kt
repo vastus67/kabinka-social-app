@@ -1,9 +1,8 @@
 package app.kabinka.frontend.components.timeline
 
+import compose.icons.FeatherIcons
+import compose.icons.feathericons.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -30,20 +29,20 @@ fun StatusActions(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         ActionButton(
-            icon = Icons.Outlined.ArrowBack,
+            icon = FeatherIcons.CornerUpLeft,
             count = repliesCount,
             onClick = onReply
         )
 
         ActionButton(
-            icon = Icons.Outlined.Refresh,
+            icon = FeatherIcons.RefreshCw,
             count = reblogsCount,
             isActive = reblogged,
             onClick = onBoost
         )
 
         ActionButton(
-            icon = if (favourited) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+            icon = if (favourited) FeatherIcons.Heart else FeatherIcons.Heart,
             count = favouritesCount,
             isActive = favourited,
             onClick = onFavorite
@@ -51,7 +50,7 @@ fun StatusActions(
         
         IconButton(onClick = onBookmark) {
             Icon(
-                imageVector = if (bookmarked) Icons.Filled.Star else Icons.Outlined.Star,
+                imageVector = if (bookmarked) FeatherIcons.Star else FeatherIcons.Star,
                 contentDescription = "Bookmark",
                 tint = if (bookmarked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -59,7 +58,7 @@ fun StatusActions(
 
         IconButton(onClick = onShare) {
             Icon(
-                imageVector = Icons.Outlined.Share,
+                imageVector = FeatherIcons.Share2,
                 contentDescription = "Share",
                 tint = MaterialTheme.colorScheme.onSurfaceVariant
             )

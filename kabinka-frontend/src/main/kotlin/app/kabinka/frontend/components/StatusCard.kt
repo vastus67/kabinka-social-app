@@ -5,8 +5,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.*
+import compose.icons.FeatherIcons
+import compose.icons.feathericons.*
+
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -88,7 +89,7 @@ fun StatusCard(
                         overflow = TextOverflow.Ellipsis
                     )
                     Text(
-                        text = "${status.account.username} · ${formatTimeAgo(status.createdAt)}",
+                        text = "${status.account.username} Â· ${formatTimeAgo(status.createdAt)}",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -96,7 +97,7 @@ fun StatusCard(
 
                 IconButton(onClick = { onMore(status.id) }) {
                     Icon(
-                        imageVector = Icons.Outlined.MoreVert,
+                        imageVector = FeatherIcons.MoreVertical,
                         contentDescription = "More options",
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -115,7 +116,7 @@ fun StatusCard(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
-                            imageVector = Icons.Outlined.Warning,
+                            imageVector = FeatherIcons.AlertTriangle,
                             contentDescription = null,
                             modifier = Modifier.size(16.dp),
                             tint = MaterialTheme.colorScheme.onSecondaryContainer
@@ -153,20 +154,20 @@ fun StatusCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 StatusActionButton(
-                    icon = Icons.Outlined.Phone,
+                    icon = FeatherIcons.Phone,
                     count = status.repliesCount.toInt(),
                     onClick = { onReply(status.id) }
                 )
 
                 StatusActionButton(
-                    icon = Icons.Outlined.Refresh,
+                    icon = FeatherIcons.RefreshCw,
                     count = status.reblogsCount.toInt(),
                     isActive = status.reblogged,
                     onClick = { onBoost(status.id) }
                 )
 
                 StatusActionButton(
-                    icon = if (status.favourited) Icons.Outlined.Favorite else Icons.Outlined.FavoriteBorder,
+                    icon = if (status.favourited) FeatherIcons.Heart else FeatherIcons.Heart,
                     count = status.favouritesCount.toInt(),
                     isActive = status.favourited,
                     onClick = { onFavorite(status.id) }
@@ -174,7 +175,7 @@ fun StatusCard(
 
                 IconButton(onClick = { onMore(status.id) }) {
                     Icon(
-                        imageVector = Icons.Outlined.Share,
+                        imageVector = FeatherIcons.Share2,
                         contentDescription = "Share",
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
