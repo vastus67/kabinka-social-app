@@ -16,6 +16,8 @@ import app.kabinka.frontend.screens.HomeTimelineScreen
 import app.kabinka.frontend.screens.LoginScreen
 import app.kabinka.frontend.screens.LoginChooserScreen
 import app.kabinka.frontend.screens.ExploreScreen
+import app.kabinka.frontend.screens.NotificationsScreen
+import app.kabinka.frontend.screens.ProfileScreen
 import app.kabinka.coreui.components.KabinkaBottomNav
 import app.kabinka.coreui.components.KabinkaDrawer
 import app.kabinka.social.api.session.AccountSessionManager
@@ -137,11 +139,11 @@ fun KabinkaApp(
                 }
                 
                 composable(Screen.Notifications.route) {
-                    PlaceholderScreen("Notifications")
+                    NotificationsScreen()
                 }
                 
                 composable(Screen.Profile.route) {
-                    PlaceholderScreen("Profile")
+                    ProfileScreen()
                 }
             }
         }

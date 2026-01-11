@@ -37,7 +37,7 @@ fun HomeTimelineScreen(
     val uiState by viewModel.uiState.collectAsState()
     var selectedTab by remember { mutableStateOf(0) }
     var showMenu by remember { mutableStateOf(false) }
-    val tabs = listOf("Home", "Local", "Federated")
+    val tabs = listOf("Personal", "Local", "Federated")
     
     // Check if user is logged in
     val isLoggedIn = sessionManager.getCurrentSession() != null
@@ -82,7 +82,7 @@ fun HomeTimelineScreen(
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = "ðŸ§¡",
+                                text = "🧡",
                                 style = MaterialTheme.typography.titleSmall
                             )
                         }
