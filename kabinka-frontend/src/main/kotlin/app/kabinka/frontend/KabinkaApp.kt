@@ -12,6 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import app.kabinka.frontend.auth.SessionState
 import app.kabinka.frontend.auth.SessionStateManager
 import app.kabinka.frontend.navigation.Screen
+import app.kabinka.frontend.screens.ComposeScreen
 import app.kabinka.frontend.screens.HomeTimelineScreen
 import app.kabinka.frontend.screens.LoginScreen
 import app.kabinka.frontend.screens.LoginChooserScreen
@@ -155,7 +156,12 @@ fun KabinkaApp(
                 }
                 
                 composable(Screen.Compose.route) {
-                    PlaceholderScreen("Compose")
+                    ComposeScreen(
+                        sessionManager = sessionManager,
+                        onNavigateBack = {
+                            navController.popBackStack()
+                        }
+                    )
                 }
                 
                 composable(Screen.Notifications.route) {

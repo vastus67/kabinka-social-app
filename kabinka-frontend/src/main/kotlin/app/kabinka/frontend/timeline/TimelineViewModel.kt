@@ -4,9 +4,12 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.kabinka.frontend.auth.SessionStateManager
+import app.kabinka.social.E
 import app.kabinka.social.api.requests.timelines.GetHomeTimeline
 import app.kabinka.social.api.requests.timelines.GetPublicTimeline
+import app.kabinka.social.events.StatusCountersUpdatedEvent
 import app.kabinka.social.model.Status
+import com.squareup.otto.Subscribe
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -31,7 +34,58 @@ class TimelineViewModel(
     
     init {
         Log.d(TAG, "TimelineViewModel initialized")
+        E.register(this)
         loadTimeline(TimelineType.HOME)
+    }
+    
+    override fun onCleared() {
+        super.onCleared()
+        E.unregister(this)
+    }
+    
+    /**
+     * Handle status counter updates from the EventBus
+     * EventBus posts on background thread, so we need to update on main thread
+     */
+    @Subscribe
+    fun onStatusCountersUpdated(event: StatusCountersUpdatedEvent) {
+        Log.d(TAG, "Status counters updated: ${event.id}, type: ${event.type}, " +
+                "favorited=${event.favorited}, reblogged=${event.reblogged}, bookmarked=${event.bookmarked}")
+        
+        viewModelScope.launch {
+            val currentState = _uiState.value as? TimelineUiState.Content ?: return@launch
+            
+            // Create a new list with updated status objects
+            // This is necessary for Compose to detect the change
+            val updatedStatuses = currentState.statuses.toMutableList()
+            var foundAndUpdated = false
+            
+            for (i in updatedStatuses.indices) {
+                val status = updatedStatuses[i]
+                val statusToUpdate = status.reblog ?: status
+                
+                if (statusToUpdate.id == event.id) {
+                    // Update the status with new counters
+                    statusToUpdate.favouritesCount = event.favorites
+                    statusToUpdate.favourited = event.favorited
+                    statusToUpdate.reblogsCount = event.reblogs
+                    statusToUpdate.reblogged = event.reblogged
+                    statusToUpdate.repliesCount = event.replies
+                    statusToUpdate.bookmarked = event.bookmarked
+                    foundAndUpdated = true
+                    Log.d(TAG, "Updated status in UI: favorited=${statusToUpdate.favourited}, " +
+                            "reblogged=${statusToUpdate.reblogged}, bookmarked=${statusToUpdate.bookmarked}")
+                    break
+                }
+            }
+            
+            if (foundAndUpdated) {
+                // Create new TimelineUiState.Content with the updated list
+                _uiState.value = TimelineUiState.Content(ArrayList(updatedStatuses))
+            } else {
+                Log.w(TAG, "Status ${event.id} not found in current timeline")
+            }
+        }
     }
     
     /**
@@ -190,6 +244,69 @@ class TimelineViewModel(
      */
     fun refresh() {
         loadTimeline(currentTimelineType)
+    }
+    
+    /**
+     * Toggle favorite (like) on a status
+     */
+    fun toggleFavorite(statusId: String) {
+        val session = sessionManager.getCurrentSession() ?: return
+        val currentState = _uiState.value as? TimelineUiState.Content ?: return
+        
+        // Find the status
+        val status = currentState.statuses.find { 
+            it.id == statusId || it.reblog?.id == statusId 
+        } ?: return
+        
+        // Get the actual status (in case it's a reblog)
+        val targetStatus = status.reblog ?: status
+        
+        Log.d(TAG, "Toggling favorite for status ${targetStatus.id}, current: ${targetStatus.favourited}")
+        
+        // Toggle favorite - the EventBus will update the UI
+        session.getStatusInteractionController().setFavorited(targetStatus, !targetStatus.favourited)
+    }
+    
+    /**
+     * Toggle reblog (boost) on a status
+     */
+    fun toggleReblog(statusId: String) {
+        val session = sessionManager.getCurrentSession() ?: return
+        val currentState = _uiState.value as? TimelineUiState.Content ?: return
+        
+        // Find the status
+        val status = currentState.statuses.find { 
+            it.id == statusId || it.reblog?.id == statusId 
+        } ?: return
+        
+        // Get the actual status (in case it's a reblog)
+        val targetStatus = status.reblog ?: status
+        
+        Log.d(TAG, "Toggling reblog for status ${targetStatus.id}, current: ${targetStatus.reblogged}")
+        
+        // Toggle reblog - the EventBus will update the UI
+        session.getStatusInteractionController().setReblogged(targetStatus, !targetStatus.reblogged)
+    }
+    
+    /**
+     * Toggle bookmark on a status
+     */
+    fun toggleBookmark(statusId: String) {
+        val session = sessionManager.getCurrentSession() ?: return
+        val currentState = _uiState.value as? TimelineUiState.Content ?: return
+        
+        // Find the status
+        val status = currentState.statuses.find { 
+            it.id == statusId || it.reblog?.id == statusId 
+        } ?: return
+        
+        // Get the actual status (in case it's a reblog)
+        val targetStatus = status.reblog ?: status
+        
+        Log.d(TAG, "Toggling bookmark for status ${targetStatus.id}, current: ${targetStatus.bookmarked}")
+        
+        // Toggle bookmark - the EventBus will update the UI
+        session.getStatusInteractionController().setBookmarked(targetStatus, !targetStatus.bookmarked)
     }
 }
 

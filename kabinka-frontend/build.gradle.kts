@@ -100,6 +100,10 @@ dependencies {
         isTransitive = false
     }
     
+    // Otto EventBus (used by kabinka-social for status updates)
+    implementation("com.squareup:otto:1.3.8")
+    implementation("de.psdev:async-otto:1.0.3")
+    
     // Standard androidx libraries
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("androidx.collection:collection:1.4.2")

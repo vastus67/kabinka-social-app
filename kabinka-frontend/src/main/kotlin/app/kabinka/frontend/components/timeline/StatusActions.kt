@@ -73,19 +73,11 @@ fun StatusActions(
         )
 
         ActionButton(
-            icon = if (favourited) LineAwesomeIcons.HeartSolid else LineAwesomeIcons.HeartSolid,
+            icon = LineAwesomeIcons.HeartSolid,
             count = favouritesCount,
             isActive = favourited,
             onClick = onFavorite
         )
-        
-        IconButton(onClick = onBookmark) {
-            Icon(
-                imageVector = if (bookmarked) LineAwesomeIcons.StarSolid else LineAwesomeIcons.StarSolid,
-                contentDescription = "Bookmark",
-                tint = if (bookmarked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        }
 
         IconButton(onClick = onShare) {
             Icon(

@@ -200,13 +200,13 @@ fun HomeTimelineScreen(
                         items(state.statuses) { status ->
                             app.kabinka.frontend.components.timeline.StatusCardComplete(
                                 status = status,
-                                onStatusClick = { /* TODO */ },
-                                onProfileClick = { /* TODO */ },
-                                onReply = { /* TODO */ },
-                                onBoost = { /* TODO */ },
-                                onFavorite = { /* TODO */ },
-                                onBookmark = { /* TODO */ },
-                                onMore = { /* TODO */ }
+                                onStatusClick = { /* TODO: Navigate to status detail */ },
+                                onProfileClick = { /* TODO: Navigate to profile */ },
+                                onReply = { /* TODO: Navigate to compose reply */ },
+                                onBoost = { statusId -> viewModel.toggleReblog(statusId) },
+                                onFavorite = { statusId -> viewModel.toggleFavorite(statusId) },
+                                onBookmark = { statusId -> viewModel.toggleBookmark(statusId) },
+                                onMore = { /* TODO: Show more options */ }
                             )
                         }
                     }
