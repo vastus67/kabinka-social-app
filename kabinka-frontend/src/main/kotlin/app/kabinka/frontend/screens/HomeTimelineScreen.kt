@@ -23,8 +23,39 @@ import app.kabinka.social.model.Status
 import java.time.Duration
 import java.time.Instant
 import app.kabinka.frontend.ui.icons.TimelineRemixIcons
-import compose.icons.FeatherIcons
-import compose.icons.feathericons.*
+import compose.icons.LineAwesomeIcons
+import compose.icons.lineawesomeicons.HomeSolid
+import compose.icons.lineawesomeicons.SearchSolid
+import compose.icons.lineawesomeicons.EditSolid
+import compose.icons.lineawesomeicons.BellSolid
+import compose.icons.lineawesomeicons.UserSolid
+import compose.icons.lineawesomeicons.ShareSolid
+import compose.icons.lineawesomeicons.CogSolid
+import compose.icons.lineawesomeicons.CommentSolid
+import compose.icons.lineawesomeicons.EllipsisVSolid
+import compose.icons.lineawesomeicons.GlobeSolid
+import compose.icons.lineawesomeicons.HeartSolid
+import compose.icons.lineawesomeicons.RetweetSolid
+import compose.icons.lineawesomeicons.StarSolid
+import compose.icons.lineawesomeicons.FileAltSolid
+import compose.icons.lineawesomeicons.HashtagSolid
+import compose.icons.lineawesomeicons.FileSolid
+import compose.icons.lineawesomeicons.UsersSolid
+import compose.icons.lineawesomeicons.RssSolid
+import compose.icons.lineawesomeicons.AtSolid
+import compose.icons.lineawesomeicons.UserPlusSolid
+import compose.icons.lineawesomeicons.ChartBarSolid
+import compose.icons.lineawesomeicons.BookmarkSolid
+import compose.icons.lineawesomeicons.MapMarkerSolid
+import compose.icons.lineawesomeicons.InfoCircleSolid
+import compose.icons.lineawesomeicons.ExclamationTriangleSolid
+import compose.icons.lineawesomeicons.SyncSolid
+import compose.icons.lineawesomeicons.PhoneSolid
+import compose.icons.lineawesomeicons.ReplySolid
+import compose.icons.lineawesomeicons.PlaySolid
+import compose.icons.lineawesomeicons.QrcodeSolid
+import compose.icons.lineawesomeicons.TimesSolid
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -90,7 +121,7 @@ fun HomeTimelineScreen(
                     actions = {
                         IconButton(onClick = { /* TODO: Open chat */ }) {
                             Icon(
-                                imageVector = FeatherIcons.MessageSquare,
+                                imageVector = LineAwesomeIcons.CommentSolid,
                                 contentDescription = "Chat",
                                 tint = MaterialTheme.colorScheme.primary
                             )
@@ -100,7 +131,7 @@ fun HomeTimelineScreen(
                         Box {
                             IconButton(onClick = { showMenu = true }) {
                                 Icon(
-                                    imageVector = FeatherIcons.MoreVertical,
+                                    imageVector = LineAwesomeIcons.EllipsisVSolid,
                                     contentDescription = "Menu",
                                     tint = MaterialTheme.colorScheme.onSurface
                                 )
@@ -236,10 +267,10 @@ fun HomeTimelineScreen(
                         ) {
                             Icon(
                                 imageVector = when (selectedTab) {
-                                    0 -> FeatherIcons.Home
-                                    1 -> FeatherIcons.MapPin
-                                    2 -> FeatherIcons.Globe
-                                    else -> FeatherIcons.Info
+                                    0 -> LineAwesomeIcons.HomeSolid
+                                    1 -> LineAwesomeIcons.MapMarkerSolid
+                                    2 -> LineAwesomeIcons.GlobeSolid
+                                    else -> LineAwesomeIcons.InfoCircleSolid
                                 },
                                 contentDescription = null,
                                 modifier = Modifier.size(64.dp),
@@ -274,7 +305,7 @@ fun HomeTimelineScreen(
                         modifier = Modifier.padding(24.dp)
                     ) {
                         Icon(
-                            imageVector = FeatherIcons.AlertTriangle,
+                            imageVector = LineAwesomeIcons.ExclamationTriangleSolid,
                             contentDescription = null,
                             modifier = Modifier.size(64.dp),
                             tint = MaterialTheme.colorScheme.error
@@ -305,7 +336,7 @@ fun HomeTimelineScreen(
                             )
                         ) {
                             Icon(
-                                imageVector = FeatherIcons.RefreshCw,
+                                imageVector = LineAwesomeIcons.SyncSolid,
                                 contentDescription = null,
                                 modifier = Modifier.size(18.dp)
                             )
@@ -373,7 +404,7 @@ private fun ModernStatusCard(status: Status) {
 
                 IconButton(onClick = { /* TODO: More options */ }) {
                     Icon(
-                        imageVector = FeatherIcons.MoreVertical,
+                        imageVector = LineAwesomeIcons.EllipsisVSolid,
                         contentDescription = "More options",
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -392,7 +423,7 @@ private fun ModernStatusCard(status: Status) {
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
-                            imageVector = FeatherIcons.AlertTriangle,
+                            imageVector = LineAwesomeIcons.ExclamationTriangleSolid,
                             contentDescription = null,
                             modifier = Modifier.size(16.dp),
                             tint = MaterialTheme.colorScheme.onSecondaryContainer
@@ -422,20 +453,20 @@ private fun ModernStatusCard(status: Status) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 StatusActionButton(
-                    icon = FeatherIcons.Phone,
+                    icon = LineAwesomeIcons.PhoneSolid,
                     count = status.repliesCount.toInt(),
                     onClick = { /* TODO: Reply */ }
                 )
 
                 StatusActionButton(
-                    icon = FeatherIcons.RefreshCw,
+                    icon = LineAwesomeIcons.SyncSolid,
                     count = status.reblogsCount.toInt(),
                     isActive = status.reblogged,
                     onClick = { /* TODO: Boost */ }
                 )
 
                 StatusActionButton(
-                    icon = if (status.favourited) FeatherIcons.Heart else FeatherIcons.Heart,
+                    icon = if (status.favourited) LineAwesomeIcons.HeartSolid else LineAwesomeIcons.HeartSolid,
                     count = status.favouritesCount.toInt(),
                     isActive = status.favourited,
                     onClick = { /* TODO: Favorite */ }
@@ -443,7 +474,7 @@ private fun ModernStatusCard(status: Status) {
 
                 IconButton(onClick = { /* TODO: Share */ }) {
                     Icon(
-                        imageVector = FeatherIcons.Share2,
+                        imageVector = LineAwesomeIcons.ShareSolid,
                         contentDescription = "Share",
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )

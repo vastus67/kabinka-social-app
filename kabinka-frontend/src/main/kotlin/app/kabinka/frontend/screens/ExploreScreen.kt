@@ -31,8 +31,40 @@ import app.kabinka.social.model.Account
 import coil.compose.AsyncImage
 import me.grishka.appkit.api.Callback
 import me.grishka.appkit.api.ErrorResponse
-import compose.icons.FeatherIcons
-import compose.icons.feathericons.*
+import compose.icons.LineAwesomeIcons
+import compose.icons.lineawesomeicons.HomeSolid
+import compose.icons.lineawesomeicons.SearchSolid
+import compose.icons.lineawesomeicons.EditSolid
+import compose.icons.lineawesomeicons.BellSolid
+import compose.icons.lineawesomeicons.UserSolid
+import compose.icons.lineawesomeicons.ShareSolid
+import compose.icons.lineawesomeicons.CogSolid
+import compose.icons.lineawesomeicons.CommentSolid
+import compose.icons.lineawesomeicons.EllipsisVSolid
+import compose.icons.lineawesomeicons.GlobeSolid
+import compose.icons.lineawesomeicons.HeartSolid
+import compose.icons.lineawesomeicons.RetweetSolid
+import compose.icons.lineawesomeicons.StarSolid
+import compose.icons.lineawesomeicons.FileAltSolid
+import compose.icons.lineawesomeicons.HashtagSolid
+import compose.icons.lineawesomeicons.FileSolid
+import compose.icons.lineawesomeicons.UsersSolid
+import compose.icons.lineawesomeicons.RssSolid
+import compose.icons.lineawesomeicons.AtSolid
+import compose.icons.lineawesomeicons.UserPlusSolid
+import compose.icons.lineawesomeicons.ChartBarSolid
+import compose.icons.lineawesomeicons.BookmarkSolid
+import compose.icons.lineawesomeicons.MapMarkerSolid
+import compose.icons.lineawesomeicons.InfoCircleSolid
+import compose.icons.lineawesomeicons.ExclamationTriangleSolid
+import compose.icons.lineawesomeicons.SyncSolid
+import compose.icons.lineawesomeicons.PhoneSolid
+import compose.icons.lineawesomeicons.ReplySolid
+import compose.icons.lineawesomeicons.PlaySolid
+import compose.icons.lineawesomeicons.QrcodeSolid
+import compose.icons.lineawesomeicons.TimesSolid
+import compose.icons.lineawesomeicons.NewspaperSolid
+
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -103,12 +135,12 @@ fun ExploreScreen() {
                     modifier = Modifier.fillMaxWidth(),
                     placeholder = { Text("Search Mastodon") },
                     leadingIcon = {
-                        Icon(FeatherIcons.Search, "Search")
+                        Icon(LineAwesomeIcons.SearchSolid, "Search")
                     },
                     trailingIcon = {
                         if (searchQuery.isNotBlank()) {
                             IconButton(onClick = { searchQuery = "" }) {
-                                Icon(FeatherIcons.X, "Clear")
+                                Icon(LineAwesomeIcons.TimesSolid, "Clear")
                             }
                         }
                     },
@@ -140,11 +172,11 @@ fun ExploreScreen() {
                             icon = {
                                 Icon(
                                     imageVector = when (index) {
-                                        0 -> FeatherIcons.FileText
-                                        1 -> FeatherIcons.Hash
-                                        2 -> FeatherIcons.File
-                                        3 -> FeatherIcons.User
-                                        else -> FeatherIcons.FileText
+                                        0 -> LineAwesomeIcons.FileAltSolid
+                                        1 -> LineAwesomeIcons.HashtagSolid
+                                        2 -> LineAwesomeIcons.NewspaperSolid
+                                        3 -> LineAwesomeIcons.UserSolid
+                                        else -> LineAwesomeIcons.FileAltSolid
                                     },
                                     contentDescription = title
                                 )
@@ -317,7 +349,7 @@ private fun SearchQuickFilters(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
-                            imageVector = FeatherIcons.User,
+                            imageVector = LineAwesomeIcons.UserSolid,
                             contentDescription = "Account",
                             modifier = Modifier.size(24.dp),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
@@ -346,7 +378,7 @@ private fun SearchQuickFilters(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
-                    imageVector = FeatherIcons.Search,
+                    imageVector = LineAwesomeIcons.SearchSolid,
                     contentDescription = "Search posts",
                     modifier = Modifier.size(24.dp),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant
@@ -373,7 +405,7 @@ private fun SearchQuickFilters(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
-                    imageVector = FeatherIcons.Users,
+                    imageVector = LineAwesomeIcons.UsersSolid,
                     contentDescription = "Search people",
                     modifier = Modifier.size(24.dp),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant
@@ -405,7 +437,7 @@ private fun SearchAccountItem(account: Account) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                imageVector = FeatherIcons.User,
+                imageVector = LineAwesomeIcons.UserSolid,
                 contentDescription = "Person",
                 tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
@@ -460,7 +492,7 @@ private fun SearchPostItem(status: Status) {
             verticalAlignment = Alignment.Top
         ) {
             Icon(
-                imageVector = FeatherIcons.MessageSquare,
+                imageVector = LineAwesomeIcons.CommentSolid,
                 contentDescription = "Post",
                 tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier
@@ -770,7 +802,7 @@ private fun ForYouTab(isLoggedIn: Boolean) {
                     modifier = Modifier.align(Alignment.Center).padding(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Icon(FeatherIcons.User, null, modifier = Modifier.size(64.dp))
+                    Icon(LineAwesomeIcons.UserSolid, null, modifier = Modifier.size(64.dp))
                     Spacer(modifier = Modifier.height(16.dp))
                     Text("Sign in to see personalized suggestions")
                 }

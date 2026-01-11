@@ -134,6 +134,9 @@ dependencies {
     // Feather Icons for Compose
     implementation("br.com.devsrsouza.compose.icons:feather:1.1.0")
     
+    // Line Awesome Icons for Compose
+    implementation("br.com.devsrsouza.compose.icons:line-awesome:1.1.0")
+    
     // AppAuth for OAuth
     implementation("net.openid:appauth:0.11.1")
     

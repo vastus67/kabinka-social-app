@@ -19,8 +19,39 @@ import app.kabinka.social.api.session.AccountSessionManager
 import app.kabinka.social.model.Notification
 import app.kabinka.social.model.NotificationType
 import coil.compose.AsyncImage
-import compose.icons.FeatherIcons
-import compose.icons.feathericons.*
+import compose.icons.LineAwesomeIcons
+import compose.icons.lineawesomeicons.HomeSolid
+import compose.icons.lineawesomeicons.SearchSolid
+import compose.icons.lineawesomeicons.EditSolid
+import compose.icons.lineawesomeicons.BellSolid
+import compose.icons.lineawesomeicons.UserSolid
+import compose.icons.lineawesomeicons.ShareSolid
+import compose.icons.lineawesomeicons.CogSolid
+import compose.icons.lineawesomeicons.CommentSolid
+import compose.icons.lineawesomeicons.EllipsisVSolid
+import compose.icons.lineawesomeicons.GlobeSolid
+import compose.icons.lineawesomeicons.HeartSolid
+import compose.icons.lineawesomeicons.RetweetSolid
+import compose.icons.lineawesomeicons.StarSolid
+import compose.icons.lineawesomeicons.FileAltSolid
+import compose.icons.lineawesomeicons.HashtagSolid
+import compose.icons.lineawesomeicons.FileSolid
+import compose.icons.lineawesomeicons.UsersSolid
+import compose.icons.lineawesomeicons.RssSolid
+import compose.icons.lineawesomeicons.AtSolid
+import compose.icons.lineawesomeicons.UserPlusSolid
+import compose.icons.lineawesomeicons.ChartBarSolid
+import compose.icons.lineawesomeicons.BookmarkSolid
+import compose.icons.lineawesomeicons.MapMarkerSolid
+import compose.icons.lineawesomeicons.InfoCircleSolid
+import compose.icons.lineawesomeicons.ExclamationTriangleSolid
+import compose.icons.lineawesomeicons.SyncSolid
+import compose.icons.lineawesomeicons.PhoneSolid
+import compose.icons.lineawesomeicons.ReplySolid
+import compose.icons.lineawesomeicons.PlaySolid
+import compose.icons.lineawesomeicons.QrcodeSolid
+import compose.icons.lineawesomeicons.TimesSolid
+
 import me.grishka.appkit.api.Callback
 import me.grishka.appkit.api.ErrorResponse
 import java.util.EnumSet
@@ -109,9 +140,9 @@ fun NotificationsScreen() {
                         icon = {
                             Icon(
                                 imageVector = when (index) {
-                                    0 -> FeatherIcons.Bell
-                                    1 -> FeatherIcons.AtSign
-                                    else -> FeatherIcons.Bell
+                                    0 -> LineAwesomeIcons.BellSolid
+                                    1 -> LineAwesomeIcons.AtSolid
+                                    else -> LineAwesomeIcons.BellSolid
                                 },
                                 contentDescription = title
                             )
@@ -197,14 +228,14 @@ private fun NotificationItem(notification: Notification) {
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             val (icon, iconColor) = when (notification.type) {
-                NotificationType.FOLLOW, NotificationType.FOLLOW_REQUEST -> FeatherIcons.UserPlus to MaterialTheme.colorScheme.primary
-                NotificationType.FAVORITE -> FeatherIcons.Heart to MaterialTheme.colorScheme.error
-                NotificationType.REBLOG -> FeatherIcons.Repeat to MaterialTheme.colorScheme.tertiary
-                NotificationType.MENTION -> FeatherIcons.AtSign to MaterialTheme.colorScheme.secondary
-                NotificationType.POLL -> FeatherIcons.BarChart2 to MaterialTheme.colorScheme.primary
-                NotificationType.STATUS -> FeatherIcons.Bell to MaterialTheme.colorScheme.primary
-                NotificationType.QUOTE -> FeatherIcons.MessageSquare to MaterialTheme.colorScheme.secondary
-                else -> FeatherIcons.Bell to MaterialTheme.colorScheme.primary
+                NotificationType.FOLLOW, NotificationType.FOLLOW_REQUEST -> LineAwesomeIcons.UserPlusSolid to MaterialTheme.colorScheme.primary
+                NotificationType.FAVORITE -> LineAwesomeIcons.HeartSolid to MaterialTheme.colorScheme.error
+                NotificationType.REBLOG -> LineAwesomeIcons.RetweetSolid to MaterialTheme.colorScheme.tertiary
+                NotificationType.MENTION -> LineAwesomeIcons.AtSolid to MaterialTheme.colorScheme.secondary
+                NotificationType.POLL -> LineAwesomeIcons.ChartBarSolid to MaterialTheme.colorScheme.primary
+                NotificationType.STATUS -> LineAwesomeIcons.BellSolid to MaterialTheme.colorScheme.primary
+                NotificationType.QUOTE -> LineAwesomeIcons.CommentSolid to MaterialTheme.colorScheme.secondary
+                else -> LineAwesomeIcons.BellSolid to MaterialTheme.colorScheme.primary
             }
 
             Icon(

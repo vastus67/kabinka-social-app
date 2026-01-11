@@ -4,8 +4,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
-import compose.icons.FeatherIcons
-import compose.icons.feathericons.*
+import compose.icons.LineAwesomeIcons
+import compose.icons.lineawesomeicons.HomeSolid
+import compose.icons.lineawesomeicons.SearchSolid
+import compose.icons.lineawesomeicons.EditSolid
+import compose.icons.lineawesomeicons.BellSolid
+import compose.icons.lineawesomeicons.UserSolid
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,36 +26,36 @@ sealed class BottomNavItem(
     object Home : BottomNavItem(
         "home",
         "Home",
-        FeatherIcons.Home,
-        FeatherIcons.Home
+        LineAwesomeIcons.HomeSolid,
+        LineAwesomeIcons.HomeSolid
     )
 
     object Search : BottomNavItem(
         "search",
         "Search",
-        FeatherIcons.Search,
-        FeatherIcons.Search
+        LineAwesomeIcons.SearchSolid,
+        LineAwesomeIcons.SearchSolid
     )
 
     object Compose : BottomNavItem(
         "compose",
         "Compose",
-        FeatherIcons.Edit,
-        FeatherIcons.Edit
+        LineAwesomeIcons.EditSolid,
+        LineAwesomeIcons.EditSolid
     )
 
     object Notifications : BottomNavItem(
         "notifications",
         "Notifications",
-        FeatherIcons.Bell,
-        FeatherIcons.Bell
+        LineAwesomeIcons.BellSolid,
+        LineAwesomeIcons.BellSolid
     )
 
     object Profile : BottomNavItem(
         "profile",
         "Profile",
-        FeatherIcons.User,
-        FeatherIcons.User
+        LineAwesomeIcons.UserSolid,
+        LineAwesomeIcons.UserSolid
     )
 }
 

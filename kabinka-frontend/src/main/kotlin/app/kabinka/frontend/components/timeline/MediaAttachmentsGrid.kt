@@ -1,7 +1,38 @@
 package app.kabinka.frontend.components.timeline
 
-import compose.icons.FeatherIcons
-import compose.icons.feathericons.*
+import compose.icons.LineAwesomeIcons
+import compose.icons.lineawesomeicons.HomeSolid
+import compose.icons.lineawesomeicons.SearchSolid
+import compose.icons.lineawesomeicons.EditSolid
+import compose.icons.lineawesomeicons.BellSolid
+import compose.icons.lineawesomeicons.UserSolid
+import compose.icons.lineawesomeicons.ShareSolid
+import compose.icons.lineawesomeicons.CogSolid
+import compose.icons.lineawesomeicons.CommentSolid
+import compose.icons.lineawesomeicons.EllipsisVSolid
+import compose.icons.lineawesomeicons.GlobeSolid
+import compose.icons.lineawesomeicons.HeartSolid
+import compose.icons.lineawesomeicons.RetweetSolid
+import compose.icons.lineawesomeicons.StarSolid
+import compose.icons.lineawesomeicons.FileAltSolid
+import compose.icons.lineawesomeicons.HashtagSolid
+import compose.icons.lineawesomeicons.FileSolid
+import compose.icons.lineawesomeicons.UsersSolid
+import compose.icons.lineawesomeicons.RssSolid
+import compose.icons.lineawesomeicons.AtSolid
+import compose.icons.lineawesomeicons.UserPlusSolid
+import compose.icons.lineawesomeicons.ChartBarSolid
+import compose.icons.lineawesomeicons.BookmarkSolid
+import compose.icons.lineawesomeicons.MapMarkerSolid
+import compose.icons.lineawesomeicons.InfoCircleSolid
+import compose.icons.lineawesomeicons.ExclamationTriangleSolid
+import compose.icons.lineawesomeicons.SyncSolid
+import compose.icons.lineawesomeicons.PhoneSolid
+import compose.icons.lineawesomeicons.ReplySolid
+import compose.icons.lineawesomeicons.PlaySolid
+import compose.icons.lineawesomeicons.QrcodeSolid
+import compose.icons.lineawesomeicons.TimesSolid
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -195,7 +226,7 @@ private fun BoxScope.VideoIndicator() {
     ) {
         Box(contentAlignment = Alignment.Center) {
             Icon(
-                imageVector = FeatherIcons.Play,
+                imageVector = LineAwesomeIcons.PlaySolid,
                 contentDescription = "Video",
                 tint = MaterialTheme.colorScheme.onSurface
             )
@@ -217,7 +248,7 @@ private fun BoxScope.SensitiveOverlay(onClick: () -> Unit) {
             verticalArrangement = Arrangement.Center
         ) {
             Icon(
-                imageVector = FeatherIcons.AlertTriangle,
+                imageVector = LineAwesomeIcons.ExclamationTriangleSolid,
                 contentDescription = "Sensitive content",
                 modifier = Modifier.size(48.dp),
                 tint = MaterialTheme.colorScheme.primary

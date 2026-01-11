@@ -5,8 +5,39 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import compose.icons.FeatherIcons
-import compose.icons.feathericons.*
+import compose.icons.LineAwesomeIcons
+import compose.icons.lineawesomeicons.HomeSolid
+import compose.icons.lineawesomeicons.SearchSolid
+import compose.icons.lineawesomeicons.EditSolid
+import compose.icons.lineawesomeicons.BellSolid
+import compose.icons.lineawesomeicons.UserSolid
+import compose.icons.lineawesomeicons.ShareSolid
+import compose.icons.lineawesomeicons.CogSolid
+import compose.icons.lineawesomeicons.CommentSolid
+import compose.icons.lineawesomeicons.EllipsisVSolid
+import compose.icons.lineawesomeicons.GlobeSolid
+import compose.icons.lineawesomeicons.HeartSolid
+import compose.icons.lineawesomeicons.RetweetSolid
+import compose.icons.lineawesomeicons.StarSolid
+import compose.icons.lineawesomeicons.FileAltSolid
+import compose.icons.lineawesomeicons.HashtagSolid
+import compose.icons.lineawesomeicons.FileSolid
+import compose.icons.lineawesomeicons.UsersSolid
+import compose.icons.lineawesomeicons.RssSolid
+import compose.icons.lineawesomeicons.AtSolid
+import compose.icons.lineawesomeicons.UserPlusSolid
+import compose.icons.lineawesomeicons.ChartBarSolid
+import compose.icons.lineawesomeicons.BookmarkSolid
+import compose.icons.lineawesomeicons.MapMarkerSolid
+import compose.icons.lineawesomeicons.InfoCircleSolid
+import compose.icons.lineawesomeicons.ExclamationTriangleSolid
+import compose.icons.lineawesomeicons.SyncSolid
+import compose.icons.lineawesomeicons.PhoneSolid
+import compose.icons.lineawesomeicons.ReplySolid
+import compose.icons.lineawesomeicons.PlaySolid
+import compose.icons.lineawesomeicons.QrcodeSolid
+import compose.icons.lineawesomeicons.TimesSolid
+
 
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -97,7 +128,7 @@ fun StatusCard(
 
                 IconButton(onClick = { onMore(status.id) }) {
                     Icon(
-                        imageVector = FeatherIcons.MoreVertical,
+                        imageVector = LineAwesomeIcons.EllipsisVSolid,
                         contentDescription = "More options",
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -116,7 +147,7 @@ fun StatusCard(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
-                            imageVector = FeatherIcons.AlertTriangle,
+                            imageVector = LineAwesomeIcons.ExclamationTriangleSolid,
                             contentDescription = null,
                             modifier = Modifier.size(16.dp),
                             tint = MaterialTheme.colorScheme.onSecondaryContainer
@@ -154,20 +185,20 @@ fun StatusCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 StatusActionButton(
-                    icon = FeatherIcons.Phone,
+                    icon = LineAwesomeIcons.PhoneSolid,
                     count = status.repliesCount.toInt(),
                     onClick = { onReply(status.id) }
                 )
 
                 StatusActionButton(
-                    icon = FeatherIcons.RefreshCw,
+                    icon = LineAwesomeIcons.SyncSolid,
                     count = status.reblogsCount.toInt(),
                     isActive = status.reblogged,
                     onClick = { onBoost(status.id) }
                 )
 
                 StatusActionButton(
-                    icon = if (status.favourited) FeatherIcons.Heart else FeatherIcons.Heart,
+                    icon = if (status.favourited) LineAwesomeIcons.HeartSolid else LineAwesomeIcons.HeartSolid,
                     count = status.favouritesCount.toInt(),
                     isActive = status.favourited,
                     onClick = { onFavorite(status.id) }
@@ -175,7 +206,7 @@ fun StatusCard(
 
                 IconButton(onClick = { onMore(status.id) }) {
                     Icon(
-                        imageVector = FeatherIcons.Share2,
+                        imageVector = LineAwesomeIcons.ShareSolid,
                         contentDescription = "Share",
                         tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
