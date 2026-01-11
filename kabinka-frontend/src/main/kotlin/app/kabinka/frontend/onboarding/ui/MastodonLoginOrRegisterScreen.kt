@@ -1,6 +1,8 @@
 package app.kabinka.frontend.onboarding.ui
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -9,45 +11,52 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
-// NOTE: Phase 1 - Mastodon-only onboarding.
-// Do not add future-proofing or abstractions for chat or media onboarding.
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SplashScreen(
-    onConnectMastodon: () -> Unit,
+fun MastodonLoginOrRegisterScreen(
+    instanceUrl: String,
+    onLogin: () -> Unit,
     onRegister: () -> Unit,
-    onBrowseWithoutAccount: () -> Unit
+    onBack: () -> Unit
 ) {
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
-    ) {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Connect to Mastodon") },
+                navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, "Back")
+                    }
+                }
+            )
+        }
+    ) { padding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(padding)
                 .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
             Text(
                 text = "🧡",
-                style = MaterialTheme.typography.displayLarge,
-                fontSize = MaterialTheme.typography.displayLarge.fontSize * 2
+                style = MaterialTheme.typography.displayMedium
             )
             
             Spacer(modifier = Modifier.height(24.dp))
             
             Text(
-                text = "Welcome to Kabinka",
-                style = MaterialTheme.typography.headlineLarge,
+                text = instanceUrl,
+                style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary
             )
             
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(12.dp))
             
             Text(
-                text = "Connect your Mastodon account",
+                text = "Do you already have an account?",
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center
@@ -56,38 +65,33 @@ fun SplashScreen(
             Spacer(modifier = Modifier.height(48.dp))
             
             Button(
-                onClick = onConnectMastodon,
+                onClick = onLogin,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp)
             ) {
-                Text("Login", style = MaterialTheme.typography.titleMedium)
-            }
-            
-            Spacer(modifier = Modifier.height(12.dp))
-            
-            Button(
-                onClick = onRegister,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = MaterialTheme.colorScheme.secondary
-                )
-            ) {
-                Text("Register", style = MaterialTheme.typography.titleMedium)
+                Text("Login with existing account", style = MaterialTheme.typography.titleMedium)
             }
             
             Spacer(modifier = Modifier.height(12.dp))
             
             OutlinedButton(
-                onClick = onBrowseWithoutAccount,
+                onClick = onRegister,
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp)
             ) {
-                Text("Browse without account", style = MaterialTheme.typography.titleMedium)
+                Text("Create new account", style = MaterialTheme.typography.titleMedium)
             }
+            
+            Spacer(modifier = Modifier.height(24.dp))
+            
+            Text(
+                text = "Creating an account will allow you to post, follow others, and interact with the Fediverse.",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                textAlign = TextAlign.Center
+            )
         }
     }
 }

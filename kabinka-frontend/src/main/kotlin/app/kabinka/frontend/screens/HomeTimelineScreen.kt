@@ -62,12 +62,12 @@ import compose.icons.lineawesomeicons.TimesSolid
 @Composable
 fun HomeTimelineScreen(
     sessionManager: SessionStateManager,
-    onNavigateToLogin: () -> Unit = {}
+    onNavigateToLogin: () -> Unit = {},
+    onOpenDrawer: () -> Unit = {}
 ) {
     val viewModel: TimelineViewModel = viewModel { TimelineViewModel(sessionManager) }
     val uiState by viewModel.uiState.collectAsState()
     var selectedTab by remember { mutableStateOf(0) }
-    var showMenu by remember { mutableStateOf(false) }
     val tabs = listOf("Personal", "Local", "Federated")
     
     // Check if user is logged in
@@ -119,57 +119,13 @@ fun HomeTimelineScreen(
                         }
                     },
                     actions = {
-                        IconButton(onClick = { /* TODO: Open chat */ }) {
+                        // Menu button to open drawer
+                        IconButton(onClick = onOpenDrawer) {
                             Icon(
-                                imageVector = LineAwesomeIcons.CommentSolid,
-                                contentDescription = "Chat",
-                                tint = MaterialTheme.colorScheme.primary
+                                imageVector = LineAwesomeIcons.EllipsisVSolid,
+                                contentDescription = "Menu",
+                                tint = MaterialTheme.colorScheme.onSurface
                             )
-                        }
-                        
-                        // Settings/Menu button
-                        Box {
-                            IconButton(onClick = { showMenu = true }) {
-                                Icon(
-                                    imageVector = LineAwesomeIcons.EllipsisVSolid,
-                                    contentDescription = "Menu",
-                                    tint = MaterialTheme.colorScheme.onSurface
-                                )
-                            }
-                            
-                            DropdownMenu(
-                                expanded = showMenu,
-                                onDismissRequest = { showMenu = false }
-                            ) {
-                                DropdownMenuItem(
-                                    text = { Text(if (isLoggedIn) "Log Out" else "Login / Register") },
-                                    onClick = {
-                                        showMenu = false
-                                        if (isLoggedIn) {
-                                            // Clear session and reset to anonymous
-                                            try {
-                                                val currentAccount = sessionManager.getCurrentSession()
-                                                currentAccount?.let {
-                                                    app.kabinka.social.api.session.AccountSessionManager.getInstance()
-                                                        .removeAccount(it.getID())
-                                                }
-                                                // Set anonymous mode after logout
-                                                sessionManager.setAnonymousMode(true)
-                                            } catch (e: Exception) {
-                                                android.util.Log.e("HomeTimeline", "Error logging out", e)
-                                            }
-                                        }
-                                        onNavigateToLogin()
-                                    }
-                                )
-                                DropdownMenuItem(
-                                    text = { Text("Settings") },
-                                    onClick = {
-                                        showMenu = false
-                                        // TODO: Open settings
-                                    }
-                                )
-                            }
                         }
                     },
                     colors = TopAppBarDefaults.topAppBarColors(

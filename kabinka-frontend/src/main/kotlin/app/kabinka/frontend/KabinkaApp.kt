@@ -95,7 +95,22 @@ fun KabinkaApp(
                 },
                 profileAvatarUrl = currentAccount?.avatar,
                 profileDisplayName = currentAccount?.displayName,
-                profileUsername = accountDomain
+                profileUsername = accountDomain,
+                isLoggedIn = currentAccount != null,
+                onLogout = {
+                    // Handle logout
+                    if (currentAccount != null) {
+                        try {
+                            currentAccountSession?.let {
+                                AccountSessionManager.getInstance().removeAccount(it.getID())
+                            }
+                            sessionManager.setAnonymousMode(true)
+                        } catch (e: Exception) {
+                            android.util.Log.e("KabinkaApp", "Error logging out", e)
+                        }
+                    }
+                    onNavigateToLogin()
+                }
             )
         }
     ) {
@@ -125,7 +140,12 @@ fun KabinkaApp(
                 composable(Screen.Home.route) {
                     HomeTimelineScreen(
                         sessionManager = sessionManager,
-                        onNavigateToLogin = onNavigateToLogin
+                        onNavigateToLogin = onNavigateToLogin,
+                        onOpenDrawer = {
+                            scope.launch {
+                                drawerState.open()
+                            }
+                        }
                     )
                 }
                 

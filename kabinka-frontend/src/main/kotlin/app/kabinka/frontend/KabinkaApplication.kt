@@ -11,11 +11,10 @@ class KabinkaApplication : Application() {
         
         Log.d(TAG, "KabinkaApplication.onCreate() - Initializing app")
         
-        // ONLY set the context - nothing else
-        // All other initialization will happen lazily when needed
-        MastodonApp.context = this
+        // Initialize MastodonApp which sets up V.setApplicationContext and other essentials
+        MastodonApp.initializeWithContext(this)
         
-        Log.d(TAG, "MastodonApp.context set successfully")
+        Log.d(TAG, "MastodonApp initialized successfully")
     }
     
     companion object {

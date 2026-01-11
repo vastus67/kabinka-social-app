@@ -25,7 +25,9 @@ fun KabinkaDrawer(
     modifier: Modifier = Modifier,
     profileAvatarUrl: String? = null,
     profileDisplayName: String? = null,
-    profileUsername: String? = null
+    profileUsername: String? = null,
+    isLoggedIn: Boolean = false,
+    onLogout: () -> Unit = {}
 ) {
     ModalDrawerSheet(
         modifier = modifier,
@@ -148,6 +150,15 @@ fun KabinkaDrawer(
                 highlight = true
             )
 
+            DrawerItem(
+                icon = Icons.Outlined.Book,
+                label = "Magazine",
+                onClick = {
+                    onNavigate("magazine")
+                    onDismiss()
+                }
+            )
+
             Spacer(modifier = Modifier.height(8.dp))
 
             HorizontalDivider()
@@ -169,6 +180,21 @@ fun KabinkaDrawer(
                 onClick = {
                     onNavigate("about")
                     onDismiss()
+                }
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            HorizontalDivider()
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            DrawerItem(
+                icon = if (isLoggedIn) Icons.Outlined.ExitToApp else Icons.Outlined.Login,
+                label = if (isLoggedIn) "Log Out" else "Login / Register",
+                onClick = {
+                    onDismiss()
+                    onLogout()
                 }
             )
 
