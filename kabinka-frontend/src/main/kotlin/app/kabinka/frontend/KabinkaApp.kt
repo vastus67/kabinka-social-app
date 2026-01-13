@@ -22,6 +22,7 @@ import app.kabinka.frontend.screens.ProfileScreen
 import app.kabinka.frontend.screens.SettingsScreen
 import app.kabinka.frontend.settings.ui.BehaviourSettingsScreen
 import app.kabinka.frontend.settings.ui.DisplaySettingsScreen
+import app.kabinka.frontend.settings.ui.PrivacySettingsScreen
 import app.kabinka.coreui.components.KabinkaBottomNav
 import app.kabinka.coreui.components.KabinkaDrawer
 import app.kabinka.social.api.session.AccountSessionManager
@@ -204,7 +205,9 @@ fun KabinkaApp(
                 }
                 
                 composable(Screen.PrivacySettings.route) {
-                    PlaceholderScreen("Privacy Settings")
+                    PrivacySettingsScreen(
+                        onNavigateBack = { navController.popBackStack() }
+                    )
                 }
                 
                 composable(Screen.FiltersSettings.route) {
