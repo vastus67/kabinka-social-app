@@ -19,6 +19,9 @@ import app.kabinka.frontend.screens.LoginChooserScreen
 import app.kabinka.frontend.screens.ExploreScreen
 import app.kabinka.frontend.screens.NotificationsScreen
 import app.kabinka.frontend.screens.ProfileScreen
+import app.kabinka.frontend.screens.SettingsScreen
+import app.kabinka.frontend.settings.ui.BehaviourSettingsScreen
+import app.kabinka.frontend.settings.ui.DisplaySettingsScreen
 import app.kabinka.coreui.components.KabinkaBottomNav
 import app.kabinka.coreui.components.KabinkaDrawer
 import app.kabinka.social.api.session.AccountSessionManager
@@ -170,6 +173,62 @@ fun KabinkaApp(
                 
                 composable(Screen.Profile.route) {
                     ProfileScreen()
+                }
+                
+                composable(Screen.Settings.route) {
+                    SettingsScreen(
+                        onNavigateBack = { navController.popBackStack() },
+                        onNavigateToBehaviour = { navController.navigate(Screen.BehaviourSettings.route) },
+                        onNavigateToDisplay = { navController.navigate(Screen.DisplaySettings.route) },
+                        onNavigateToPrivacy = { navController.navigate(Screen.PrivacySettings.route) },
+                        onNavigateToFilters = { navController.navigate(Screen.FiltersSettings.route) },
+                        onNavigateToNotifications = { navController.navigate(Screen.NotificationSettings.route) },
+                        onNavigateToPostingDefaults = { navController.navigate(Screen.PostingDefaultsSettings.route) },
+                        onNavigateToAboutServer = { navController.navigate(Screen.AboutServer.route) },
+                        onNavigateToDonate = { navController.navigate(Screen.DonateToServer.route) },
+                        onNavigateToDeleteAccount = { navController.navigate(Screen.DeleteAccount.route) }
+                    )
+                }
+                
+                // Settings sub-screens
+                composable(Screen.BehaviourSettings.route) {
+                    BehaviourSettingsScreen(
+                        onNavigateBack = { navController.popBackStack() }
+                    )
+                }
+                
+                composable(Screen.DisplaySettings.route) {
+                    DisplaySettingsScreen(
+                        onNavigateBack = { navController.popBackStack() }
+                    )
+                }
+                
+                composable(Screen.PrivacySettings.route) {
+                    PlaceholderScreen("Privacy Settings")
+                }
+                
+                composable(Screen.FiltersSettings.route) {
+                    PlaceholderScreen("Filters")
+                }
+                
+                composable(Screen.NotificationSettings.route) {
+                    PlaceholderScreen("Notification Settings")
+                }
+                
+                composable(Screen.PostingDefaultsSettings.route) {
+                    PlaceholderScreen("Posting Defaults")
+                }
+                
+                composable(Screen.AboutServer.route) {
+                    PlaceholderScreen("About Server")
+                }
+                
+                composable(Screen.DonateToServer.route) {
+                    PlaceholderScreen("Donate")
+                }
+                
+                composable(Screen.DeleteAccount.route) {
+                    PlaceholderScreen("Delete Account")
                 }
             }
         }

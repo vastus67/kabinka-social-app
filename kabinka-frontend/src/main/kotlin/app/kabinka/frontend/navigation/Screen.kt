@@ -67,9 +67,16 @@ sealed class Screen(val route: String) {
     }
 
     object Settings : Screen("settings")
-    object AppearanceSettings : Screen("settings/appearance")
-    object NotificationSettings : Screen("settings/notifications")
+    object BehaviourSettings : Screen("settings/behaviour")
+    object DisplaySettings : Screen("settings/display")
     object PrivacySettings : Screen("settings/privacy")
+    object FiltersSettings : Screen("settings/filters")
+    object NotificationSettings : Screen("settings/notifications")
+    object PostingDefaultsSettings : Screen("settings/posting_defaults")
+    object AboutServer : Screen("settings/about_server")
+    object DonateToServer : Screen("settings/donate")
+    object DeleteAccount : Screen("settings/delete_account")
+    object AppearanceSettings : Screen("settings/appearance")
     object AccountManagement : Screen("settings/account")
     object About : Screen("about")
 
