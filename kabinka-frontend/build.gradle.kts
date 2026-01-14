@@ -155,6 +155,9 @@ dependencies {
     
     // Browser support for Custom Tabs
     implementation("androidx.browser:browser:1.7.0")
+    
+    // ZXing for QR code generation
+    implementation("com.google.zxing:core:3.5.3")
 
     debugImplementation(libs.compose.ui.tooling)
 }

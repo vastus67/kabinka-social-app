@@ -1,11 +1,19 @@
 package app.kabinka.frontend.screens
 
+import android.net.Uri
+import android.graphics.Bitmap
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -13,12 +21,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import android.widget.Toast
 import app.kabinka.social.api.requests.accounts.GetAccountStatuses
 import app.kabinka.social.api.requests.accounts.GetOwnAccount
+import app.kabinka.social.api.requests.accounts.UpdateAccountCredentials
 import app.kabinka.social.api.session.AccountSessionManager
 import app.kabinka.social.model.Account
+import app.kabinka.social.model.AccountField
 import app.kabinka.social.model.Status
 import coil.compose.AsyncImage
 import compose.icons.LineAwesomeIcons
@@ -53,6 +65,7 @@ import compose.icons.lineawesomeicons.ReplySolid
 import compose.icons.lineawesomeicons.PlaySolid
 import compose.icons.lineawesomeicons.QrcodeSolid
 import compose.icons.lineawesomeicons.TimesSolid
+import compose.icons.lineawesomeicons.CameraSolid
 
 import me.grishka.appkit.api.Callback
 import me.grishka.appkit.api.ErrorResponse
@@ -66,8 +79,11 @@ fun ProfileScreen() {
     var error by remember { mutableStateOf<String?>(null) }
     var selectedTab by remember { mutableStateOf(0) }
     var selectedFilter by remember { mutableStateOf(0) }
+    var showUpdateDialog by remember { mutableStateOf(false) }
+    var showQrCodeDialog by remember { mutableStateOf(false) }
+    var refreshTrigger by remember { mutableStateOf(0) }
     
-    val tabs = listOf("Featured", "Timeline", "About", "Saved")
+    val tabs = listOf("Featured", "Timeline", "About")
     val filters = listOf("Posts", "Replies", "Media")
     
     // Check if user is logged in
@@ -80,7 +96,7 @@ fun ProfileScreen() {
     }
     
     // Load own account
-    LaunchedEffect(selectedFilter) {
+    LaunchedEffect(selectedFilter, refreshTrigger) {
         if (isLoggedIn) {
             isLoading = true
             val accountId = AccountSessionManager.getInstance().lastActiveAccountID
@@ -182,7 +198,13 @@ fun ProfileScreen() {
                 ) {
                     // Profile Header
                     item {
-                        ProfileHeader(account = account!!, postsCount = statuses.size)
+                        ProfileHeader(
+                            account = account!!, 
+                            postsCount = statuses.size,
+                            onEditProfile = { showUpdateDialog = true },
+                            onRefresh = { refreshTrigger++ },
+                            onQrCodeClick = { showQrCodeDialog = true }
+                        )
                     }
                     
                     // Tabs
@@ -264,26 +286,50 @@ fun ProfileScreen() {
                             item {
                                 AboutSection(account!!)
                             }
-                        }
-                        3 -> {
-                            // Saved
-                            item {
-                                EmptyContentCard(
-                                    icon = LineAwesomeIcons.BookmarkSolid,
-                                    title = "No saved posts",
-                                    message = "Bookmark posts to see them here"
-                                )
+                            
+                            // Profile fields
+                            if (!account?.fields.isNullOrEmpty()) {
+                                items(account!!.fields!!) { field ->
+                                    ProfileFieldCard(field)
+                                }
                             }
                         }
                     }
                 }
             }
         }
+        
+        // Update Profile Dialog
+        if (showUpdateDialog && account != null) {
+            UpdateProfileDialog(
+                account = account,
+                onDismiss = { showUpdateDialog = false },
+                onUpdate = { 
+                    showUpdateDialog = false
+                    refreshTrigger++
+                }
+            )
+        }
+        
+        // QR Code Dialog
+        val currentAccount = account
+        if (showQrCodeDialog && currentAccount != null) {
+            QrCodeDialog(
+                account = currentAccount,
+                onDismiss = { showQrCodeDialog = false }
+            )
+        }
     }
 }
 
 @Composable
-private fun ProfileHeader(account: Account, postsCount: Int) {
+private fun ProfileHeader(
+    account: Account, 
+    postsCount: Int,
+    onEditProfile: () -> Unit = {},
+    onRefresh: () -> Unit = {},
+    onQrCodeClick: () -> Unit = {}
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -297,18 +343,49 @@ private fun ProfileHeader(account: Account, postsCount: Int) {
         Column(
             modifier = Modifier.fillMaxWidth()
         ) {
-            // Banner area
+            // Banner area with image
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(120.dp)
-                    .background(
-                        MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
-                        RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
-                    )
             ) {
-                // TODO: Add banner image support
-                // For now, just a colored background
+                if (!account.header.isNullOrEmpty() && account.header != "missing.png") {
+                    AsyncImage(
+                        model = account.header,
+                        contentDescription = "Profile banner",
+                        modifier = Modifier.fillMaxSize(),
+                        contentScale = ContentScale.Crop
+                    )
+                } else {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(
+                                MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
+                                RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
+                            )
+                    )
+                }
+                
+                // Camera icon for updating banner
+                IconButton(
+                    onClick = onEditProfile,
+                    modifier = Modifier
+                        .align(Alignment.BottomEnd)
+                        .padding(8.dp)
+                        .size(32.dp)
+                        .background(
+                            MaterialTheme.colorScheme.surface.copy(alpha = 0.9f),
+                            CircleShape
+                        )
+                ) {
+                    Icon(
+                        imageVector = LineAwesomeIcons.CameraSolid,
+                        contentDescription = "Update banner",
+                        tint = MaterialTheme.colorScheme.onSurface,
+                        modifier = Modifier.size(16.dp)
+                    )
+                }
             }
             
             Column(
@@ -358,7 +435,7 @@ private fun ProfileHeader(account: Account, postsCount: Int) {
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         OutlinedButton(
-                            onClick = { /* TODO: QR Code */ },
+                            onClick = onQrCodeClick,
                             modifier = Modifier.size(40.dp),
                             contentPadding = PaddingValues(0.dp)
                         ) {
@@ -370,7 +447,7 @@ private fun ProfileHeader(account: Account, postsCount: Int) {
                         }
                         
                         Button(
-                            onClick = { /* TODO: Edit profile */ },
+                            onClick = onEditProfile,
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = MaterialTheme.colorScheme.primary
                             ),
@@ -573,6 +650,53 @@ private fun AboutSection(account: Account) {
 }
 
 @Composable
+private fun ProfileFieldCard(field: AccountField) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 4.dp),
+        shape = RoundedCornerShape(8.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        )
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(12.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.Top
+        ) {
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Text(
+                    text = field.name.replace(Regex("<[^>]*>"), ""),
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Text(
+                    text = field.value.replace(Regex("<[^>]*>"), ""),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
+            
+            // Verified icon if field is verified
+            if (field.verifiedAt != null) {
+                Icon(
+                    imageVector = LineAwesomeIcons.InfoCircleSolid,
+                    contentDescription = "Verified",
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+        }
+    }
+}
+
+@Composable
 private fun StatusCard(status: Status) {
     Card(
         modifier = Modifier
@@ -588,13 +712,141 @@ private fun StatusCard(status: Status) {
                 .fillMaxWidth()
                 .padding(16.dp)
         ) {
-            // Status content
-            Text(
-                text = status.content.replace(Regex("<[^>]*>"), ""),
-                style = MaterialTheme.typography.bodyMedium,
-                maxLines = 5,
-                overflow = TextOverflow.Ellipsis
-            )
+            // Status content - check for content or spoilerText
+            val displayContent = when {
+                !status.content.isNullOrEmpty() -> status.content.replace(Regex("<[^>]*>"), "")
+                !status.spoilerText.isNullOrEmpty() -> status.spoilerText
+                else -> "[Post with no text content]"
+            }
+            
+            if (displayContent.isNotEmpty()) {
+                Text(
+                    text = displayContent,
+                    style = MaterialTheme.typography.bodyMedium,
+                    overflow = TextOverflow.Ellipsis
+                )
+            }
+            
+            // Media attachments
+            if (!status.mediaAttachments.isNullOrEmpty()) {
+                Spacer(modifier = Modifier.height(12.dp))
+                
+                when (status.mediaAttachments.size) {
+                    1 -> {
+                        // Single image
+                        AsyncImage(
+                            model = status.mediaAttachments[0].previewUrl ?: status.mediaAttachments[0].url,
+                            contentDescription = "Media attachment",
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(200.dp)
+                                .clip(RoundedCornerShape(8.dp)),
+                            contentScale = ContentScale.Crop
+                        )
+                    }
+                    2 -> {
+                        // Two images side by side
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                        ) {
+                            status.mediaAttachments.take(2).forEach { attachment ->
+                                AsyncImage(
+                                    model = attachment.previewUrl ?: attachment.url,
+                                    contentDescription = "Media attachment",
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .height(150.dp)
+                                        .clip(RoundedCornerShape(8.dp)),
+                                    contentScale = ContentScale.Crop
+                                )
+                            }
+                        }
+                    }
+                    3 -> {
+                        // Three images: one large on left, two stacked on right
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)
+                        ) {
+                            AsyncImage(
+                                model = status.mediaAttachments[0].previewUrl ?: status.mediaAttachments[0].url,
+                                contentDescription = "Media attachment",
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .height(200.dp)
+                                    .clip(RoundedCornerShape(8.dp)),
+                                contentScale = ContentScale.Crop
+                            )
+                            Column(
+                                modifier = Modifier.weight(1f),
+                                verticalArrangement = Arrangement.spacedBy(4.dp)
+                            ) {
+                                status.mediaAttachments.drop(1).forEach { attachment ->
+                                    AsyncImage(
+                                        model = attachment.previewUrl ?: attachment.url,
+                                        contentDescription = "Media attachment",
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .height(98.dp)
+                                            .clip(RoundedCornerShape(8.dp)),
+                                        contentScale = ContentScale.Crop
+                                    )
+                                }
+                            }
+                        }
+                    }
+                    else -> {
+                        // Four or more images: 2x2 grid
+                        Column(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalArrangement = Arrangement.spacedBy(4.dp)
+                        ) {
+                            status.mediaAttachments.chunked(2).take(2).forEach { row ->
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                                ) {
+                                    row.forEach { attachment ->
+                                        Box(
+                                            modifier = Modifier
+                                                .weight(1f)
+                                                .height(120.dp)
+                                        ) {
+                                            AsyncImage(
+                                                model = attachment.previewUrl ?: attachment.url,
+                                                contentDescription = "Media attachment",
+                                                modifier = Modifier
+                                                    .fillMaxSize()
+                                                    .clip(RoundedCornerShape(8.dp)),
+                                                contentScale = ContentScale.Crop
+                                            )
+                                            // Show +N overlay for remaining images
+                                            if (status.mediaAttachments.indexOf(attachment) == 3 && status.mediaAttachments.size > 4) {
+                                                Box(
+                                                    modifier = Modifier
+                                                        .fillMaxSize()
+                                                        .background(
+                                                            MaterialTheme.colorScheme.surface.copy(alpha = 0.7f),
+                                                            RoundedCornerShape(8.dp)
+                                                        ),
+                                                    contentAlignment = Alignment.Center
+                                                ) {
+                                                    Text(
+                                                        text = "+${status.mediaAttachments.size - 4}",
+                                                        style = MaterialTheme.typography.titleLarge,
+                                                        color = MaterialTheme.colorScheme.onSurface
+                                                    )
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             
             Spacer(modifier = Modifier.height(12.dp))
             
@@ -637,3 +889,449 @@ private fun StatusCard(status: Status) {
         }
     }
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun UpdateProfileDialog(
+    account: Account?,
+    onDismiss: () -> Unit,
+    onUpdate: () -> Unit
+) {
+    val context = LocalContext.current
+    var selectedAvatarUri by remember { mutableStateOf<Uri?>(null) }
+    var selectedBannerUri by remember { mutableStateOf<Uri?>(null) }
+    var isUpdating by remember { mutableStateOf(false) }
+    var displayName by remember { mutableStateOf(account?.displayName ?: "") }
+    var bio by remember { mutableStateOf(account?.source?.note ?: account?.note?.replace(Regex("<[^>]*>"), "") ?: "") }
+    var showDiscardDialog by remember { mutableStateOf(false) }
+    
+    // Profile fields - start with existing fields or empty list
+    var profileFields by remember {
+        mutableStateOf<List<AccountField>>(
+            account?.source?.fields?.map { 
+                AccountField().apply { 
+                    name = it.name
+                    value = it.value
+                }
+            } ?: emptyList()
+        )
+    }
+    
+    // Check if there are unsaved changes
+    val hasChanges = remember(displayName, bio, selectedAvatarUri, selectedBannerUri, profileFields) {
+        val sourceNote = account?.source?.note ?: account?.note?.replace(Regex("<[^>]*>"), "") ?: ""
+        displayName != (account?.displayName ?: "") ||
+        bio != sourceNote ||
+        selectedAvatarUri != null ||
+        selectedBannerUri != null ||
+        !areFieldsEqual(profileFields, account?.source?.fields)
+    }
+    
+    val avatarLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        selectedAvatarUri = uri
+    }
+    
+    val bannerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        selectedBannerUri = uri
+    }
+    
+    // Discard changes confirmation dialog
+    if (showDiscardDialog) {
+        AlertDialog(
+            onDismissRequest = { showDiscardDialog = false },
+            title = { Text("Discard changes?") },
+            text = { Text("You have unsaved changes. Are you sure you want to discard them?") },
+            confirmButton = {
+                TextButton(onClick = {
+                    showDiscardDialog = false
+                    onDismiss()
+                }) {
+                    Text("Discard")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDiscardDialog = false }) {
+                    Text("Cancel")
+                }
+            }
+        )
+    }
+    
+    AlertDialog(
+        onDismissRequest = {
+            if (hasChanges) {
+                showDiscardDialog = true
+            } else {
+                onDismiss()
+            }
+        },
+        title = {
+            Text(
+                text = "Edit Profile",
+                style = MaterialTheme.typography.titleLarge
+            )
+        },
+        text = {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(max = 500.dp)
+                    .verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                // Banner preview and selector
+                Text(
+                    text = "Profile Banner",
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(120.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .clickable { bannerLauncher.launch("image/*") }
+                ) {
+                    if (selectedBannerUri != null) {
+                        AsyncImage(
+                            model = selectedBannerUri,
+                            contentDescription = "New banner",
+                            modifier = Modifier.fillMaxSize(),
+                            contentScale = ContentScale.Crop
+                        )
+                    } else if (!account?.header.isNullOrEmpty() && account?.header != "missing.png") {
+                        AsyncImage(
+                            model = account?.header,
+                            contentDescription = "Current banner",
+                            modifier = Modifier.fillMaxSize(),
+                            contentScale = ContentScale.Crop
+                        )
+                    } else {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f)),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Icon(
+                                    imageVector = LineAwesomeIcons.CameraSolid,
+                                    contentDescription = "Add banner",
+                                    modifier = Modifier.size(32.dp),
+                                    tint = MaterialTheme.colorScheme.primary
+                                )
+                                Text(
+                                    text = "Tap to select banner",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        }
+                    }
+                    
+                    // Camera icon overlay
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .padding(8.dp)
+                            .size(32.dp)
+                            .background(
+                                MaterialTheme.colorScheme.surface.copy(alpha = 0.9f),
+                                CircleShape
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = LineAwesomeIcons.CameraSolid,
+                            contentDescription = "Change banner",
+                            tint = MaterialTheme.colorScheme.onSurface,
+                            modifier = Modifier.size(16.dp)
+                        )
+                    }
+                }
+                
+                // Avatar preview and selector
+                Text(
+                    text = "Profile Picture",
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Box(
+                    modifier = Modifier
+                        .size(100.dp)
+                        .clip(CircleShape)
+                        .clickable { avatarLauncher.launch("image/*") }
+                ) {
+                    if (selectedAvatarUri != null) {
+                        AsyncImage(
+                            model = selectedAvatarUri,
+                            contentDescription = "New avatar",
+                            modifier = Modifier.fillMaxSize(),
+                            contentScale = ContentScale.Crop
+                        )
+                    } else if (account?.avatar != null) {
+                        AsyncImage(
+                            model = account.avatar,
+                            contentDescription = "Current avatar",
+                            modifier = Modifier.fillMaxSize(),
+                            contentScale = ContentScale.Crop
+                        )
+                    } else {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(MaterialTheme.colorScheme.primary),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = account?.displayName?.firstOrNull()?.toString() ?: "?",
+                                style = MaterialTheme.typography.headlineMedium,
+                                color = MaterialTheme.colorScheme.onPrimary
+                            )
+                        }
+                    }
+                    
+                    // Camera icon overlay
+                    Box(
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .size(28.dp)
+                            .background(
+                                MaterialTheme.colorScheme.surface.copy(alpha = 0.9f),
+                                CircleShape
+                            ),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = LineAwesomeIcons.CameraSolid,
+                            contentDescription = "Change avatar",
+                            tint = MaterialTheme.colorScheme.onSurface,
+                            modifier = Modifier.size(14.dp)
+                        )
+                    }
+                }
+                
+                HorizontalDivider()
+                
+                // Display name field
+                OutlinedTextField(
+                    value = displayName,
+                    onValueChange = { displayName = it },
+                    label = { Text("Display Name") },
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true
+                )
+                
+                // Bio field
+                OutlinedTextField(
+                    value = bio,
+                    onValueChange = { bio = it },
+                    label = { Text("Bio") },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(120.dp),
+                    maxLines = 5
+                )
+                
+                HorizontalDivider()
+                
+                // Profile fields section
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Profile Fields",
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    if (profileFields.size < 4) {
+                        TextButton(
+                            onClick = {
+                                profileFields = profileFields + AccountField().apply {
+                                    name = ""
+                                    value = ""
+                                }
+                            }
+                        ) {
+                            Icon(
+                                imageVector = LineAwesomeIcons.UserPlusSolid,
+                                contentDescription = "Add field",
+                                modifier = Modifier.size(16.dp)
+                            )
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text("Add Field")
+                        }
+                    }
+                }
+                
+                Text(
+                    text = "Add up to 4 custom fields to your profile (e.g., website, location, pronouns)",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                
+                // Profile fields list
+                for (index in profileFields.indices) {
+                    val field = profileFields[index]
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = CardDefaults.cardColors(
+                            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
+                        )
+                    ) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(12.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Text(
+                                    text = "Field ${index + 1}",
+                                    style = MaterialTheme.typography.labelSmall,
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                                IconButton(
+                                    onClick = {
+                                        profileFields = profileFields.filterIndexed { i, _ -> i != index }
+                                    },
+                                    modifier = Modifier.size(24.dp)
+                                ) {
+                                    Icon(
+                                        imageVector = LineAwesomeIcons.TimesSolid,
+                                        contentDescription = "Remove field",
+                                        modifier = Modifier.size(16.dp),
+                                        tint = MaterialTheme.colorScheme.error
+                                    )
+                                }
+                            }
+                            
+                            OutlinedTextField(
+                                value = field.name ?: "",
+                                onValueChange = { newValue ->
+                                    profileFields = profileFields.mapIndexed { i, f ->
+                                        if (i == index) {
+                                            AccountField().apply {
+                                                name = newValue
+                                                value = f.value
+                                            }
+                                        } else f
+                                    }
+                                },
+                                label = { Text("Label (e.g., Website)") },
+                                modifier = Modifier.fillMaxWidth(),
+                                singleLine = true
+                            )
+                            
+                            OutlinedTextField(
+                                value = field.value ?: "",
+                                onValueChange = { newValue ->
+                                    profileFields = profileFields.mapIndexed { i, f ->
+                                        if (i == index) {
+                                            AccountField().apply {
+                                                name = f.name
+                                                value = newValue
+                                            }
+                                        } else f
+                                    }
+                                },
+                                label = { Text("Content (e.g., https://example.com)") },
+                                modifier = Modifier.fillMaxWidth(),
+                                singleLine = true
+                            )
+                        }
+                    }
+                }
+            }
+        },
+        confirmButton = {
+            Button(
+                onClick = {
+                    if (account != null) {
+                        isUpdating = true
+                        val accountId = AccountSessionManager.getInstance().lastActiveAccountID
+                        if (accountId != null) {
+                            // Filter out empty fields
+                            val validFields = profileFields.filter { 
+                                !it.name.isNullOrBlank() || !it.value.isNullOrBlank() 
+                            }
+                            
+                            val updateRequest = UpdateAccountCredentials(
+                                displayName,
+                                bio,
+                                selectedAvatarUri,
+                                selectedBannerUri,
+                                validFields
+                            )
+                            updateRequest.setCallback(object : Callback<Account> {
+                                override fun onSuccess(result: Account) {
+                                    isUpdating = false
+                                    AccountSessionManager.getInstance().updateAccountInfo(accountId, result)
+                                    Toast.makeText(
+                                        context,
+                                        "Profile updated successfully",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    onUpdate()
+                                }
+                                override fun onError(errorResponse: ErrorResponse) {
+                                    isUpdating = false
+                                    errorResponse.showToast(context)
+                                }
+                            }).exec(accountId)
+                        }
+                    }
+                },
+                enabled = !isUpdating
+            ) {
+                if (isUpdating) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(16.dp),
+                        strokeWidth = 2.dp
+                    )
+                } else {
+                    Text("Save")
+                }
+            }
+        },
+        dismissButton = {
+            TextButton(
+                onClick = {
+                    if (hasChanges) {
+                        showDiscardDialog = true
+                    } else {
+                        onDismiss()
+                    }
+                },
+                enabled = !isUpdating
+            ) {
+                Text("Cancel")
+            }
+        }
+    )
+}
+
+// Helper function to compare profile fields
+private fun areFieldsEqual(fields1: List<AccountField>?, fields2: List<app.kabinka.social.model.AccountField>?): Boolean {
+    if (fields1 == null && fields2 == null) return true
+    if (fields1 == null || fields2 == null) return false
+    if (fields1.size != fields2.size) return false
+    
+    return fields1.zip(fields2).all { (f1, f2) ->
+        f1.name == f2.name && f1.value == f2.value
+    }
+}
+
