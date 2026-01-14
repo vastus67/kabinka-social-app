@@ -184,7 +184,9 @@ fun ExploreScreen() {
                             text = { 
                                 Text(
                                     title,
-                                    style = MaterialTheme.typography.labelLarge
+                                    style = MaterialTheme.typography.labelMedium,
+                                    maxLines = 1,
+                                    softWrap = false
                                 ) 
                             }
                         )

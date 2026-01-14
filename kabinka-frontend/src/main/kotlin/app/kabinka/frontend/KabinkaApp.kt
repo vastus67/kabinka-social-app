@@ -20,6 +20,7 @@ import app.kabinka.frontend.screens.ExploreScreen
 import app.kabinka.frontend.screens.NotificationsScreen
 import app.kabinka.frontend.screens.ProfileScreen
 import app.kabinka.frontend.screens.SettingsScreen
+import app.kabinka.frontend.screens.AboutServerScreen
 import app.kabinka.frontend.settings.ui.BehaviourSettingsScreen
 import app.kabinka.frontend.settings.ui.DisplaySettingsScreen
 import app.kabinka.frontend.settings.ui.PrivacySettingsScreen
@@ -250,7 +251,9 @@ fun KabinkaApp(
                 }
                 
                 composable(Screen.AboutServer.route) {
-                    PlaceholderScreen("About Server")
+                    AboutServerScreen(
+                        onBack = { navController.popBackStack() }
+                    )
                 }
                 
                 composable(Screen.DonateToServer.route) {
