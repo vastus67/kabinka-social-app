@@ -23,6 +23,8 @@ import app.kabinka.frontend.screens.SettingsScreen
 import app.kabinka.frontend.settings.ui.BehaviourSettingsScreen
 import app.kabinka.frontend.settings.ui.DisplaySettingsScreen
 import app.kabinka.frontend.settings.ui.PrivacySettingsScreen
+import app.kabinka.frontend.settings.ui.FiltersSettingsScreen
+import app.kabinka.frontend.settings.ui.EditFilterScreen
 import app.kabinka.coreui.components.KabinkaBottomNav
 import app.kabinka.coreui.components.KabinkaDrawer
 import app.kabinka.social.api.session.AccountSessionManager
@@ -211,7 +213,26 @@ fun KabinkaApp(
                 }
                 
                 composable(Screen.FiltersSettings.route) {
-                    PlaceholderScreen("Filters")
+                    FiltersSettingsScreen(
+                        onNavigateBack = { navController.popBackStack() },
+                        onNavigateToAddFilter = { navController.navigate(Screen.AddFilter.route) },
+                        onNavigateToEditFilter = { filterId -> navController.navigate(Screen.EditFilter.createRoute(filterId)) }
+                    )
+                }
+                
+                composable(Screen.AddFilter.route) {
+                    EditFilterScreen(
+                        filterId = null,
+                        onNavigateBack = { navController.popBackStack() }
+                    )
+                }
+                
+                composable(Screen.EditFilter.route) { backStackEntry ->
+                    val filterId = backStackEntry.arguments?.getString("filterId")
+                    EditFilterScreen(
+                        filterId = filterId,
+                        onNavigateBack = { navController.popBackStack() }
+                    )
                 }
                 
                 composable(Screen.NotificationSettings.route) {

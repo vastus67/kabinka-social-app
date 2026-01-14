@@ -71,6 +71,10 @@ sealed class Screen(val route: String) {
     object DisplaySettings : Screen("settings/display")
     object PrivacySettings : Screen("settings/privacy")
     object FiltersSettings : Screen("settings/filters")
+    object EditFilter : Screen("settings/filters/edit/{filterId}") {
+        fun createRoute(filterId: String) = "settings/filters/edit/$filterId"
+    }
+    object AddFilter : Screen("settings/filters/add")
     object NotificationSettings : Screen("settings/notifications")
     object PostingDefaultsSettings : Screen("settings/posting_defaults")
     object AboutServer : Screen("settings/about_server")
