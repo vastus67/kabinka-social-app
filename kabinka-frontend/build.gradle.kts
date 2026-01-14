@@ -141,6 +141,9 @@ dependencies {
     // Line Awesome Icons for Compose
     implementation("br.com.devsrsouza.compose.icons:line-awesome:1.1.0")
     
+    // Font Awesome Icons for Compose
+    implementation("br.com.devsrsouza.compose.icons:font-awesome:1.1.0")
+    
     // AppAuth for OAuth
     implementation("net.openid:appauth:0.11.1")
     

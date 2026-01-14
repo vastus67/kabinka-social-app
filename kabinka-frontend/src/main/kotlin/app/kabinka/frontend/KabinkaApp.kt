@@ -24,6 +24,8 @@ import app.kabinka.frontend.settings.ui.BehaviourSettingsScreen
 import app.kabinka.frontend.settings.ui.DisplaySettingsScreen
 import app.kabinka.frontend.settings.ui.PrivacySettingsScreen
 import app.kabinka.frontend.settings.ui.FiltersSettingsScreen
+import app.kabinka.frontend.settings.ui.NotificationsSettingsScreen
+import app.kabinka.frontend.settings.ui.PostingDefaultsSettingsScreen
 import app.kabinka.frontend.settings.ui.EditFilterScreen
 import app.kabinka.coreui.components.KabinkaBottomNav
 import app.kabinka.coreui.components.KabinkaDrawer
@@ -236,11 +238,15 @@ fun KabinkaApp(
                 }
                 
                 composable(Screen.NotificationSettings.route) {
-                    PlaceholderScreen("Notification Settings")
+                    NotificationsSettingsScreen(
+                        onNavigateBack = { navController.popBackStack() }
+                    )
                 }
                 
                 composable(Screen.PostingDefaultsSettings.route) {
-                    PlaceholderScreen("Posting Defaults")
+                    PostingDefaultsSettingsScreen(
+                        onNavigateBack = { navController.popBackStack() }
+                    )
                 }
                 
                 composable(Screen.AboutServer.route) {
