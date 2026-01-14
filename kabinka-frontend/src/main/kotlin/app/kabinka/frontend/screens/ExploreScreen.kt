@@ -19,12 +19,14 @@ import app.kabinka.social.api.requests.trends.GetTrendingStatuses
 import app.kabinka.social.api.requests.trends.GetTrendingHashtags
 import app.kabinka.social.api.requests.trends.GetTrendingLinks
 import app.kabinka.social.api.requests.accounts.GetFollowSuggestions
+import app.kabinka.social.api.requests.accounts.SetAccountFollowed
 import app.kabinka.social.api.requests.search.GetSearchResults
 import app.kabinka.social.api.session.AccountSessionManager
 import app.kabinka.social.model.Status
 import app.kabinka.social.model.Hashtag
 import app.kabinka.social.model.Card
 import app.kabinka.social.model.FollowSuggestion
+import app.kabinka.social.model.Relationship
 import app.kabinka.social.model.Attachment
 import app.kabinka.social.model.SearchResults
 import app.kabinka.social.model.Account
@@ -957,6 +959,9 @@ private fun NewsCard(card: Card) {
 
 @Composable
 private fun SuggestionCard(suggestion: FollowSuggestion, onNavigateToUser: (String) -> Unit = {}) {
+    var isFollowing by remember { mutableStateOf(false) }
+    var isFollowLoading by remember { mutableStateOf(false) }
+    
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(0.dp),
@@ -982,8 +987,35 @@ private fun SuggestionCard(suggestion: FollowSuggestion, onNavigateToUser: (Stri
                 Text("${suggestion.account.followersCount} followers", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
             Spacer(modifier = Modifier.width(12.dp))
-            Button(onClick = {}, modifier = Modifier.height(36.dp)) {
-                Text("Follow")
+            Button(
+                onClick = {
+                    isFollowLoading = true
+                    val accountId = AccountSessionManager.getInstance().lastActiveAccountID
+                    if (accountId != null) {
+                        val followRequest = SetAccountFollowed(suggestion.account.id, !isFollowing, true, false)
+                        followRequest.setCallback(object : Callback<Relationship> {
+                            override fun onSuccess(result: Relationship) {
+                                isFollowing = result.following
+                                isFollowLoading = false
+                            }
+                            override fun onError(errorResponse: ErrorResponse) {
+                                isFollowLoading = false
+                            }
+                        }).exec(accountId)
+                    }
+                },
+                modifier = Modifier.height(36.dp),
+                enabled = !isFollowLoading
+            ) {
+                if (isFollowLoading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(16.dp),
+                        strokeWidth = 2.dp,
+                        color = MaterialTheme.colorScheme.onPrimary
+                    )
+                } else {
+                    Text(if (isFollowing) "Following" else "Follow")
+                }
             }
         }
     }

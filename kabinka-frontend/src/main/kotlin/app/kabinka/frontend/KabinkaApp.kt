@@ -133,10 +133,10 @@ fun KabinkaApp(
                     KabinkaBottomNav(
                         currentRoute = currentRoute,
                         onNavigate = { route ->
-                            // Special handling for Profile navigation - clear user_profile backstack
-                            if (route == Screen.Profile.route && currentRoute.startsWith("user_profile/")) {
+                            // Special handling for Home and Profile navigation - clear user_profile backstack
+                            if ((route == Screen.Home.route || route == Screen.Profile.route) && currentRoute.startsWith("user_profile/")) {
                                 navController.navigate(route) {
-                                    popUpTo(Screen.Profile.route) {
+                                    popUpTo(route) {
                                         inclusive = false
                                     }
                                     launchSingleTop = true
