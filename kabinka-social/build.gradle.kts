@@ -164,14 +164,14 @@ dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
     
     // Flutter embedding for FluffyChat integration (optional - only if Flutter SDK is available)
-    val flutterSdk: String? = run {
-        val localPropertiesFile = rootProject.file("local.properties")
-        if (localPropertiesFile.exists()) {
-            val props = java.util.Properties()
-            localPropertiesFile.inputStream().use { props.load(it) }
-            props.getProperty("flutter.sdk")
-        } else null
-    } ?: System.getenv("FLUTTER_ROOT") ?: System.getenv("FLUTTER_HOME")
+    val flutterSdk: String? = System.getenv("FLUTTER_ROOT")
+        ?: System.getenv("FLUTTER_HOME")
+        ?: run {
+            val localPropertiesFile = rootProject.file("local.properties")
+            if (localPropertiesFile.exists()) {
+                localPropertiesFile.readLines().find { it.startsWith("flutter.sdk=") }?.substringAfter("=")
+            } else null
+        }
     
     if (flutterSdk != null) {
         val flutterJar = file("$flutterSdk/bin/cache/artifacts/engine/android-arm-release/flutter.jar")
