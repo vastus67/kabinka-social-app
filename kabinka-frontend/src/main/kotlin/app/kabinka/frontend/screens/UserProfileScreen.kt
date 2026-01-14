@@ -40,6 +40,7 @@ fun UserProfileScreen(
     var account by remember { mutableStateOf<Account?>(null) }
     var relationship by remember { mutableStateOf<Relationship?>(null) }
     var statuses by remember { mutableStateOf<List<Status>>(emptyList()) }
+    var pinnedStatuses by remember { mutableStateOf<List<Status>>(emptyList()) }
     var isLoading by remember { mutableStateOf(true) }
     var error by remember { mutableStateOf<String?>(null) }
     var selectedTab by remember { mutableStateOf(0) }
@@ -71,6 +72,17 @@ fun UserProfileScreen(
                 accountRequest.setCallback(object : Callback<Account> {
                     override fun onSuccess(result: Account) {
                         account = result
+                        
+                        // Load pinned posts for Featured tab
+                        val pinnedRequest = GetAccountStatuses(result.id, null, null, 20, GetAccountStatuses.Filter.PINNED, null)
+                        pinnedRequest.setCallback(object : Callback<List<Status>> {
+                            override fun onSuccess(pinnedResult: List<Status>) {
+                                pinnedStatuses = pinnedResult
+                            }
+                            override fun onError(errorResponse: ErrorResponse) {
+                                // Pinned posts are optional, don't show error
+                            }
+                        }).exec(accountId)
                         
                         // Get relationship
                         val relationshipRequest = GetAccountRelationships(listOf(userId))
@@ -250,13 +262,20 @@ fun UserProfileScreen(
                 // Tab content
                 when (selectedTab) {
                     0 -> {
-                        // Featured
-                        if (statuses.isEmpty() && !isLoading) {
+                        // Featured - show pinned posts
+                        if (pinnedStatuses.isEmpty() && !isLoading) {
                             item {
                                 EmptyContentCard(
                                     icon = LineAwesomeIcons.StarSolid,
                                     title = "No featured posts",
                                     message = "This user hasn't pinned any posts"
+                                )
+                            }
+                        } else {
+                            items(pinnedStatuses) { status ->
+                                StatusCard(
+                                    status = status,
+                                    onUserClick = onNavigateToUser
                                 )
                             }
                         }

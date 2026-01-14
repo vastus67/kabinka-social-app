@@ -75,6 +75,7 @@ import me.grishka.appkit.api.ErrorResponse
 fun ProfileScreen(onNavigateToUser: (String) -> Unit = {}) {
     var account by remember { mutableStateOf<Account?>(null) }
     var statuses by remember { mutableStateOf<List<Status>>(emptyList()) }
+    var pinnedStatuses by remember { mutableStateOf<List<Status>>(emptyList()) }
     var isLoading by remember { mutableStateOf(true) }
     var error by remember { mutableStateOf<String?>(null) }
     var selectedTab by remember { mutableStateOf(0) }
@@ -105,6 +106,17 @@ fun ProfileScreen(onNavigateToUser: (String) -> Unit = {}) {
                 accountRequest.setCallback(object : Callback<Account> {
                     override fun onSuccess(result: Account) {
                         account = result
+                        
+                        // Load pinned posts for Featured tab
+                        val pinnedRequest = GetAccountStatuses(result.id, null, null, 20, GetAccountStatuses.Filter.PINNED, null)
+                        pinnedRequest.setCallback(object : Callback<List<Status>> {
+                            override fun onSuccess(pinnedResult: List<Status>) {
+                                pinnedStatuses = pinnedResult
+                            }
+                            override fun onError(errorResponse: ErrorResponse) {
+                                // Pinned posts are optional, don't show error
+                            }
+                        }).exec(accountId)
                         
                         // Load account statuses based on filter
                         val statusFilter = when (selectedFilter) {
@@ -263,13 +275,22 @@ fun ProfileScreen(onNavigateToUser: (String) -> Unit = {}) {
                     // Content based on selected tab
                     when (selectedTab) {
                         0 -> {
-                            // Featured
-                            item {
-                                EmptyContentCard(
-                                    icon = LineAwesomeIcons.StarSolid,
-                                    title = "No featured posts",
-                                    message = "Pin your best posts to feature them here"
-                                )
+                            // Featured - show pinned posts
+                            if (pinnedStatuses.isEmpty() && !isLoading) {
+                                item {
+                                    EmptyContentCard(
+                                        icon = LineAwesomeIcons.StarSolid,
+                                        title = "No featured posts",
+                                        message = "Pin your best posts to feature them here"
+                                    )
+                                }
+                            } else {
+                                items(pinnedStatuses) { status ->
+                                    StatusCard(
+                                        status = status,
+                                        onUserClick = onNavigateToUser
+                                    )
+                                }
                             }
                         }
                         1 -> {
