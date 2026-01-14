@@ -100,8 +100,7 @@ fun StatusCardComplete(
     
     Card(
         modifier = modifier
-            .fillMaxWidth()
-            .clickable { onStatusClick(displayedStatus.id) },
+            .fillMaxWidth(),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface
         ),
@@ -140,18 +139,22 @@ fun StatusCardComplete(
             
             Spacer(modifier = Modifier.height(12.dp))
             
-            // Content with CW handling
-            StatusContent(
-                content = displayedStatus.content,
-                spoilerText = displayedStatus.spoilerText,
-                sensitive = displayedStatus.sensitive,
-                emojis = displayedStatus.emojis,
-                mentions = displayedStatus.mentions,
-                tags = displayedStatus.tags,
-                onLinkClick = onLinkClick,
-                onHashtagClick = onHashtagClick,
-                onMentionClick = onMentionClick
-            )
+            // Content with CW handling - clickable to open status detail
+            Column(
+                modifier = Modifier.clickable { onStatusClick(displayedStatus.id) }
+            ) {
+                StatusContent(
+                    content = displayedStatus.content,
+                    spoilerText = displayedStatus.spoilerText,
+                    sensitive = displayedStatus.sensitive,
+                    emojis = displayedStatus.emojis,
+                    mentions = displayedStatus.mentions,
+                    tags = displayedStatus.tags,
+                    onLinkClick = onLinkClick,
+                    onHashtagClick = onHashtagClick,
+                    onMentionClick = onMentionClick
+                )
+            }
             
             // Media attachments
             if (!displayedStatus.mediaAttachments.isNullOrEmpty()) {
@@ -308,7 +311,11 @@ private fun StatusHeader(
 
         Spacer(modifier = Modifier.width(12.dp))
 
-        Column(modifier = Modifier.weight(1f)) {
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .clickable(onClick = onProfileClick)
+        ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = account.displayName.ifEmpty { account.username },

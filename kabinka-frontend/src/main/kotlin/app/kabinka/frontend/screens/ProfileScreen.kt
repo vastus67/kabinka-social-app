@@ -72,7 +72,7 @@ import me.grishka.appkit.api.ErrorResponse
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileScreen() {
+fun ProfileScreen(onNavigateToUser: (String) -> Unit = {}) {
     var account by remember { mutableStateOf<Account?>(null) }
     var statuses by remember { mutableStateOf<List<Status>>(emptyList()) }
     var isLoading by remember { mutableStateOf(true) }
@@ -118,6 +118,13 @@ fun ProfileScreen() {
                         statusRequest.setCallback(object : Callback<List<Status>> {
                             override fun onSuccess(statusResult: List<Status>) {
                                 statuses = statusResult
+                                // Debug: Log media attachments
+                                statusResult.forEach { status ->
+                                    android.util.Log.d("ProfileScreen", "Status ${status.id}: has ${status.mediaAttachments?.size ?: 0} media attachments")
+                                    status.mediaAttachments?.forEach { media ->
+                                        android.util.Log.d("ProfileScreen", "  - Media: ${media.url}")
+                                    }
+                                }
                                 isLoading = false
                             }
                             override fun onError(errorResponse: ErrorResponse) {
@@ -277,7 +284,10 @@ fun ProfileScreen() {
                                 }
                             } else {
                                 items(statuses) { status ->
-                                    StatusCard(status)
+                                    StatusCard(
+                                        status = status,
+                                        onUserClick = onNavigateToUser
+                                    )
                                 }
                             }
                         }
@@ -516,379 +526,12 @@ private fun ProfileHeader(
     }
 }
 
-@Composable
-private fun CompactStatItem(
-    count: Long,
-    label: String
-) {
-    Row(
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(4.dp)
-    ) {
-        Text(
-            text = count.toString(),
-            style = MaterialTheme.typography.titleSmall,
-            color = MaterialTheme.colorScheme.onSurface
-        )
-        Text(
-            text = label,
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-    }
-}
-
-@Composable
-private fun EmptyContentCard(
-    icon: androidx.compose.ui.graphics.vector.ImageVector,
-    title: String,
-    message: String
-) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
-        )
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(32.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            Icon(
-                imageVector = icon,
-                contentDescription = null,
-                modifier = Modifier.size(48.dp),
-                tint = MaterialTheme.colorScheme.primary
-            )
-            Text(
-                text = title,
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-            Text(
-                text = message,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        }
-    }
-}
-
-@Composable
-private fun AboutSection(account: Account) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
-        )
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(20.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            Text(
-                text = "About",
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.primary
-            )
-            
-            if (!account.note.isNullOrEmpty()) {
-                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                    Text(
-                        text = "Bio",
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Text(
-                        text = account.note.replace(Regex("<[^>]*>"), ""),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                }
-            }
-            
-            Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                Text(
-                    text = "Joined",
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Text(
-                    text = account.createdAt.toString(),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-            }
-            
-            if (!account.url.isNullOrEmpty()) {
-                Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                    Text(
-                        text = "Profile URL",
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Text(
-                        text = account.url,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun ProfileFieldCard(field: AccountField) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 4.dp),
-        shape = RoundedCornerShape(8.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
-        )
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(12.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.Top
-        ) {
-            Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                Text(
-                    text = field.name.replace(Regex("<[^>]*>"), ""),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Text(
-                    text = field.value.replace(Regex("<[^>]*>"), ""),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.primary
-                )
-            }
-            
-            // Verified icon if field is verified
-            if (field.verifiedAt != null) {
-                Icon(
-                    imageVector = LineAwesomeIcons.InfoCircleSolid,
-                    contentDescription = "Verified",
-                    tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.size(20.dp)
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun StatusCard(status: Status) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-        shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
-        )
-    ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        ) {
-            // Status content - check for content or spoilerText
-            val displayContent = when {
-                !status.content.isNullOrEmpty() -> status.content.replace(Regex("<[^>]*>"), "")
-                !status.spoilerText.isNullOrEmpty() -> status.spoilerText
-                else -> "[Post with no text content]"
-            }
-            
-            if (displayContent.isNotEmpty()) {
-                Text(
-                    text = displayContent,
-                    style = MaterialTheme.typography.bodyMedium,
-                    overflow = TextOverflow.Ellipsis
-                )
-            }
-            
-            // Media attachments
-            if (!status.mediaAttachments.isNullOrEmpty()) {
-                Spacer(modifier = Modifier.height(12.dp))
-                
-                when (status.mediaAttachments.size) {
-                    1 -> {
-                        // Single image
-                        AsyncImage(
-                            model = status.mediaAttachments[0].previewUrl ?: status.mediaAttachments[0].url,
-                            contentDescription = "Media attachment",
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(200.dp)
-                                .clip(RoundedCornerShape(8.dp)),
-                            contentScale = ContentScale.Crop
-                        )
-                    }
-                    2 -> {
-                        // Two images side by side
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(4.dp)
-                        ) {
-                            status.mediaAttachments.take(2).forEach { attachment ->
-                                AsyncImage(
-                                    model = attachment.previewUrl ?: attachment.url,
-                                    contentDescription = "Media attachment",
-                                    modifier = Modifier
-                                        .weight(1f)
-                                        .height(150.dp)
-                                        .clip(RoundedCornerShape(8.dp)),
-                                    contentScale = ContentScale.Crop
-                                )
-                            }
-                        }
-                    }
-                    3 -> {
-                        // Three images: one large on left, two stacked on right
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(4.dp)
-                        ) {
-                            AsyncImage(
-                                model = status.mediaAttachments[0].previewUrl ?: status.mediaAttachments[0].url,
-                                contentDescription = "Media attachment",
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .height(200.dp)
-                                    .clip(RoundedCornerShape(8.dp)),
-                                contentScale = ContentScale.Crop
-                            )
-                            Column(
-                                modifier = Modifier.weight(1f),
-                                verticalArrangement = Arrangement.spacedBy(4.dp)
-                            ) {
-                                status.mediaAttachments.drop(1).forEach { attachment ->
-                                    AsyncImage(
-                                        model = attachment.previewUrl ?: attachment.url,
-                                        contentDescription = "Media attachment",
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .height(98.dp)
-                                            .clip(RoundedCornerShape(8.dp)),
-                                        contentScale = ContentScale.Crop
-                                    )
-                                }
-                            }
-                        }
-                    }
-                    else -> {
-                        // Four or more images: 2x2 grid
-                        Column(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalArrangement = Arrangement.spacedBy(4.dp)
-                        ) {
-                            status.mediaAttachments.chunked(2).take(2).forEach { row ->
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.spacedBy(4.dp)
-                                ) {
-                                    row.forEach { attachment ->
-                                        Box(
-                                            modifier = Modifier
-                                                .weight(1f)
-                                                .height(120.dp)
-                                        ) {
-                                            AsyncImage(
-                                                model = attachment.previewUrl ?: attachment.url,
-                                                contentDescription = "Media attachment",
-                                                modifier = Modifier
-                                                    .fillMaxSize()
-                                                    .clip(RoundedCornerShape(8.dp)),
-                                                contentScale = ContentScale.Crop
-                                            )
-                                            // Show +N overlay for remaining images
-                                            if (status.mediaAttachments.indexOf(attachment) == 3 && status.mediaAttachments.size > 4) {
-                                                Box(
-                                                    modifier = Modifier
-                                                        .fillMaxSize()
-                                                        .background(
-                                                            MaterialTheme.colorScheme.surface.copy(alpha = 0.7f),
-                                                            RoundedCornerShape(8.dp)
-                                                        ),
-                                                    contentAlignment = Alignment.Center
-                                                ) {
-                                                    Text(
-                                                        text = "+${status.mediaAttachments.size - 4}",
-                                                        style = MaterialTheme.typography.titleLarge,
-                                                        color = MaterialTheme.colorScheme.onSurface
-                                                    )
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            
-            Spacer(modifier = Modifier.height(12.dp))
-            
-            // Status metadata
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        imageVector = LineAwesomeIcons.RetweetSolid,
-                        contentDescription = "Boosts",
-                        modifier = Modifier.size(16.dp),
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Text(
-                        text = "${status.reblogsCount}",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-                
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        imageVector = LineAwesomeIcons.HeartSolid,
-                        contentDescription = "Favorites",
-                        modifier = Modifier.size(16.dp),
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Text(
-                        text = "${status.favouritesCount}",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-            }
-        }
-    }
-}
+// Components moved to separate files:
+// - CompactStatItem -> ProfileComponents.kt
+// - EmptyContentCard -> ProfileComponents.kt  
+// - AboutSection -> ProfileAboutTab.kt
+// - ProfileFieldCard -> ProfileAboutTab.kt
+// - StatusCard -> ProfileTimelineTab.kt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

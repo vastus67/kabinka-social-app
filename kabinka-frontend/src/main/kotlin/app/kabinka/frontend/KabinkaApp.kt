@@ -9,6 +9,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import app.kabinka.frontend.auth.SessionState
 import app.kabinka.frontend.auth.SessionStateManager
 import app.kabinka.frontend.navigation.Screen
@@ -19,6 +21,7 @@ import app.kabinka.frontend.screens.LoginChooserScreen
 import app.kabinka.frontend.screens.ExploreScreen
 import app.kabinka.frontend.screens.NotificationsScreen
 import app.kabinka.frontend.screens.ProfileScreen
+import app.kabinka.frontend.screens.UserProfileScreen
 import app.kabinka.frontend.screens.SettingsScreen
 import app.kabinka.frontend.screens.AboutServerScreen
 import app.kabinka.frontend.settings.ui.BehaviourSettingsScreen
@@ -130,12 +133,22 @@ fun KabinkaApp(
                     KabinkaBottomNav(
                         currentRoute = currentRoute,
                         onNavigate = { route ->
-                            navController.navigate(route) {
-                                popUpTo(bottomNavRoutes.first()) {
-                                    saveState = true
+                            // Special handling for Profile navigation - clear user_profile backstack
+                            if (route == Screen.Profile.route && currentRoute.startsWith("user_profile/")) {
+                                navController.navigate(route) {
+                                    popUpTo(Screen.Profile.route) {
+                                        inclusive = false
+                                    }
+                                    launchSingleTop = true
                                 }
-                                launchSingleTop = true
-                                restoreState = true
+                            } else {
+                                navController.navigate(route) {
+                                    popUpTo(bottomNavRoutes.first()) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
                             }
                         }
                     )
@@ -155,13 +168,22 @@ fun KabinkaApp(
                             scope.launch {
                                 drawerState.open()
                             }
+                        },
+                        onNavigateToUser = { userId ->
+                            println("[HomeTimeline] Navigating to user: $userId")
+                            navController.navigate("user_profile/$userId")
                         }
                     )
                 }
                 
                 // Placeholder screens for other navigation items
                 composable(Screen.Search.route) {
-                    ExploreScreen()
+                    ExploreScreen(
+                        onNavigateToUser = { userId ->
+                            println("[ExploreScreen] Navigating to user: $userId")
+                            navController.navigate("user_profile/$userId")
+                        }
+                    )
                 }
                 
                 composable(Screen.Compose.route) {
@@ -174,11 +196,20 @@ fun KabinkaApp(
                 }
                 
                 composable(Screen.Notifications.route) {
-                    NotificationsScreen()
+                    NotificationsScreen(
+                        onNavigateToUser = { userId ->
+                            navController.navigate("user_profile/$userId")
+                        }
+                    )
                 }
                 
                 composable(Screen.Profile.route) {
-                    ProfileScreen()
+                    ProfileScreen(
+                        onNavigateToUser = { userId ->
+                            println("[ProfileScreen] Navigating to user: $userId")
+                            navController.navigate("user_profile/$userId")
+                        }
+                    )
                 }
                 
                 composable(Screen.Settings.route) {
@@ -262,6 +293,22 @@ fun KabinkaApp(
                 
                 composable(Screen.DeleteAccount.route) {
                     PlaceholderScreen("Delete Account")
+                }
+                
+                // User profile screen
+                composable(
+                    route = "user_profile/{userId}",
+                    arguments = listOf(navArgument("userId") { type = NavType.StringType })
+                ) { backStackEntry ->
+                    val userId = backStackEntry.arguments?.getString("userId") ?: return@composable
+                    UserProfileScreen(
+                        userId = userId,
+                        onNavigateBack = { navController.popBackStack() },
+                        onNavigateToUser = { targetUserId ->
+                            println("[UserProfileScreen] Navigating to user: $targetUserId")
+                            navController.navigate("user_profile/$targetUserId")
+                        }
+                    )
                 }
             }
         }

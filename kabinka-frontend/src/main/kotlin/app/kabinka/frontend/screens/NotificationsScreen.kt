@@ -58,7 +58,7 @@ import java.util.EnumSet
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NotificationsScreen() {
+fun NotificationsScreen(onNavigateToUser: (String) -> Unit = {}) {
     var selectedTab by remember { mutableStateOf(0) }
     val tabs = listOf("ALL", "MENTIONS")
     
@@ -155,8 +155,8 @@ fun NotificationsScreen() {
             when {
                 isLoading -> LoadingContent()
                 error != null -> ErrorContent(error!!)
-                selectedTab == 0 -> NotificationsList(allNotifications)
-                selectedTab == 1 -> NotificationsList(mentionNotifications)
+                selectedTab == 0 -> NotificationsList(allNotifications, onNavigateToUser)
+                selectedTab == 1 -> NotificationsList(mentionNotifications, onNavigateToUser)
             }
         }
     }
@@ -187,7 +187,7 @@ private fun ErrorContent(errorMessage: String) {
 }
 
 @Composable
-private fun NotificationsList(notifications: List<Notification>) {
+private fun NotificationsList(notifications: List<Notification>, onNavigateToUser: (String) -> Unit = {}) {
     if (notifications.isEmpty()) {
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -206,14 +206,14 @@ private fun NotificationsList(notifications: List<Notification>) {
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(notifications) { notification ->
-                NotificationItem(notification)
+                NotificationCard(notification, onNavigateToUser)
             }
         }
     }
 }
 
 @Composable
-private fun NotificationItem(notification: Notification) {
+private fun NotificationCard(notification: Notification, onNavigateToUser: (String) -> Unit = {}) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(12.dp),
@@ -250,7 +250,10 @@ private fun NotificationItem(notification: Notification) {
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.clickable {
+                        notification.account?.id?.let { onNavigateToUser(it) }
+                    }
                 ) {
                     if (notification.account?.avatar != null) {
                         AsyncImage(

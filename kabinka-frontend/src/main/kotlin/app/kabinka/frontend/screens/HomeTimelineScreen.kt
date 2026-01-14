@@ -63,7 +63,8 @@ import compose.icons.lineawesomeicons.TimesSolid
 fun HomeTimelineScreen(
     sessionManager: SessionStateManager,
     onNavigateToLogin: () -> Unit = {},
-    onOpenDrawer: () -> Unit = {}
+    onOpenDrawer: () -> Unit = {},
+    onNavigateToUser: (String) -> Unit = {}
 ) {
     val viewModel: TimelineViewModel = viewModel { TimelineViewModel(sessionManager) }
     val uiState by viewModel.uiState.collectAsState()
@@ -201,7 +202,7 @@ fun HomeTimelineScreen(
                             app.kabinka.frontend.components.timeline.StatusCardComplete(
                                 status = status,
                                 onStatusClick = { /* TODO: Navigate to status detail */ },
-                                onProfileClick = { /* TODO: Navigate to profile */ },
+                                onProfileClick = onNavigateToUser,
                                 onReply = { /* TODO: Navigate to compose reply */ },
                                 onBoost = { statusId -> viewModel.toggleReblog(statusId) },
                                 onFavorite = { statusId -> viewModel.toggleFavorite(statusId) },

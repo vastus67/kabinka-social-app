@@ -69,7 +69,7 @@ import compose.icons.lineawesomeicons.NewspaperSolid
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ExploreScreen() {
+fun ExploreScreen(onNavigateToUser: (String) -> Unit = {}) {
     var selectedTab by remember { mutableStateOf(0) }
     val tabs = listOf("POSTS", "HASHTAGS", "NEWS", "FOR YOU")
     
@@ -195,10 +195,10 @@ fun ExploreScreen() {
 
                 // Tab content
                 when (selectedTab) {
-                    0 -> PostsTab(isLoggedIn = isLoggedIn)
+                    0 -> PostsTab(isLoggedIn = isLoggedIn, onNavigateToUser = onNavigateToUser)
                     1 -> HashtagsTab()
                     2 -> NewsTab(isLoggedIn = isLoggedIn)
-                    3 -> ForYouTab(isLoggedIn = isLoggedIn)
+                    3 -> ForYouTab(isLoggedIn = isLoggedIn, onNavigateToUser = onNavigateToUser)
                 }
             }
         }
@@ -616,7 +616,7 @@ private fun SearchHashtagItem(hashtag: Hashtag) {
 
 // POSTS TAB
 @Composable
-private fun PostsTab(isLoggedIn: Boolean) {
+private fun PostsTab(isLoggedIn: Boolean, onNavigateToUser: (String) -> Unit) {
     var posts by remember { mutableStateOf<List<Status>>(emptyList()) }
     var isLoading by remember { mutableStateOf(true) }
     var error by remember { mutableStateOf<String?>(null) }
@@ -668,7 +668,7 @@ private fun PostsTab(isLoggedIn: Boolean) {
                     verticalArrangement = Arrangement.spacedBy(1.dp)
                 ) {
                     items(posts) { status ->
-                        PostCard(status)
+                        PostCard(status, onNavigateToUser)
                     }
                 }
             }
@@ -770,7 +770,7 @@ private fun NewsTab(isLoggedIn: Boolean) {
 
 // FOR YOU TAB
 @Composable
-private fun ForYouTab(isLoggedIn: Boolean) {
+private fun ForYouTab(isLoggedIn: Boolean, onNavigateToUser: (String) -> Unit) {
     var suggestions by remember { mutableStateOf<List<FollowSuggestion>>(emptyList()) }
     var isLoading by remember { mutableStateOf(true) }
 
@@ -817,7 +817,7 @@ private fun ForYouTab(isLoggedIn: Boolean) {
                     verticalArrangement = Arrangement.spacedBy(1.dp)
                 ) {
                     items(suggestions) { suggestion ->
-                        SuggestionCard(suggestion)
+                        SuggestionCard(suggestion, onNavigateToUser)
                     }
                 }
             }
@@ -827,14 +827,17 @@ private fun ForYouTab(isLoggedIn: Boolean) {
 
 // UI COMPONENTS
 @Composable
-private fun PostCard(status: Status) {
+private fun PostCard(status: Status, onNavigateToUser: (String) -> Unit = {}) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(0.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
     ) {
         Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.clickable { onNavigateToUser(status.account.id) }
+            ) {
                 // Avatar
                 AsyncImage(
                     model = status.account.avatar,
@@ -953,13 +956,19 @@ private fun NewsCard(card: Card) {
 }
 
 @Composable
-private fun SuggestionCard(suggestion: FollowSuggestion) {
+private fun SuggestionCard(suggestion: FollowSuggestion, onNavigateToUser: (String) -> Unit = {}) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(0.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
     ) {
-        Row(modifier = Modifier.fillMaxWidth().padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { onNavigateToUser(suggestion.account.id) }
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             AsyncImage(
                 model = suggestion.account.avatar,
                 contentDescription = "Profile avatar",
