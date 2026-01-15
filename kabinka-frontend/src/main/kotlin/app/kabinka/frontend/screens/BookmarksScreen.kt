@@ -12,17 +12,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import android.content.Intent
+import android.net.Uri
 import app.kabinka.frontend.auth.SessionStateManager
 import app.kabinka.frontend.timeline.TimelineUiState
 import app.kabinka.frontend.timeline.TimelineViewModel
 import app.kabinka.frontend.timeline.TimelineType
-import app.kabinka.frontend.components.StatusCard
+import app.kabinka.frontend.components.timeline.StatusCardComplete
+import app.kabinka.social.model.Attachment
+import app.kabinka.frontend.components.ImageViewerDialog
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookmarksScreen(
     onNavigateBack: () -> Unit = {},
-    onNavigateToUser: (String) -> Unit = {}
+    onNavigateToUser: (String) -> Unit = {},
+    onNavigateToReply: (String) -> Unit = {}
 ) {
     val context = LocalContext.current
     val sessionManager = remember { SessionStateManager(context) }
@@ -30,6 +35,11 @@ fun BookmarksScreen(
         TimelineViewModel(sessionManager, TimelineType.BOOKMARKS) 
     }
     val uiState by viewModel.uiState.collectAsState()
+    
+    // Image viewer state
+    var showImageViewer by remember { mutableStateOf(false) }
+    var imageViewerAttachments by remember { mutableStateOf<List<Attachment>>(emptyList()) }
+    var imageViewerInitialIndex by remember { mutableStateOf(0) }
 
     Scaffold(
         topBar = {
@@ -120,9 +130,37 @@ fun BookmarksScreen(
                                 items = state.statuses,
                                 key = { it.id }
                             ) { status ->
-                                StatusCard(
+                                StatusCardComplete(
                                     status = status,
-                                    onProfileClick = onNavigateToUser
+                                    onStatusClick = { /* TODO: Navigate to status detail */ },
+                                    onProfileClick = onNavigateToUser,
+                                    onReply = { statusId -> onNavigateToReply(statusId) },
+                                    onBoost = { statusId -> viewModel.toggleReblog(statusId) },
+                                    onFavorite = { statusId -> viewModel.toggleFavorite(statusId) },
+                                    onBookmark = { statusId -> viewModel.toggleBookmark(statusId) },
+                                    onMore = { /* TODO: Show more options */ },
+                                    onLinkClick = { url ->
+                                        try {
+                                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                                            context.startActivity(intent)
+                                        } catch (e: Exception) {
+                                            android.util.Log.e("Bookmarks", "Failed to open URL: $url", e)
+                                        }
+                                    },
+                                    onHashtagClick = { tag ->
+                                        android.util.Log.d("Bookmarks", "Hashtag clicked: $tag")
+                                    },
+                                    onMentionClick = { userId ->
+                                        onNavigateToUser(userId)
+                                    },
+                                    onMediaClick = { index ->
+                                        val displayedStatus = status.reblog ?: status
+                                        if (!displayedStatus.mediaAttachments.isNullOrEmpty()) {
+                                            imageViewerAttachments = displayedStatus.mediaAttachments
+                                            imageViewerInitialIndex = index
+                                            showImageViewer = true
+                                        }
+                                    }
                                 )
                                 HorizontalDivider()
                             }
@@ -146,5 +184,14 @@ fun BookmarksScreen(
                 }
             }
         }
+    }
+    
+    // Image viewer dialog
+    if (showImageViewer && imageViewerAttachments.isNotEmpty()) {
+        ImageViewerDialog(
+            attachments = imageViewerAttachments,
+            initialIndex = imageViewerInitialIndex,
+            onDismiss = { showImageViewer = false }
+        )
     }
 }

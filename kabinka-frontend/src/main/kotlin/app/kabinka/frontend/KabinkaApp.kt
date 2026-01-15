@@ -173,6 +173,9 @@ fun KabinkaApp(
                         },
                         onNavigateToUser = { userId ->
                             navController.navigate("user_profile/$userId")
+                        },
+                        onNavigateToReply = { statusId ->
+                            navController.navigate(Screen.ComposeReply.createRoute(statusId))
                         }
                     )
                 }
@@ -195,6 +198,79 @@ fun KabinkaApp(
                     )
                 }
                 
+                composable(
+                    route = Screen.ComposeReply.route,
+                    arguments = listOf(navArgument("statusId") { type = NavType.StringType })
+                ) { backStackEntry ->
+                    val statusId = backStackEntry.arguments?.getString("statusId") ?: return@composable
+                    
+                    // Load the status to reply to
+                    val replyToStatus = remember { mutableStateOf<app.kabinka.social.model.Status?>(null) }
+                    val isLoading = remember { mutableStateOf(true) }
+                    val errorMessage = remember { mutableStateOf<String?>(null) }
+                    
+                    LaunchedEffect(statusId) {
+                        try {
+                            isLoading.value = true
+                            errorMessage.value = null
+                            val session = sessionManager.getCurrentSession()
+                            if (session != null) {
+                                val statusRequest = app.kabinka.social.api.requests.statuses.GetStatusByID(statusId)
+                                statusRequest.setCallback(object : me.grishka.appkit.api.Callback<app.kabinka.social.model.Status> {
+                                    override fun onSuccess(result: app.kabinka.social.model.Status) {
+                                        replyToStatus.value = result
+                                        isLoading.value = false
+                                    }
+                                    
+                                    override fun onError(err: me.grishka.appkit.api.ErrorResponse) {
+                                        errorMessage.value = "Failed to load status"
+                                        isLoading.value = false
+                                    }
+                                }).exec(session.getID())
+                            } else {
+                                errorMessage.value = "No active session"
+                                isLoading.value = false
+                            }
+                        } catch (e: Exception) {
+                            errorMessage.value = e.message ?: "Unknown error"
+                            isLoading.value = false
+                        }
+                    }
+                    
+                    when {
+                        isLoading.value -> {
+                            Box(
+                                modifier = Modifier.fillMaxSize(),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                CircularProgressIndicator()
+                            }
+                        }
+                        errorMessage.value != null -> {
+                            Box(
+                                modifier = Modifier.fillMaxSize(),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                    Text("Error: ${errorMessage.value}")
+                                    Button(onClick = { navController.popBackStack() }) {
+                                        Text("Go Back")
+                                    }
+                                }
+                            }
+                        }
+                        replyToStatus.value != null -> {
+                            ComposeScreen(
+                                sessionManager = sessionManager,
+                                replyToStatus = replyToStatus.value,
+                                onNavigateBack = {
+                                    navController.popBackStack()
+                                }
+                            )
+                        }
+                    }
+                }
+                
                 composable(Screen.Notifications.route) {
                     NotificationsScreen(
                         onNavigateToUser = { userId ->
@@ -207,6 +283,9 @@ fun KabinkaApp(
                     ProfileScreen(
                         onNavigateToUser = { userId ->
                             navController.navigate("user_profile/$userId")
+                        },
+                        onNavigateToReply = { statusId ->
+                            navController.navigate(Screen.ComposeReply.createRoute(statusId))
                         }
                     )
                 }
@@ -216,6 +295,9 @@ fun KabinkaApp(
                         onNavigateBack = { navController.popBackStack() },
                         onNavigateToUser = { userId ->
                             navController.navigate("user_profile/$userId")
+                        },
+                        onNavigateToReply = { statusId ->
+                            navController.navigate(Screen.ComposeReply.createRoute(statusId))
                         }
                     )
                 }
@@ -225,6 +307,9 @@ fun KabinkaApp(
                         onNavigateBack = { navController.popBackStack() },
                         onNavigateToUser = { userId ->
                             navController.navigate("user_profile/$userId")
+                        },
+                        onNavigateToReply = { statusId ->
+                            navController.navigate(Screen.ComposeReply.createRoute(statusId))
                         }
                     )
                 }

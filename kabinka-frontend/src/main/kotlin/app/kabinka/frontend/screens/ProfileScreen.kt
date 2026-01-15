@@ -25,6 +25,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import android.widget.Toast
+import android.content.Intent
+import androidx.lifecycle.viewmodel.compose.viewModel
+import app.kabinka.frontend.auth.SessionStateManager
+import app.kabinka.frontend.timeline.TimelineViewModel
 import app.kabinka.social.api.requests.accounts.GetAccountStatuses
 import app.kabinka.social.api.requests.accounts.GetOwnAccount
 import app.kabinka.social.api.requests.accounts.UpdateAccountCredentials
@@ -32,9 +36,11 @@ import app.kabinka.social.api.session.AccountSessionManager
 import app.kabinka.social.model.Account
 import app.kabinka.social.model.AccountField
 import app.kabinka.social.model.Status
+import app.kabinka.social.model.Attachment
 import coil.compose.AsyncImage
 import compose.icons.LineAwesomeIcons
 import compose.icons.lineawesomeicons.HomeSolid
+import app.kabinka.frontend.components.ImageViewerDialog
 import compose.icons.lineawesomeicons.SearchSolid
 import compose.icons.lineawesomeicons.EditSolid
 import compose.icons.lineawesomeicons.BellSolid
@@ -72,7 +78,14 @@ import me.grishka.appkit.api.ErrorResponse
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProfileScreen(onNavigateToUser: (String) -> Unit = {}) {
+fun ProfileScreen(
+    onNavigateToUser: (String) -> Unit = {},
+    onNavigateToReply: (String) -> Unit = {}
+) {
+    val context = LocalContext.current
+    val sessionManager = remember { SessionStateManager(context) }
+    val timelineViewModel: TimelineViewModel = viewModel { TimelineViewModel(sessionManager) }
+    
     var account by remember { mutableStateOf<Account?>(null) }
     var statuses by remember { mutableStateOf<List<Status>>(emptyList()) }
     var pinnedStatuses by remember { mutableStateOf<List<Status>>(emptyList()) }
@@ -83,6 +96,11 @@ fun ProfileScreen(onNavigateToUser: (String) -> Unit = {}) {
     var showUpdateDialog by remember { mutableStateOf(false) }
     var showQrCodeDialog by remember { mutableStateOf(false) }
     var refreshTrigger by remember { mutableStateOf(0) }
+    
+    // Image viewer state
+    var showImageViewer by remember { mutableStateOf(false) }
+    var imageViewerAttachments by remember { mutableStateOf<List<Attachment>>(emptyList()) }
+    var imageViewerInitialIndex by remember { mutableStateOf(0) }
     
     val tabs = listOf("Featured", "Timeline", "About")
     val filters = listOf("Posts", "Replies", "Media")
@@ -279,9 +297,29 @@ fun ProfileScreen(onNavigateToUser: (String) -> Unit = {}) {
                                 }
                             } else {
                                 items(pinnedStatuses) { status ->
-                                    StatusCard(
+                                    app.kabinka.frontend.components.timeline.StatusCardComplete(
                                         status = status,
-                                        onUserClick = onNavigateToUser
+                                        onStatusClick = { /* TODO: Navigate to status detail */ },
+                                        onProfileClick = onNavigateToUser,
+                                        onReply = { statusId -> onNavigateToReply(statusId) },
+                                        onBoost = { statusId -> timelineViewModel.toggleReblog(statusId) },
+                                        onFavorite = { statusId -> timelineViewModel.toggleFavorite(statusId) },
+                                        onBookmark = { statusId -> timelineViewModel.toggleBookmark(statusId) },
+                                        onMore = { /* TODO: Show more options */ },
+                                        onLinkClick = { url ->
+                                            try {
+                                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                                                context.startActivity(intent)
+                                            } catch (e: Exception) {
+                                                android.util.Log.e("Profile", "Failed to open URL: $url", e)
+                                            }
+                                        },
+                                        onHashtagClick = { tag ->
+                                            android.util.Log.d("Profile", "Hashtag clicked: $tag")
+                                        },
+                                        onMentionClick = { userId ->
+                                            onNavigateToUser(userId)
+                                        }
                                     )
                                 }
                             }
@@ -298,9 +336,37 @@ fun ProfileScreen(onNavigateToUser: (String) -> Unit = {}) {
                                 }
                             } else {
                                 items(statuses) { status ->
-                                    StatusCard(
+                                    app.kabinka.frontend.components.timeline.StatusCardComplete(
                                         status = status,
-                                        onUserClick = onNavigateToUser
+                                        onStatusClick = { /* TODO: Navigate to status detail */ },
+                                        onProfileClick = onNavigateToUser,
+                                        onReply = { statusId -> onNavigateToReply(statusId) },
+                                        onBoost = { statusId -> timelineViewModel.toggleReblog(statusId) },
+                                        onFavorite = { statusId -> timelineViewModel.toggleFavorite(statusId) },
+                                        onBookmark = { statusId -> timelineViewModel.toggleBookmark(statusId) },
+                                        onMore = { /* TODO: Show more options */ },
+                                        onLinkClick = { url ->
+                                            try {
+                                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                                                context.startActivity(intent)
+                                            } catch (e: Exception) {
+                                                android.util.Log.e("Profile", "Failed to open URL: $url", e)
+                                            }
+                                        },
+                                        onHashtagClick = { tag ->
+                                            android.util.Log.d("Profile", "Hashtag clicked: $tag")
+                                        },
+                                        onMentionClick = { userId ->
+                                            onNavigateToUser(userId)
+                                        },
+                                        onMediaClick = { index ->
+                                            val displayedStatus = status.reblog ?: status
+                                            if (!displayedStatus.mediaAttachments.isNullOrEmpty()) {
+                                                imageViewerAttachments = displayedStatus.mediaAttachments
+                                                imageViewerInitialIndex = index
+                                                showImageViewer = true
+                                            }
+                                        }
                                     )
                                 }
                             }
@@ -341,6 +407,15 @@ fun ProfileScreen(onNavigateToUser: (String) -> Unit = {}) {
             QrCodeDialog(
                 account = currentAccount,
                 onDismiss = { showQrCodeDialog = false }
+            )
+        }
+        
+        // Image viewer dialog
+        if (showImageViewer && imageViewerAttachments.isNotEmpty()) {
+            ImageViewerDialog(
+                attachments = imageViewerAttachments,
+                initialIndex = imageViewerInitialIndex,
+                onDismiss = { showImageViewer = false }
             )
         }
     }
@@ -499,7 +574,7 @@ private fun ProfileHeader(
                     )
                     
                     Text(
-                        text = "@${account.username}",
+                        text = "@${account.acct}",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

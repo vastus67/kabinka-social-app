@@ -129,7 +129,7 @@ fun StatusCard(
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Text(
-                            text = "@${actualStatus.account.username}",
+                            text = "@${actualStatus.account.acct}",
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             maxLines = 1,

@@ -139,10 +139,8 @@ fun StatusCardComplete(
             
             Spacer(modifier = Modifier.height(12.dp))
             
-            // Content with CW handling - clickable to open status detail
-            Column(
-                modifier = Modifier.clickable { onStatusClick(displayedStatus.id) }
-            ) {
+            // Content with CW handling
+            Column {
                 StatusContent(
                     content = displayedStatus.content,
                     spoilerText = displayedStatus.spoilerText,
@@ -340,7 +338,7 @@ private fun StatusHeader(
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    text = "@${account.username}",
+                    text = "@${account.acct}",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -493,24 +491,108 @@ private fun htmlToAnnotatedString(
     baseColor: androidx.compose.ui.graphics.Color
 ): AnnotatedString {
     return buildAnnotatedString {
-        val cleaned = html
-            .replace("<br\\s*/?>".toRegex(), "\n")
-            .replace("<p>", "\n")
-            .replace("</p>", "")
+        // Create maps for quick lookup
+        val mentionMap = mentions.associateBy { it.url }
+        val tagMap = tags.associateBy { it.url }
+        
+        val linkColor = androidx.compose.ui.graphics.Color(0xFF1DA1F2) // Twitter blue
+        
+        // Parse HTML for links
+        val linkPattern = "<a\\s+href=\"([^\"]+)\"[^>]*>([^<]+)</a>".toRegex()
+        val brPattern = "<br\\s*/?>".toRegex()
+        val pOpenPattern = "<p>".toRegex()
+        val pClosePattern = "</p>".toRegex()
+        
+        val processedHtml = html
             .replace("&nbsp;", " ")
             .replace("&lt;", "<")
             .replace("&gt;", ">")
             .replace("&amp;", "&")
+            .replace("&quot;", "\"")
+            .replace("&#39;", "'")
+        
+        var workingText = processedHtml
+        var currentIndex = 0
+        
+        // Find all links
+        linkPattern.findAll(processedHtml).forEach { matchResult ->
+            val (url, text) = matchResult.destructured
+            val beforeLink = workingText.substringBefore(matchResult.value)
+            
+            // Process text before link
+            val cleanedBefore = beforeLink
+                .replace(brPattern, "\n")
+                .replace(pOpenPattern, "\n")
+                .replace(pClosePattern, "")
+                .replace("<[^>]*>".toRegex(), "")
+            
+            // Add text before link with base color
+            val beforeStart = currentIndex
+            append(cleanedBefore)
+            currentIndex += cleanedBefore.length
+            addStyle(SpanStyle(color = baseColor), beforeStart, currentIndex)
+            
+            // Add the link text
+            val linkStart = currentIndex
+            append(text)
+            currentIndex += text.length
+            
+            // Add link styling with underline
+            addStyle(
+                SpanStyle(
+                    color = linkColor,
+                    textDecoration = TextDecoration.Underline
+                ), 
+                linkStart, 
+                currentIndex
+            )
+            
+            // Determine type of link and add annotation
+            when {
+                mentionMap.containsKey(url) -> {
+                    addStringAnnotation(
+                        tag = "MENTION",
+                        annotation = mentionMap[url]?.id ?: url,
+                        start = linkStart,
+                        end = currentIndex
+                    )
+                }
+                tagMap.containsKey(url) -> {
+                    addStringAnnotation(
+                        tag = "HASHTAG",
+                        annotation = tagMap[url]?.name ?: text.removePrefix("#"),
+                        start = linkStart,
+                        end = currentIndex
+                    )
+                }
+                else -> {
+                    addStringAnnotation(
+                        tag = "URL",
+                        annotation = url,
+                        start = linkStart,
+                        end = currentIndex
+                    )
+                }
+            }
+            
+            workingText = workingText.substringAfter(matchResult.value)
+        }
+        
+        // Add remaining text
+        val cleanedRemaining = workingText
+            .replace(brPattern, "\n")
+            .replace(pOpenPattern, "\n")
+            .replace(pClosePattern, "")
             .replace("<[^>]*>".toRegex(), "")
-            .trim()
         
-        append(cleaned)
+        val remainingStart = currentIndex
+        append(cleanedRemaining)
+        currentIndex += cleanedRemaining.length
         
-        // Style links, mentions, hashtags
-        addStyle(SpanStyle(color = baseColor), 0, cleaned.length)
-        
-        // TODO: Parse and annotate links, mentions, hashtags properly
-        // For now, basic implementation
+        // Apply base color to remaining text
+        if (remainingStart < currentIndex) {
+            addStyle(SpanStyle(color = baseColor), remainingStart, currentIndex)
+        }
     }
 }
 

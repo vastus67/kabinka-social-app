@@ -448,7 +448,7 @@ private fun UserProfileHeader(
                         overflow = TextOverflow.Ellipsis
                     )
                     Text(
-                        text = "@${account.username}",
+                        text = "@${account.acct}",
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

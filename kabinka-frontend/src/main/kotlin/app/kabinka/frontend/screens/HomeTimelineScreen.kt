@@ -14,12 +14,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
+import android.content.Intent
+import android.net.Uri
 import app.kabinka.frontend.auth.SessionStateManager
 import app.kabinka.frontend.timeline.TimelineUiState
 import app.kabinka.frontend.timeline.TimelineViewModel
 import app.kabinka.frontend.timeline.TimelineType
 import app.kabinka.social.model.Status
+import app.kabinka.social.model.Attachment
+import app.kabinka.frontend.components.ImageViewerDialog
 import java.time.Duration
 import java.time.Instant
 import app.kabinka.frontend.ui.icons.TimelineRemixIcons
@@ -64,12 +69,19 @@ fun HomeTimelineScreen(
     sessionManager: SessionStateManager,
     onNavigateToLogin: () -> Unit = {},
     onOpenDrawer: () -> Unit = {},
-    onNavigateToUser: (String) -> Unit = {}
+    onNavigateToUser: (String) -> Unit = {},
+    onNavigateToReply: (String) -> Unit = {}
 ) {
     val viewModel: TimelineViewModel = viewModel { TimelineViewModel(sessionManager) }
     val uiState by viewModel.uiState.collectAsState()
     var selectedTab by remember { mutableStateOf(0) }
     val tabs = listOf("Personal", "Local", "Beyond")
+    val context = LocalContext.current
+    
+    // Image viewer state
+    var showImageViewer by remember { mutableStateOf(false) }
+    var imageViewerAttachments by remember { mutableStateOf<List<Attachment>>(emptyList()) }
+    var imageViewerInitialIndex by remember { mutableStateOf(0) }
     
     // Check if user is logged in
     val isLoggedIn = sessionManager.getCurrentSession() != null
@@ -203,11 +215,34 @@ fun HomeTimelineScreen(
                                 status = status,
                                 onStatusClick = { /* TODO: Navigate to status detail */ },
                                 onProfileClick = onNavigateToUser,
-                                onReply = { /* TODO: Navigate to compose reply */ },
+                                onReply = { statusId -> onNavigateToReply(statusId) },
                                 onBoost = { statusId -> viewModel.toggleReblog(statusId) },
                                 onFavorite = { statusId -> viewModel.toggleFavorite(statusId) },
                                 onBookmark = { statusId -> viewModel.toggleBookmark(statusId) },
-                                onMore = { /* TODO: Show more options */ }
+                                onMore = { /* TODO: Show more options */ },
+                                onLinkClick = { url ->
+                                    try {
+                                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                                        context.startActivity(intent)
+                                    } catch (e: Exception) {
+                                        android.util.Log.e("HomeTimeline", "Failed to open URL: $url", e)
+                                    }
+                                },
+                                onHashtagClick = { tag ->
+                                    // TODO: Navigate to hashtag timeline
+                                    android.util.Log.d("HomeTimeline", "Hashtag clicked: $tag")
+                                },
+                                onMentionClick = { userId ->
+                                    onNavigateToUser(userId)
+                                },
+                                onMediaClick = { index ->
+                                    val displayedStatus = status.reblog ?: status
+                                    if (!displayedStatus.mediaAttachments.isNullOrEmpty()) {
+                                        imageViewerAttachments = displayedStatus.mediaAttachments
+                                        imageViewerInitialIndex = index
+                                        showImageViewer = true
+                                    }
+                                }
                             )
                         }
                     }
@@ -306,6 +341,15 @@ fun HomeTimelineScreen(
             }
         }
     }
+    
+    // Image viewer dialog
+    if (showImageViewer && imageViewerAttachments.isNotEmpty()) {
+        ImageViewerDialog(
+            attachments = imageViewerAttachments,
+            initialIndex = imageViewerInitialIndex,
+            onDismiss = { showImageViewer = false }
+        )
+    }
 }
 
 @Composable
@@ -353,7 +397,7 @@ private fun ModernStatusCard(status: Status) {
                         overflow = TextOverflow.Ellipsis
                     )
                     Text(
-                        text = "@${status.account.username} Â· ${formatTimeAgo(status.createdAt.toString())}",
+                        text = "@${status.account.acct} · ${formatTimeAgo(status.createdAt.toString())}",
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
