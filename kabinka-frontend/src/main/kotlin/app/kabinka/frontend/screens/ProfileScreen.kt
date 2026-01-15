@@ -130,13 +130,6 @@ fun ProfileScreen(onNavigateToUser: (String) -> Unit = {}) {
                         statusRequest.setCallback(object : Callback<List<Status>> {
                             override fun onSuccess(statusResult: List<Status>) {
                                 statuses = statusResult
-                                // Debug: Log media attachments
-                                statusResult.forEach { status ->
-                                    android.util.Log.d("ProfileScreen", "Status ${status.id}: has ${status.mediaAttachments?.size ?: 0} media attachments")
-                                    status.mediaAttachments?.forEach { media ->
-                                        android.util.Log.d("ProfileScreen", "  - Media: ${media.url}")
-                                    }
-                                }
                                 isLoading = false
                             }
                             override fun onError(errorResponse: ErrorResponse) {

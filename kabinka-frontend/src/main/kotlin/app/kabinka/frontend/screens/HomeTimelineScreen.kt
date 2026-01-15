@@ -69,7 +69,7 @@ fun HomeTimelineScreen(
     val viewModel: TimelineViewModel = viewModel { TimelineViewModel(sessionManager) }
     val uiState by viewModel.uiState.collectAsState()
     var selectedTab by remember { mutableStateOf(0) }
-    val tabs = listOf("Personal", "Local", "Federated")
+    val tabs = listOf("Personal", "Local", "Beyond")
     
     // Check if user is logged in
     val isLoggedIn = sessionManager.getCurrentSession() != null
@@ -162,7 +162,7 @@ fun HomeTimelineScreen(
                                             text = when (index) {
                                                 0 -> "Your feed"
                                                 1 -> "This instance"
-                                                2 -> "Fediverse"
+                                                2 -> "All instances"
                                                 else -> ""
                                             },
                                             style = MaterialTheme.typography.labelSmall,

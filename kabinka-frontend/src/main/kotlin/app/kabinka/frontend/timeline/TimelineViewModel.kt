@@ -7,6 +7,8 @@ import app.kabinka.frontend.auth.SessionStateManager
 import app.kabinka.social.E
 import app.kabinka.social.api.requests.timelines.GetHomeTimeline
 import app.kabinka.social.api.requests.timelines.GetPublicTimeline
+import app.kabinka.social.api.requests.statuses.GetBookmarkedStatuses
+import app.kabinka.social.api.requests.statuses.GetFavoritedStatuses
 import app.kabinka.social.events.StatusCountersUpdatedEvent
 import app.kabinka.social.model.Status
 import com.squareup.otto.Subscribe
@@ -24,18 +26,19 @@ import me.grishka.appkit.api.ErrorResponse
  * - FEDERATED: Public posts from federated instances
  */
 class TimelineViewModel(
-    private val sessionManager: SessionStateManager
+    private val sessionManager: SessionStateManager,
+    initialTimelineType: TimelineType = TimelineType.HOME
 ) : ViewModel() {
     
     private val _uiState = MutableStateFlow<TimelineUiState>(TimelineUiState.Loading)
     val uiState: StateFlow<TimelineUiState> = _uiState.asStateFlow()
     
-    private var currentTimelineType = TimelineType.HOME
+    private var currentTimelineType = initialTimelineType
     
     init {
-        Log.d(TAG, "TimelineViewModel initialized")
+        Log.d(TAG, "TimelineViewModel initialized with timeline type: $initialTimelineType")
         E.register(this)
-        loadTimeline(TimelineType.HOME)
+        loadTimeline(initialTimelineType)
     }
     
     override fun onCleared() {
@@ -103,6 +106,8 @@ class TimelineViewModel(
                 TimelineType.HOME -> loadHomeTimeline(session)
                 TimelineType.LOCAL -> loadLocalTimeline(session)
                 TimelineType.FEDERATED -> loadFederatedTimeline(session)
+                TimelineType.BOOKMARKS -> loadBookmarksTimeline(session)
+                TimelineType.FAVORITES -> loadFavoritesTimeline(session)
             }
         }
     }
@@ -240,6 +245,86 @@ class TimelineViewModel(
     }
     
     /**
+     * Bookmarks Timeline: User's bookmarked posts
+     * Requires authentication
+     */
+    private fun loadBookmarksTimeline(session: app.kabinka.social.api.session.AccountSession?) {
+        if (session == null) {
+            Log.w(TAG, "Cannot load bookmarks - no active session")
+            _uiState.value = TimelineUiState.Empty(
+                message = "Please log in to view your bookmarks",
+                isLoginRequired = true
+            )
+            return
+        }
+        
+        Log.d(TAG, "Loading BOOKMARKS timeline for account: ${session.getID()}")
+        
+        GetBookmarkedStatuses(null, 40)
+            .setCallback(object : Callback<app.kabinka.social.model.HeaderPaginationList<Status>> {
+                override fun onSuccess(result: app.kabinka.social.model.HeaderPaginationList<Status>) {
+                    Log.d(TAG, "Bookmarks timeline loaded: ${result.size} bookmarked posts")
+                    if (result.isEmpty()) {
+                        _uiState.value = TimelineUiState.Empty(
+                            message = "No bookmarks yet. Bookmark posts to see them here!",
+                            isLoginRequired = false
+                        )
+                    } else {
+                        _uiState.value = TimelineUiState.Content(result)
+                    }
+                }
+                
+                override fun onError(error: ErrorResponse?) {
+                    Log.e(TAG, "Bookmarks timeline loading failed: ${error?.toString()}")
+                    _uiState.value = TimelineUiState.Error(
+                        error?.toString() ?: "Failed to load bookmarks"
+                    )
+                }
+            })
+            .exec(session.getID())
+    }
+    
+    /**
+     * Favorites Timeline: User's favorited posts
+     * Requires authentication
+     */
+    private fun loadFavoritesTimeline(session: app.kabinka.social.api.session.AccountSession?) {
+        if (session == null) {
+            Log.w(TAG, "Cannot load favorites - no active session")
+            _uiState.value = TimelineUiState.Empty(
+                message = "Please log in to view your favorites",
+                isLoginRequired = true
+            )
+            return
+        }
+        
+        Log.d(TAG, "Loading FAVORITES timeline for account: ${session.getID()}")
+        
+        GetFavoritedStatuses(null, 40)
+            .setCallback(object : Callback<app.kabinka.social.model.HeaderPaginationList<Status>> {
+                override fun onSuccess(result: app.kabinka.social.model.HeaderPaginationList<Status>) {
+                    Log.d(TAG, "Favorites timeline loaded: ${result.size} favorited posts")
+                    if (result.isEmpty()) {
+                        _uiState.value = TimelineUiState.Empty(
+                            message = "No favorites yet. Favorite posts to see them here!",
+                            isLoginRequired = false
+                        )
+                    } else {
+                        _uiState.value = TimelineUiState.Content(result)
+                    }
+                }
+                
+                override fun onError(error: ErrorResponse?) {
+                    Log.e(TAG, "Favorites timeline loading failed: ${error?.toString()}")
+                    _uiState.value = TimelineUiState.Error(
+                        error?.toString() ?: "Failed to load favorites"
+                    )
+                }
+            })
+            .exec(session.getID())
+    }
+    
+    /**
      * Refresh the current timeline
      */
     fun refresh() {
@@ -319,7 +404,11 @@ enum class TimelineType {
     /** Public posts from the current instance */
     LOCAL,
     /** Public posts from federated instances */
-    FEDERATED
+    FEDERATED,
+    /** Bookmarked posts */
+    BOOKMARKS,
+    /** Favorited posts */
+    FAVORITES
 }
 
 sealed class TimelineUiState {

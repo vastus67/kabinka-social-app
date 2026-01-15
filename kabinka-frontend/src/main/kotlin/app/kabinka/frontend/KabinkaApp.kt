@@ -24,6 +24,8 @@ import app.kabinka.frontend.screens.ProfileScreen
 import app.kabinka.frontend.screens.UserProfileScreen
 import app.kabinka.frontend.screens.SettingsScreen
 import app.kabinka.frontend.screens.AboutServerScreen
+import app.kabinka.frontend.screens.BookmarksScreen
+import app.kabinka.frontend.screens.FavoritesScreen
 import app.kabinka.frontend.settings.ui.BehaviourSettingsScreen
 import app.kabinka.frontend.settings.ui.DisplaySettingsScreen
 import app.kabinka.frontend.settings.ui.PrivacySettingsScreen
@@ -170,7 +172,6 @@ fun KabinkaApp(
                             }
                         },
                         onNavigateToUser = { userId ->
-                            println("[HomeTimeline] Navigating to user: $userId")
                             navController.navigate("user_profile/$userId")
                         }
                     )
@@ -180,7 +181,6 @@ fun KabinkaApp(
                 composable(Screen.Search.route) {
                     ExploreScreen(
                         onNavigateToUser = { userId ->
-                            println("[ExploreScreen] Navigating to user: $userId")
                             navController.navigate("user_profile/$userId")
                         }
                     )
@@ -206,7 +206,24 @@ fun KabinkaApp(
                 composable(Screen.Profile.route) {
                     ProfileScreen(
                         onNavigateToUser = { userId ->
-                            println("[ProfileScreen] Navigating to user: $userId")
+                            navController.navigate("user_profile/$userId")
+                        }
+                    )
+                }
+                
+                composable(Screen.Bookmarks.route) {
+                    BookmarksScreen(
+                        onNavigateBack = { navController.popBackStack() },
+                        onNavigateToUser = { userId ->
+                            navController.navigate("user_profile/$userId")
+                        }
+                    )
+                }
+                
+                composable(Screen.Favorites.route) {
+                    FavoritesScreen(
+                        onNavigateBack = { navController.popBackStack() },
+                        onNavigateToUser = { userId ->
                             navController.navigate("user_profile/$userId")
                         }
                     )
@@ -305,7 +322,6 @@ fun KabinkaApp(
                         userId = userId,
                         onNavigateBack = { navController.popBackStack() },
                         onNavigateToUser = { targetUserId ->
-                            println("[UserProfileScreen] Navigating to user: $targetUserId")
                             navController.navigate("user_profile/$targetUserId")
                         }
                     )
