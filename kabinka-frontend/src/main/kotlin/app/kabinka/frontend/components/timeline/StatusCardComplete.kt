@@ -61,6 +61,8 @@ import app.kabinka.social.model.Card
 import coil.compose.AsyncImage
 import java.time.Duration
 import java.time.Instant
+import app.kabinka.social.api.session.AccountSessionManager
+import app.kabinka.social.api.StatusInteractionController
 
 /**
  * Complete StatusCard with full Mastodon feature parity:
@@ -97,6 +99,27 @@ fun StatusCardComplete(
     val isBoost = status.reblog != null
     val displayedStatus = status.reblog ?: status
     val boostAccount = if (isBoost) status.account else null
+    
+    // Local state for immediate UI updates
+    var isFavorited by remember(displayedStatus.id) { mutableStateOf(displayedStatus.favourited) }
+    var isReblogged by remember(displayedStatus.id) { mutableStateOf(displayedStatus.reblogged) }
+    var isBookmarked by remember(displayedStatus.id) { mutableStateOf(displayedStatus.bookmarked) }
+    var favoritesCount by remember(displayedStatus.id) { mutableStateOf(displayedStatus.favouritesCount.toInt()) }
+    var reblogsCount by remember(displayedStatus.id) { mutableStateOf(displayedStatus.reblogsCount.toInt()) }
+    
+    // Sync with status object when it changes
+    LaunchedEffect(displayedStatus.favourited, displayedStatus.reblogged, displayedStatus.bookmarked) {
+        isFavorited = displayedStatus.favourited
+        isReblogged = displayedStatus.reblogged
+        isBookmarked = displayedStatus.bookmarked
+        favoritesCount = displayedStatus.favouritesCount.toInt()
+        reblogsCount = displayedStatus.reblogsCount.toInt()
+    }
+    
+    val accountId = AccountSessionManager.getInstance().lastActiveAccountID
+    val controller = remember(accountId) { 
+        if (accountId != null) StatusInteractionController(accountId) else null 
+    }
     
     Card(
         modifier = modifier
@@ -187,15 +210,28 @@ fun StatusCardComplete(
             // Action buttons
             StatusActions(
                 repliesCount = displayedStatus.repliesCount.toInt(),
-                reblogsCount = displayedStatus.reblogsCount.toInt(),
-                favouritesCount = displayedStatus.favouritesCount.toInt(),
-                reblogged = displayedStatus.reblogged == true,
-                favourited = displayedStatus.favourited == true,
-                bookmarked = displayedStatus.bookmarked == true,
+                reblogsCount = reblogsCount,
+                favouritesCount = favoritesCount,
+                reblogged = isReblogged,
+                favourited = isFavorited,
+                bookmarked = isBookmarked,
                 onReply = { onReply(displayedStatus.id) },
-                onBoost = { onBoost(displayedStatus.id) },
-                onFavorite = { onFavorite(displayedStatus.id) },
-                onBookmark = { onBookmark(displayedStatus.id) },
+                onBoost = {
+                    val newState = !isReblogged
+                    isReblogged = newState
+                    reblogsCount = if (newState) reblogsCount + 1 else reblogsCount - 1
+                    controller?.setReblogged(displayedStatus, newState)
+                },
+                onFavorite = {
+                    val newState = !isFavorited
+                    isFavorited = newState
+                    favoritesCount = if (newState) favoritesCount + 1 else favoritesCount - 1
+                    controller?.setFavorited(displayedStatus, newState)
+                },
+                onBookmark = {
+                    isBookmarked = !isBookmarked
+                    controller?.setBookmarked(displayedStatus, isBookmarked)
+                },
                 onShare = { onMore(displayedStatus.id) }
             )
         }

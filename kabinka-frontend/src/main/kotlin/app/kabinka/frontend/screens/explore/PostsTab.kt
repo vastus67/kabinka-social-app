@@ -11,16 +11,24 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import app.kabinka.social.api.requests.trends.GetTrendingStatuses
 import app.kabinka.social.api.session.AccountSessionManager
+import app.kabinka.social.api.StatusInteractionController
 import app.kabinka.social.model.Status
 import app.kabinka.social.model.Attachment
+import app.kabinka.social.model.Relationship
 import coil.compose.AsyncImage
 import me.grishka.appkit.api.Callback
 import me.grishka.appkit.api.ErrorResponse
+import compose.icons.LineAwesomeIcons
+import compose.icons.lineawesomeicons.CommentSolid
+import compose.icons.lineawesomeicons.RetweetSolid
+import compose.icons.lineawesomeicons.HeartSolid
+import compose.icons.lineawesomeicons.BookmarkSolid
 
 @Composable
 fun PostsTab(isLoggedIn: Boolean, onNavigateToUser: (String) -> Unit) {
@@ -85,6 +93,26 @@ fun PostsTab(isLoggedIn: Boolean, onNavigateToUser: (String) -> Unit) {
 
 @Composable
 private fun PostCard(status: Status, onNavigateToUser: (String) -> Unit = {}) {
+    var isFavorited by remember(status.id) { mutableStateOf(status.favourited) }
+    var isReblogged by remember(status.id) { mutableStateOf(status.reblogged) }
+    var isBookmarked by remember(status.id) { mutableStateOf(status.bookmarked) }
+    var favoritesCount by remember(status.id) { mutableStateOf(status.favouritesCount.toInt()) }
+    var reblogsCount by remember(status.id) { mutableStateOf(status.reblogsCount.toInt()) }
+    
+    // Sync with status object when it changes
+    LaunchedEffect(status.favourited, status.reblogged, status.bookmarked) {
+        isFavorited = status.favourited
+        isReblogged = status.reblogged
+        isBookmarked = status.bookmarked
+        favoritesCount = status.favouritesCount.toInt()
+        reblogsCount = status.reblogsCount.toInt()
+    }
+    
+    val accountId = AccountSessionManager.getInstance().lastActiveAccountID
+    val controller = remember(accountId) { 
+        if (accountId != null) StatusInteractionController(accountId) else null 
+    }
+    
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(0.dp),
@@ -152,6 +180,93 @@ private fun PostCard(status: Status, onNavigateToUser: (String) -> Unit = {}) {
                     }
                 }
             }
+            
+            // Action buttons
+            Spacer(modifier = Modifier.height(12.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                // Reply
+                StatusActionButton(
+                    icon = LineAwesomeIcons.CommentSolid,
+                    count = status.repliesCount.toInt(),
+                    onClick = { /* Reply functionality */ }
+                )
+                
+                // Boost/Reblog
+                StatusActionButton(
+                    icon = LineAwesomeIcons.RetweetSolid,
+                    count = reblogsCount,
+                    isActive = isReblogged,
+                    onClick = {
+                        val newState = !isReblogged
+                        isReblogged = newState
+                        reblogsCount = if (newState) reblogsCount + 1 else reblogsCount - 1
+                        controller?.setReblogged(status, newState)
+                    }
+                )
+                
+                // Favorite/Like
+                StatusActionButton(
+                    icon = LineAwesomeIcons.HeartSolid,
+                    count = favoritesCount,
+                    isActive = isFavorited,
+                    onClick = {
+                        val newState = !isFavorited
+                        isFavorited = newState
+                        favoritesCount = if (newState) favoritesCount + 1 else favoritesCount - 1
+                        controller?.setFavorited(status, newState)
+                    }
+                )
+                
+                // Bookmark
+                IconButton(onClick = {
+                    isBookmarked = !isBookmarked
+                    controller?.setBookmarked(status, isBookmarked)
+                }) {
+                    Icon(
+                        imageVector = LineAwesomeIcons.BookmarkSolid,
+                        contentDescription = "Bookmark",
+                        tint = if (isBookmarked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
         }
+    }
+}
+
+@Composable
+private fun StatusActionButton(
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    count: Int,
+    isActive: Boolean = false,
+    onClick: () -> Unit
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        IconButton(onClick = onClick) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = if (isActive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+        if (count > 0) {
+            Text(
+                text = formatCount(count),
+                style = MaterialTheme.typography.bodySmall,
+                color = if (isActive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
+    }
+}
+
+private fun formatCount(count: Int): String {
+    return when {
+        count >= 1000000 -> "${count / 1000000}M"
+        count >= 1000 -> "${count / 1000}K"
+        else -> count.toString()
     }
 }
