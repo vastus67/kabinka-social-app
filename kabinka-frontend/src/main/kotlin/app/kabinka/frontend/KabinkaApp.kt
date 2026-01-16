@@ -183,6 +183,7 @@ fun KabinkaApp(
                 // Placeholder screens for other navigation items
                 composable(Screen.Search.route) {
                     ExploreScreen(
+                        sessionManager = sessionManager,
                         onNavigateToUser = { userId ->
                             navController.navigate("user_profile/$userId")
                         }

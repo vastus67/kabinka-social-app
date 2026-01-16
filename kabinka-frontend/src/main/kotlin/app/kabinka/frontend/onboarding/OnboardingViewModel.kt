@@ -190,6 +190,10 @@ class OnboardingViewModel(
                         )
                         
                         android.util.Log.d("OnboardingViewModel", "Session created in AccountSessionManager")
+                        
+                        // Set mode to MASTODON now that we have a successful login
+                        _state.update { it.copy(mode = OnboardingMode.MASTODON) }
+                        repository.saveMode(OnboardingMode.MASTODON)
                     } catch (e: Exception) {
                         android.util.Log.e("OnboardingViewModel", "Failed to create session", e)
                     }

@@ -5,47 +5,14 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import compose.icons.LineAwesomeIcons
-import compose.icons.lineawesomeicons.HomeSolid
-import compose.icons.lineawesomeicons.SearchSolid
-import compose.icons.lineawesomeicons.EditSolid
-import compose.icons.lineawesomeicons.BellSolid
-import compose.icons.lineawesomeicons.UserSolid
-import compose.icons.lineawesomeicons.ShareSolid
-import compose.icons.lineawesomeicons.CogSolid
-import compose.icons.lineawesomeicons.CommentSolid
-import compose.icons.lineawesomeicons.EllipsisVSolid
-import compose.icons.lineawesomeicons.GlobeSolid
-import compose.icons.lineawesomeicons.HeartSolid
-import compose.icons.lineawesomeicons.RetweetSolid
-import compose.icons.lineawesomeicons.StarSolid
-import compose.icons.lineawesomeicons.FileAltSolid
-import compose.icons.lineawesomeicons.HashtagSolid
-import compose.icons.lineawesomeicons.FileSolid
-import compose.icons.lineawesomeicons.UsersSolid
-import compose.icons.lineawesomeicons.RssSolid
-import compose.icons.lineawesomeicons.AtSolid
-import compose.icons.lineawesomeicons.UserPlusSolid
-import compose.icons.lineawesomeicons.ChartBarSolid
-import compose.icons.lineawesomeicons.BookmarkSolid
-import compose.icons.lineawesomeicons.MapMarkerSolid
-import compose.icons.lineawesomeicons.InfoCircleSolid
-import compose.icons.lineawesomeicons.ExclamationTriangleSolid
-import compose.icons.lineawesomeicons.SyncSolid
-import compose.icons.lineawesomeicons.PhoneSolid
-import compose.icons.lineawesomeicons.ReplySolid
-import compose.icons.lineawesomeicons.PlaySolid
-import compose.icons.lineawesomeicons.QrcodeSolid
-import compose.icons.lineawesomeicons.TimesSolid
-
-
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -53,16 +20,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import app.kabinka.social.model.Status
 import app.kabinka.social.model.Account
-import app.kabinka.social.model.Attachment
-import app.kabinka.social.model.Poll
-import app.kabinka.social.model.Card
-import coil.compose.AsyncImage
-import java.time.Duration
-import java.time.Instant
+import app.kabinka.social.model.Status
+import app.kabinka.social.ui.text.HtmlParser
+import app.kabinka.social.ui.text.LinkSpan
 import app.kabinka.social.api.session.AccountSessionManager
 import app.kabinka.social.api.StatusInteractionController
+import coil.compose.AsyncImage
+import compose.icons.LineAwesomeIcons
+import compose.icons.lineawesomeicons.EllipsisVSolid
+import compose.icons.lineawesomeicons.ExclamationTriangleSolid
+import compose.icons.lineawesomeicons.ReplySolid
+import compose.icons.lineawesomeicons.StarSolid
+import compose.icons.lineawesomeicons.SyncSolid
+import java.time.Instant
+import java.time.Duration
 
 /**
  * Complete StatusCard with full Mastodon feature parity:
@@ -508,126 +480,86 @@ private fun StatusContent(
 }
 
 @Composable
-private fun ClickableText(
-    text: AnnotatedString,
-    style: androidx.compose.ui.text.TextStyle,
-    onClick: (Int) -> Unit
-) {
-    androidx.compose.foundation.text.ClickableText(
-        text = text,
-        style = style,
-        onClick = onClick
-    )
-}
-
 private fun htmlToAnnotatedString(
     html: String,
     mentions: List<app.kabinka.social.model.Mention>,
     tags: List<app.kabinka.social.model.Hashtag>,
     baseColor: androidx.compose.ui.graphics.Color
 ): AnnotatedString {
+    // Use kabinka-social's HtmlParser and convert to AnnotatedString
+    val context = androidx.compose.ui.platform.LocalContext.current
+    val accountId = AccountSessionManager.getInstance().lastActiveAccountID
+    
+    val spanned = app.kabinka.social.ui.text.HtmlParser.parse(
+        html,
+        emptyList(), // emojis - we'll handle separately if needed
+        mentions,
+        tags,
+        accountId ?: "",
+        null, // parentObject
+        context
+    )
+    
     return buildAnnotatedString {
-        // Create maps for quick lookup
-        val mentionMap = mentions.associateBy { it.url }
-        val tagMap = tags.associateBy { it.url }
+        val linkColor = androidx.compose.ui.graphics.Color(0xFF1DA1F2)
         
-        val linkColor = androidx.compose.ui.graphics.Color(0xFF1DA1F2) // Twitter blue
+        // Convert SpannableStringBuilder to AnnotatedString
+        append(spanned.toString())
         
-        // Parse HTML for links
-        val linkPattern = "<a\\s+href=\"([^\"]+)\"[^>]*>([^<]+)</a>".toRegex()
-        val brPattern = "<br\\s*/?>".toRegex()
-        val pOpenPattern = "<p>".toRegex()
-        val pClosePattern = "</p>".toRegex()
+        // Apply base color to all text
+        addStyle(SpanStyle(color = baseColor), 0, length)
         
-        val processedHtml = html
-            .replace("&nbsp;", " ")
-            .replace("&lt;", "<")
-            .replace("&gt;", ">")
-            .replace("&amp;", "&")
-            .replace("&quot;", "\"")
-            .replace("&#39;", "'")
-        
-        var workingText = processedHtml
-        var currentIndex = 0
-        
-        // Find all links
-        linkPattern.findAll(processedHtml).forEach { matchResult ->
-            val (url, text) = matchResult.destructured
-            val beforeLink = workingText.substringBefore(matchResult.value)
+        // Extract LinkSpan annotations from the spanned text
+        val spans = spanned.getSpans(0, spanned.length, app.kabinka.social.ui.text.LinkSpan::class.java)
+        for (span in spans) {
+            val start = spanned.getSpanStart(span)
+            val end = spanned.getSpanEnd(span)
             
-            // Process text before link
-            val cleanedBefore = beforeLink
-                .replace(brPattern, "\n")
-                .replace(pOpenPattern, "\n")
-                .replace(pClosePattern, "")
-                .replace("<[^>]*>".toRegex(), "")
-            
-            // Add text before link with base color
-            val beforeStart = currentIndex
-            append(cleanedBefore)
-            currentIndex += cleanedBefore.length
-            addStyle(SpanStyle(color = baseColor), beforeStart, currentIndex)
-            
-            // Add the link text
-            val linkStart = currentIndex
-            append(text)
-            currentIndex += text.length
-            
-            // Add link styling with underline
+            // Add link styling
             addStyle(
                 SpanStyle(
                     color = linkColor,
                     textDecoration = TextDecoration.Underline
-                ), 
-                linkStart, 
-                currentIndex
+                ),
+                start,
+                end
             )
             
-            // Determine type of link and add annotation
-            when {
-                mentionMap.containsKey(url) -> {
+            // Add annotation based on link type
+            when (span.type) {
+                app.kabinka.social.ui.text.LinkSpan.Type.MENTION -> {
                     addStringAnnotation(
                         tag = "MENTION",
-                        annotation = mentionMap[url]?.id ?: url,
-                        start = linkStart,
-                        end = currentIndex
+                        annotation = span.link,
+                        start = start,
+                        end = end
                     )
                 }
-                tagMap.containsKey(url) -> {
+                app.kabinka.social.ui.text.LinkSpan.Type.HASHTAG -> {
                     addStringAnnotation(
                         tag = "HASHTAG",
-                        annotation = tagMap[url]?.name ?: text.removePrefix("#"),
-                        start = linkStart,
-                        end = currentIndex
+                        annotation = span.link,
+                        start = start,
+                        end = end
+                    )
+                }
+                app.kabinka.social.ui.text.LinkSpan.Type.URL -> {
+                    addStringAnnotation(
+                        tag = "URL",
+                        annotation = span.link,
+                        start = start,
+                        end = end
                     )
                 }
                 else -> {
                     addStringAnnotation(
                         tag = "URL",
-                        annotation = url,
-                        start = linkStart,
-                        end = currentIndex
+                        annotation = span.link,
+                        start = start,
+                        end = end
                     )
                 }
             }
-            
-            workingText = workingText.substringAfter(matchResult.value)
-        }
-        
-        // Add remaining text
-        val cleanedRemaining = workingText
-            .replace(brPattern, "\n")
-            .replace(pOpenPattern, "\n")
-            .replace(pClosePattern, "")
-            .replace("<[^>]*>".toRegex(), "")
-        
-        val remainingStart = currentIndex
-        append(cleanedRemaining)
-        currentIndex += cleanedRemaining.length
-        
-        // Apply base color to remaining text
-        if (remainingStart < currentIndex) {
-            addStyle(SpanStyle(color = baseColor), remainingStart, currentIndex)
         }
     }
 }

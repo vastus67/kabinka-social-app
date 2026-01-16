@@ -153,6 +153,9 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     
+    // JSoup for HTML parsing
+    implementation("org.jsoup:jsoup:1.14.3")
+    
     // Browser support for Custom Tabs
     implementation("androidx.browser:browser:1.7.0")
     

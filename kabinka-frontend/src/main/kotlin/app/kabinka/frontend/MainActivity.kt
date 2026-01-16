@@ -74,11 +74,17 @@ class MainActivity : ComponentActivity() {
                 // Set anonymous mode if user is browsing without account
                 LaunchedEffect(state.mode, state.mastodonConnection.status) {
                     if (state.mode == app.kabinka.frontend.onboarding.data.OnboardingMode.BROWSE_ONLY) {
+                        android.util.Log.d("MainActivity", "Setting anonymous mode: true (BROWSE_ONLY)")
                         sessionManager.setAnonymousMode(true)
                     } else if (state.mastodonConnection.status == app.kabinka.frontend.onboarding.data.ConnectionStatus.CONNECTED) {
-                        // User is logged in, disable anonymous mode
+                        // User is logged in, disable anonymous mode and check session
+                        android.util.Log.d("MainActivity", "Setting anonymous mode: false (CONNECTED)")
                         sessionManager.setAnonymousMode(false)
-                    } else {
+                        // Force session check after a short delay to ensure session is saved
+                        kotlinx.coroutines.delay(300)
+                        sessionManager.checkSessionState()
+                    } else if (state.mastodonConnection.status == app.kabinka.frontend.onboarding.data.ConnectionStatus.DISCONNECTED) {
+                        android.util.Log.d("MainActivity", "Setting anonymous mode: false (DISCONNECTED)")
                         sessionManager.setAnonymousMode(false)
                     }
                 }
