@@ -80,7 +80,8 @@ import me.grishka.appkit.api.ErrorResponse
 @Composable
 fun ProfileScreen(
     onNavigateToUser: (String) -> Unit = {},
-    onNavigateToReply: (String) -> Unit = {}
+    onNavigateToReply: (String) -> Unit = {},
+    onNavigateToThread: (String) -> Unit = {}
 ) {
     val context = LocalContext.current
     val sessionManager = remember { SessionStateManager(context) }
@@ -299,13 +300,13 @@ fun ProfileScreen(
                                 items(pinnedStatuses) { status ->
                                     app.kabinka.frontend.components.timeline.StatusCardComplete(
                                         status = status,
-                                        onStatusClick = { /* TODO: Navigate to status detail */ },
+                                        onStatusClick = { onNavigateToThread(status.id) },
                                         onProfileClick = onNavigateToUser,
                                         onReply = { statusId -> onNavigateToReply(statusId) },
                                         onBoost = { statusId -> timelineViewModel.toggleReblog(statusId) },
                                         onFavorite = { statusId -> timelineViewModel.toggleFavorite(statusId) },
                                         onBookmark = { statusId -> timelineViewModel.toggleBookmark(statusId) },
-                                        onMore = { /* TODO: Show more options */ },
+                                        onMore = { /* Handled internally in StatusCardComplete */ },
                                         onLinkClick = { url ->
                                             try {
                                                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
@@ -319,7 +320,8 @@ fun ProfileScreen(
                                         },
                                         onMentionClick = { userId ->
                                             onNavigateToUser(userId)
-                                        }
+                                        },
+                                        isProfileView = true
                                     )
                                 }
                             }
@@ -338,13 +340,13 @@ fun ProfileScreen(
                                 items(statuses) { status ->
                                     app.kabinka.frontend.components.timeline.StatusCardComplete(
                                         status = status,
-                                        onStatusClick = { /* TODO: Navigate to status detail */ },
+                                        onStatusClick = { onNavigateToThread(status.id) },
                                         onProfileClick = onNavigateToUser,
                                         onReply = { statusId -> onNavigateToReply(statusId) },
                                         onBoost = { statusId -> timelineViewModel.toggleReblog(statusId) },
                                         onFavorite = { statusId -> timelineViewModel.toggleFavorite(statusId) },
                                         onBookmark = { statusId -> timelineViewModel.toggleBookmark(statusId) },
-                                        onMore = { /* TODO: Show more options */ },
+                                        onMore = { /* Handled internally in StatusCardComplete */ },
                                         onLinkClick = { url ->
                                             try {
                                                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
@@ -366,7 +368,8 @@ fun ProfileScreen(
                                                 imageViewerInitialIndex = index
                                                 showImageViewer = true
                                             }
-                                        }
+                                        },
+                                        isProfileView = true
                                     )
                                 }
                             }

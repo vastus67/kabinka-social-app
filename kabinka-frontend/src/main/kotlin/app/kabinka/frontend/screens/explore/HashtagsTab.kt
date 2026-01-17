@@ -1,5 +1,6 @@
 package app.kabinka.frontend.screens.explore
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -15,7 +16,9 @@ import me.grishka.appkit.api.Callback
 import me.grishka.appkit.api.ErrorResponse
 
 @Composable
-fun HashtagsTab() {
+fun HashtagsTab(
+    onHashtagClick: (String) -> Unit = {}
+) {
     var hashtags by remember { mutableStateOf<List<Hashtag>>(emptyList()) }
     var isLoading by remember { mutableStateOf(true) }
 
@@ -42,7 +45,10 @@ fun HashtagsTab() {
                     verticalArrangement = Arrangement.spacedBy(1.dp)
                 ) {
                     items(hashtags) { hashtag ->
-                        HashtagCard(hashtag)
+                        HashtagCard(
+                            hashtag = hashtag,
+                            onClick = { onHashtagClick(hashtag.name) }
+                        )
                     }
                 }
             }
@@ -51,9 +57,14 @@ fun HashtagsTab() {
 }
 
 @Composable
-private fun HashtagCard(hashtag: Hashtag) {
+private fun HashtagCard(
+    hashtag: Hashtag,
+    onClick: () -> Unit
+) {
     Card(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
         shape = RoundedCornerShape(0.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
     ) {

@@ -33,6 +33,22 @@ import compose.icons.lineawesomeicons.ExclamationTriangleSolid
 import compose.icons.lineawesomeicons.ReplySolid
 import compose.icons.lineawesomeicons.StarSolid
 import compose.icons.lineawesomeicons.SyncSolid
+import compose.icons.lineawesomeicons.LanguageSolid
+import compose.icons.lineawesomeicons.BookmarkSolid
+import compose.icons.lineawesomeicons.ShareSolid
+import compose.icons.lineawesomeicons.ExternalLinkAltSolid
+import compose.icons.lineawesomeicons.LinkSolid
+import compose.icons.lineawesomeicons.UserPlusSolid
+import compose.icons.lineawesomeicons.VolumeMuteSolid
+import compose.icons.lineawesomeicons.BanSolid
+import compose.icons.lineawesomeicons.FlagSolid
+import compose.icons.lineawesomeicons.ThumbtackSolid
+import compose.icons.lineawesomeicons.TrashSolid
+import compose.icons.lineawesomeicons.CommentSlashSolid
+import compose.icons.lineawesomeicons.QuoteRightSolid
+import compose.icons.lineawesomeicons.EditSolid
+import android.content.Intent
+import android.net.Uri
 import java.time.Instant
 import java.time.Duration
 
@@ -65,6 +81,7 @@ fun StatusCardComplete(
     onLinkClick: (String) -> Unit = {},
     onHashtagClick: (String) -> Unit = {},
     onMentionClick: (String) -> Unit = {},
+    isProfileView: Boolean = false,
     modifier: Modifier = Modifier
 ) {
     // Determine if this is a boost/reblog
@@ -124,30 +141,32 @@ fun StatusCardComplete(
             
             // Author header
             StatusHeader(
+                status = displayedStatus,
                 account = displayedStatus.account,
                 createdAt = displayedStatus.createdAt,
                 editedAt = displayedStatus.editedAt,
                 visibility = displayedStatus.visibility.toString(),
                 onProfileClick = { onProfileClick(displayedStatus.account.id) },
-                onMore = { onMore(displayedStatus.id) }
+                onMore = { onMore(displayedStatus.id) },
+                onBookmark = { onBookmark(displayedStatus.id) },
+                isProfileView = isProfileView
             )
             
             Spacer(modifier = Modifier.height(12.dp))
             
             // Content with CW handling
-            Column {
-                StatusContent(
-                    content = displayedStatus.content,
-                    spoilerText = displayedStatus.spoilerText,
-                    sensitive = displayedStatus.sensitive,
-                    emojis = displayedStatus.emojis,
-                    mentions = displayedStatus.mentions,
-                    tags = displayedStatus.tags,
-                    onLinkClick = onLinkClick,
-                    onHashtagClick = onHashtagClick,
-                    onMentionClick = onMentionClick
-                )
-            }
+            StatusContent(
+                content = displayedStatus.content,
+                spoilerText = displayedStatus.spoilerText,
+                sensitive = displayedStatus.sensitive,
+                emojis = displayedStatus.emojis,
+                mentions = displayedStatus.mentions,
+                tags = displayedStatus.tags,
+                onLinkClick = onLinkClick,
+                onHashtagClick = onHashtagClick,
+                onMentionClick = onMentionClick,
+                onContentClick = { onStatusClick(displayedStatus.id) }
+            )
             
             // Media attachments
             if (!displayedStatus.mediaAttachments.isNullOrEmpty()) {
@@ -276,13 +295,19 @@ private fun PinnedIndicator() {
 
 @Composable
 private fun StatusHeader(
+    status: Status,
     account: Account,
     createdAt: Instant,
     editedAt: Instant?,
     visibility: String,
     onProfileClick: () -> Unit,
-    onMore: () -> Unit
+    onMore: () -> Unit,
+    onBookmark: () -> Unit,
+    isProfileView: Boolean = false
 ) {
+    val context = LocalContext.current
+    var showMenu by remember { mutableStateOf(false) }
+    
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
@@ -366,12 +391,293 @@ private fun StatusHeader(
             }
         }
 
-        IconButton(onClick = onMore) {
-            Icon(
-                imageVector = LineAwesomeIcons.EllipsisVSolid,
-                contentDescription = "More options",
-                tint = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+        Box {
+            IconButton(onClick = { showMenu = true }) {
+                Icon(
+                    imageVector = LineAwesomeIcons.EllipsisVSolid,
+                    contentDescription = "More options",
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
+            
+            DropdownMenu(
+                expanded = showMenu,
+                onDismissRequest = { showMenu = false }
+            ) {
+                if (isProfileView) {
+                    // Profile view menu - different options
+                    DropdownMenuItem(
+                        text = { Text(if (status.pinned == true) "Unpin from profile" else "Pin to profile") },
+                        onClick = {
+                            android.util.Log.d("StatusCard", if (status.pinned == true) "Unpin: ${status.id}" else "Pin: ${status.id}")
+                            showMenu = false
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = LineAwesomeIcons.ThumbtackSolid,
+                                contentDescription = null
+                            )
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Bookmark") },
+                        onClick = {
+                            onBookmark()
+                            showMenu = false
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = LineAwesomeIcons.BookmarkSolid,
+                                contentDescription = null
+                            )
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Share") },
+                        onClick = {
+                            val url = status.url ?: status.uri
+                            val intent = Intent(Intent.ACTION_SEND).apply {
+                                type = "text/plain"
+                                putExtra(Intent.EXTRA_TEXT, url)
+                            }
+                            context.startActivity(Intent.createChooser(intent, "Share post"))
+                            showMenu = false
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = LineAwesomeIcons.ShareSolid,
+                                contentDescription = null
+                            )
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Open in browser") },
+                        onClick = {
+                            val url = status.url ?: status.uri
+                            try {
+                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                                context.startActivity(intent)
+                            } catch (e: Exception) {
+                                android.util.Log.e("StatusCard", "Failed to open URL: $url", e)
+                            }
+                            showMenu = false
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = LineAwesomeIcons.ExternalLinkAltSolid,
+                                contentDescription = null
+                            )
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Copy link") },
+                        onClick = {
+                            val url = status.url ?: status.uri
+                            val clipboard = context.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+                            val clip = android.content.ClipData.newPlainText("Post URL", url)
+                            clipboard.setPrimaryClip(clip)
+                            android.util.Log.d("StatusCard", "Copied link: $url")
+                            showMenu = false
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = LineAwesomeIcons.LinkSolid,
+                                contentDescription = null
+                            )
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Edit") },
+                        onClick = {
+                            android.util.Log.d("StatusCard", "Edit: ${status.id}")
+                            showMenu = false
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = LineAwesomeIcons.EditSolid,
+                                contentDescription = null
+                            )
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Delete") },
+                        onClick = {
+                            android.util.Log.d("StatusCard", "Delete: ${status.id}")
+                            showMenu = false
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = LineAwesomeIcons.TrashSolid,
+                                contentDescription = null
+                            )
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Mute conversation") },
+                        onClick = {
+                            android.util.Log.d("StatusCard", "Mute conversation: ${status.id}")
+                            showMenu = false
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = LineAwesomeIcons.CommentSlashSolid,
+                                contentDescription = null
+                            )
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Change who can quote") },
+                        onClick = {
+                            android.util.Log.d("StatusCard", "Change quote settings: ${status.id}")
+                            showMenu = false
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = LineAwesomeIcons.QuoteRightSolid,
+                                contentDescription = null
+                            )
+                        }
+                    )
+                } else {
+                    // Default timeline menu
+                    DropdownMenuItem(
+                        text = { Text("Translate") },
+                        onClick = {
+                            android.util.Log.d("StatusCard", "Translate: ${status.id}")
+                            showMenu = false
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = LineAwesomeIcons.LanguageSolid,
+                                contentDescription = null
+                            )
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Bookmark") },
+                        onClick = {
+                            onBookmark()
+                            showMenu = false
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = LineAwesomeIcons.BookmarkSolid,
+                                contentDescription = null
+                            )
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Share") },
+                        onClick = {
+                            val url = status.url ?: status.uri
+                            val intent = Intent(Intent.ACTION_SEND).apply {
+                                type = "text/plain"
+                                putExtra(Intent.EXTRA_TEXT, url)
+                            }
+                            context.startActivity(Intent.createChooser(intent, "Share post"))
+                            showMenu = false
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = LineAwesomeIcons.ShareSolid,
+                                contentDescription = null
+                            )
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Open in browser") },
+                        onClick = {
+                            val url = status.url ?: status.uri
+                            try {
+                                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                                context.startActivity(intent)
+                            } catch (e: Exception) {
+                                android.util.Log.e("StatusCard", "Failed to open URL: $url", e)
+                            }
+                            showMenu = false
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = LineAwesomeIcons.ExternalLinkAltSolid,
+                                contentDescription = null
+                            )
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Copy link") },
+                        onClick = {
+                            val url = status.url ?: status.uri
+                            val clipboard = context.getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+                            val clip = android.content.ClipData.newPlainText("Post URL", url)
+                            clipboard.setPrimaryClip(clip)
+                            android.util.Log.d("StatusCard", "Copied link: $url")
+                            showMenu = false
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = LineAwesomeIcons.LinkSolid,
+                                contentDescription = null
+                            )
+                        }
+                    )
+                    
+                    HorizontalDivider()
+                    
+                    // Second group - Account actions
+                    DropdownMenuItem(
+                        text = { Text("Follow poster") },
+                        onClick = {
+                            android.util.Log.d("StatusCard", "Follow: ${account.acct}")
+                            showMenu = false
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = LineAwesomeIcons.UserPlusSolid,
+                                contentDescription = null
+                            )
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Mute poster") },
+                        onClick = {
+                            android.util.Log.d("StatusCard", "Mute: ${account.acct}")
+                            showMenu = false
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = LineAwesomeIcons.VolumeMuteSolid,
+                                contentDescription = null
+                            )
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Block poster") },
+                        onClick = {
+                            android.util.Log.d("StatusCard", "Block: ${account.acct}")
+                            showMenu = false
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = LineAwesomeIcons.BanSolid,
+                                contentDescription = null
+                            )
+                        }
+                    )
+                    DropdownMenuItem(
+                        text = { Text("Report poster") },
+                        onClick = {
+                            android.util.Log.d("StatusCard", "Report: ${account.acct}")
+                            showMenu = false
+                        },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = LineAwesomeIcons.FlagSolid,
+                                contentDescription = null
+                            )
+                        }
+                    )
+                }
+            }
         }
     }
 }
@@ -386,9 +692,11 @@ private fun StatusContent(
     tags: List<app.kabinka.social.model.Hashtag>?,
     onLinkClick: (String) -> Unit,
     onHashtagClick: (String) -> Unit,
-    onMentionClick: (String) -> Unit
+    onMentionClick: (String) -> Unit,
+    onContentClick: () -> Unit = {}
 ) {
     var showContent by remember { mutableStateOf(spoilerText.isNullOrEmpty() && !sensitive) }
+    var isExpanded by remember { mutableStateOf(false) }
     
     // Content warning
     if (!spoilerText.isNullOrEmpty() || sensitive) {
@@ -445,37 +753,64 @@ private fun StatusContent(
             baseColor = MaterialTheme.colorScheme.onSurface
         )
         
-        ClickableText(
-            text = annotatedContent,
-            style = MaterialTheme.typography.bodyMedium.copy(
-                color = MaterialTheme.colorScheme.onSurface
-            ),
-            onClick = { offset ->
-                annotatedContent.getStringAnnotations(
-                    tag = "URL",
-                    start = offset,
-                    end = offset
-                ).firstOrNull()?.let { annotation ->
-                    onLinkClick(annotation.item)
+        // Check if content is long (more than 500 characters or 10+ lines)
+        val isLongContent = annotatedContent.text.length > 500
+        val maxLines = if (isExpanded || !isLongContent) Int.MAX_VALUE else 10
+        
+        Column {
+            ClickableText(
+                text = annotatedContent,
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    color = MaterialTheme.colorScheme.onSurface
+                ),
+                maxLines = maxLines,
+                overflow = TextOverflow.Ellipsis,
+                onClick = { offset ->
+                    // Check for annotations first (links, hashtags, mentions)
+                    val hasAnnotation = annotatedContent.getStringAnnotations(
+                        tag = "URL",
+                        start = offset,
+                        end = offset
+                    ).firstOrNull()?.let { annotation ->
+                        onLinkClick(annotation.item)
+                        true
+                    } ?: annotatedContent.getStringAnnotations(
+                        tag = "HASHTAG",
+                        start = offset,
+                        end = offset
+                    ).firstOrNull()?.let { annotation ->
+                        onHashtagClick(annotation.item)
+                        true
+                    } ?: annotatedContent.getStringAnnotations(
+                        tag = "MENTION",
+                        start = offset,
+                        end = offset
+                    ).firstOrNull()?.let { annotation ->
+                        onMentionClick(annotation.item)
+                        true
+                    } ?: false
+                    
+                    // If no annotation was clicked, treat it as content click
+                    if (!hasAnnotation) {
+                        onContentClick()
+                    }
                 }
-                
-                annotatedContent.getStringAnnotations(
-                    tag = "HASHTAG",
-                    start = offset,
-                    end = offset
-                ).firstOrNull()?.let { annotation ->
-                    onHashtagClick(annotation.item)
-                }
-                
-                annotatedContent.getStringAnnotations(
-                    tag = "MENTION",
-                    start = offset,
-                    end = offset
-                ).firstOrNull()?.let { annotation ->
-                    onMentionClick(annotation.item)
+            )
+            
+            // Show more/less button for long content
+            if (isLongContent) {
+                TextButton(
+                    onClick = { isExpanded = !isExpanded },
+                    modifier = Modifier.padding(top = 4.dp)
+                ) {
+                    Text(
+                        text = if (isExpanded) "Show less" else "Show more",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.primary
+                    )
                 }
             }
-        )
+        }
     }
 }
 

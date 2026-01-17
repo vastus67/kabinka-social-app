@@ -26,6 +26,8 @@ import app.kabinka.frontend.screens.SettingsScreen
 import app.kabinka.frontend.screens.AboutServerScreen
 import app.kabinka.frontend.screens.BookmarksScreen
 import app.kabinka.frontend.screens.FavoritesScreen
+import app.kabinka.frontend.screens.HashtagTimelineScreen
+import app.kabinka.frontend.screens.ThreadScreen
 import app.kabinka.frontend.settings.ui.BehaviourSettingsScreen
 import app.kabinka.frontend.settings.ui.DisplaySettingsScreen
 import app.kabinka.frontend.settings.ui.PrivacySettingsScreen
@@ -135,22 +137,14 @@ fun KabinkaApp(
                     KabinkaBottomNav(
                         currentRoute = currentRoute,
                         onNavigate = { route ->
-                            // Special handling for Home and Profile navigation - clear user_profile backstack
-                            if ((route == Screen.Home.route || route == Screen.Profile.route) && currentRoute.startsWith("user_profile/")) {
-                                navController.navigate(route) {
-                                    popUpTo(route) {
-                                        inclusive = false
-                                    }
-                                    launchSingleTop = true
+                            // Always navigate to main page and clear backstack for that destination
+                            navController.navigate(route) {
+                                // Pop everything up to the target route (or home if not found)
+                                popUpTo(navController.graph.startDestinationId) {
+                                    saveState = true
                                 }
-                            } else {
-                                navController.navigate(route) {
-                                    popUpTo(bottomNavRoutes.first()) {
-                                        saveState = true
-                                    }
-                                    launchSingleTop = true
-                                    restoreState = true
-                                }
+                                launchSingleTop = true
+                                restoreState = true
                             }
                         }
                     )
@@ -176,6 +170,9 @@ fun KabinkaApp(
                         },
                         onNavigateToReply = { statusId ->
                             navController.navigate(Screen.ComposeReply.createRoute(statusId))
+                        },
+                        onNavigateToThread = { statusId ->
+                            navController.navigate(Screen.Thread.createRoute(statusId))
                         }
                     )
                 }
@@ -186,6 +183,12 @@ fun KabinkaApp(
                         sessionManager = sessionManager,
                         onNavigateToUser = { userId ->
                             navController.navigate("user_profile/$userId")
+                        },
+                        onNavigateToHashtag = { tag ->
+                            navController.navigate(Screen.HashtagTimeline.createRoute(tag))
+                        },
+                        onNavigateToThread = { statusId ->
+                            navController.navigate(Screen.Thread.createRoute(statusId))
                         }
                     )
                 }
@@ -287,6 +290,9 @@ fun KabinkaApp(
                         },
                         onNavigateToReply = { statusId ->
                             navController.navigate(Screen.ComposeReply.createRoute(statusId))
+                        },
+                        onNavigateToThread = { statusId ->
+                            navController.navigate(Screen.Thread.createRoute(statusId))
                         }
                     )
                 }
@@ -311,6 +317,40 @@ fun KabinkaApp(
                         },
                         onNavigateToReply = { statusId ->
                             navController.navigate(Screen.ComposeReply.createRoute(statusId))
+                        }
+                    )
+                }
+                
+                composable(
+                    route = Screen.HashtagTimeline.route,
+                    arguments = listOf(navArgument("tag") { type = NavType.StringType })
+                ) { backStackEntry ->
+                    val tag = backStackEntry.arguments?.getString("tag") ?: return@composable
+                    HashtagTimelineScreen(
+                        hashtag = tag,
+                        onNavigateBack = { navController.popBackStack() },
+                        onNavigateToUser = { userId ->
+                            navController.navigate("user_profile/$userId")
+                        },
+                        onNavigateToReply = { statusId ->
+                            navController.navigate(Screen.ComposeReply.createRoute(statusId))
+                        }
+                    )
+                }
+                
+                composable(
+                    route = Screen.Thread.route,
+                    arguments = listOf(navArgument("statusId") { type = NavType.StringType })
+                ) { backStackEntry ->
+                    val statusId = backStackEntry.arguments?.getString("statusId") ?: return@composable
+                    ThreadScreen(
+                        statusId = statusId,
+                        onNavigateBack = { navController.popBackStack() },
+                        onNavigateToUser = { userId ->
+                            navController.navigate("user_profile/$userId")
+                        },
+                        onNavigateToReply = { replyStatusId ->
+                            navController.navigate(Screen.ComposeReply.createRoute(replyStatusId))
                         }
                     )
                 }

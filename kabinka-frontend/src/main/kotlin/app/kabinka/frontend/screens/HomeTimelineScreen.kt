@@ -70,7 +70,8 @@ fun HomeTimelineScreen(
     onNavigateToLogin: () -> Unit = {},
     onOpenDrawer: () -> Unit = {},
     onNavigateToUser: (String) -> Unit = {},
-    onNavigateToReply: (String) -> Unit = {}
+    onNavigateToReply: (String) -> Unit = {},
+    onNavigateToThread: (String) -> Unit = {}
 ) {
     val viewModel: TimelineViewModel = viewModel { TimelineViewModel(sessionManager) }
     val uiState by viewModel.uiState.collectAsState()
@@ -213,7 +214,7 @@ fun HomeTimelineScreen(
                         items(state.statuses) { status ->
                             app.kabinka.frontend.components.timeline.StatusCardComplete(
                                 status = status,
-                                onStatusClick = { /* TODO: Navigate to status detail */ },
+                                onStatusClick = { onNavigateToThread(status.id) },
                                 onProfileClick = onNavigateToUser,
                                 onReply = { statusId -> onNavigateToReply(statusId) },
                                 onBoost = { statusId -> viewModel.toggleReblog(statusId) },

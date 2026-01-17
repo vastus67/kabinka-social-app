@@ -49,7 +49,9 @@ import compose.icons.lineawesomeicons.CommentSolid
 fun ExploreScreen(
     sessionManager: app.kabinka.frontend.auth.SessionStateManager,
     onNavigateToUser: (String) -> Unit = {},
-    onNavigateToReply: (String) -> Unit = {}
+    onNavigateToReply: (String) -> Unit = {},
+    onNavigateToHashtag: (String) -> Unit = {},
+    onNavigateToThread: (String) -> Unit = {}
 ) {
     var selectedTab by remember { mutableStateOf(0) }
     val tabs = listOf("POSTS", "HASHTAGS", "NEWS", "FOR YOU")
@@ -180,9 +182,12 @@ fun ExploreScreen(
                         isLoggedIn = isLoggedIn,
                         onNavigateToUser = onNavigateToUser,
                         onNavigateToReply = onNavigateToReply,
+                        onNavigateToThread = onNavigateToThread,
                         sessionManager = sessionManager
                     )
-                    1 -> HashtagsTab()
+                    1 -> HashtagsTab(
+                        onHashtagClick = onNavigateToHashtag
+                    )
                     2 -> NewsTab(isLoggedIn = isLoggedIn)
                     3 -> ForYouTab(isLoggedIn = isLoggedIn, onNavigateToUser = onNavigateToUser)
                 }

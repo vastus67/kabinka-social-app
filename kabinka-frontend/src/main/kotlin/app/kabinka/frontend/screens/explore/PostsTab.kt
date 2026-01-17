@@ -31,6 +31,7 @@ fun PostsTab(
     isLoggedIn: Boolean, 
     onNavigateToUser: (String) -> Unit,
     onNavigateToReply: (String) -> Unit = {},
+    onNavigateToThread: (String) -> Unit = {},
     sessionManager: SessionStateManager
 ) {
     var posts by remember { mutableStateOf<List<Status>>(emptyList()) }
@@ -102,13 +103,13 @@ fun PostsTab(
                     items(posts) { status ->
                         StatusCardComplete(
                             status = status,
-                            onStatusClick = { /* TODO: Navigate to status detail */ },
+                            onStatusClick = { onNavigateToThread(status.id) },
                             onProfileClick = onNavigateToUser,
                             onReply = { statusId -> onNavigateToReply(statusId) },
                             onBoost = { statusId -> timelineViewModel.toggleReblog(statusId) },
                             onFavorite = { statusId -> timelineViewModel.toggleFavorite(statusId) },
                             onBookmark = { statusId -> timelineViewModel.toggleBookmark(statusId) },
-                            onMore = { /* TODO: Show more options */ },
+                            onMore = { /* Handled internally in StatusCardComplete */ },
                             onLinkClick = { url ->
                                 try {
                                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
