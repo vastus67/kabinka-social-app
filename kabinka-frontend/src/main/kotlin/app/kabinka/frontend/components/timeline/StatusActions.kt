@@ -6,7 +6,7 @@ import compose.icons.lineawesomeicons.SearchSolid
 import compose.icons.lineawesomeicons.EditSolid
 import compose.icons.lineawesomeicons.BellSolid
 import compose.icons.lineawesomeicons.UserSolid
-import compose.icons.lineawesomeicons.ShareSolid
+import compose.icons.lineawesomeicons.ExternalLinkAltSolid
 import compose.icons.lineawesomeicons.CogSolid
 import compose.icons.lineawesomeicons.CommentSolid
 import compose.icons.lineawesomeicons.EllipsisVSolid
@@ -81,7 +81,7 @@ fun StatusActions(
 
         IconButton(onClick = onShare) {
             Icon(
-                imageVector = LineAwesomeIcons.ShareSolid,
+                imageVector = LineAwesomeIcons.ExternalLinkAltSolid,
                 contentDescription = "Share",
                 tint = MaterialTheme.colorScheme.onSurfaceVariant
             )

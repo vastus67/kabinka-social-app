@@ -84,6 +84,7 @@ fun StatusCardComplete(
     isProfileView: Boolean = false,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
     // Determine if this is a boost/reblog
     val isBoost = status.reblog != null
     val displayedStatus = status.reblog ?: status
@@ -223,7 +224,14 @@ fun StatusCardComplete(
                     isBookmarked = !isBookmarked
                     controller?.setBookmarked(displayedStatus, isBookmarked)
                 },
-                onShare = { onMore(displayedStatus.id) }
+                onShare = {
+                    val shareIntent = Intent().apply {
+                        action = Intent.ACTION_SEND
+                        putExtra(Intent.EXTRA_TEXT, displayedStatus.url ?: "")
+                        type = "text/plain"
+                    }
+                    context.startActivity(Intent.createChooser(shareIntent, "Share post"))
+                }
             )
         }
     }
