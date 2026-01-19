@@ -117,6 +117,15 @@ fun KabinkaDrawer(
             )
 
             DrawerItem(
+                icon = Icons.Outlined.Tag,
+                label = "Followed hashtags",
+                onClick = {
+                    onNavigate("followed_hashtags")
+                    onDismiss()
+                }
+            )
+
+            DrawerItem(
                 icon = Icons.Outlined.BookmarkBorder,
                 label = "Bookmarks",
                 onClick = {

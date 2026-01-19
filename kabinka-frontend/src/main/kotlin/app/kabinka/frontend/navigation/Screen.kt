@@ -23,6 +23,8 @@ sealed class Screen(val route: String) {
     object ListTimeline : Screen("list_timeline/{listId}") {
         fun createRoute(listId: String) = "list_timeline/$listId"
     }
+    object FollowedHashtags : Screen("followed_hashtags")
+    object ManageHashtags : Screen("manage_hashtags")
     object Bookmarks : Screen("bookmarks")
     object Favorites : Screen("favorites")
     object HashtagTimeline : Screen("hashtag/{tag}") {

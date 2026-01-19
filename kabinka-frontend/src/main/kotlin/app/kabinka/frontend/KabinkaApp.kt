@@ -33,6 +33,10 @@ import app.kabinka.frontend.screens.CreateListScreen
 import app.kabinka.frontend.screens.EditListScreen
 import app.kabinka.frontend.screens.ManageListMembersScreen
 import app.kabinka.frontend.screens.ShowRepliesToOption
+import app.kabinka.frontend.screens.AccountSwitcherScreen
+import app.kabinka.frontend.screens.DeleteAccountScreen
+import app.kabinka.frontend.screens.FollowedHashtagsScreen
+import app.kabinka.frontend.screens.ManageHashtagsScreen
 import app.kabinka.frontend.settings.ui.BehaviourSettingsScreen
 import app.kabinka.frontend.settings.ui.DisplaySettingsScreen
 import app.kabinka.frontend.settings.ui.PrivacySettingsScreen
@@ -440,7 +444,10 @@ fun KabinkaApp(
                 }
                 
                 composable(Screen.DeleteAccount.route) {
-                    PlaceholderScreen("Delete Account")
+                    DeleteAccountScreen(
+                        onNavigateBack = { navController.popBackStack() },
+                        onNavigateToLogin = onNavigateToLogin
+                    )
                 }
                 
                 // Lists screens
@@ -503,6 +510,42 @@ fun KabinkaApp(
                             // Navigate back to lists screen, clearing the backstack
                             navController.navigate(Screen.Lists.route) {
                                 popUpTo(Screen.Lists.route) { inclusive = true }
+                            }
+                        }
+                    )
+                }
+                
+                // Followed Hashtags screens
+                composable(Screen.FollowedHashtags.route) {
+                    FollowedHashtagsScreen(
+                        onNavigateBack = { navController.popBackStack() },
+                        onNavigateToManageHashtags = {
+                            navController.navigate(Screen.ManageHashtags.route)
+                        },
+                        onNavigateToHashtag = { tag ->
+                            navController.navigate(Screen.HashtagTimeline.createRoute(tag))
+                        }
+                    )
+                }
+                
+                composable(Screen.ManageHashtags.route) {
+                    ManageHashtagsScreen(
+                        onNavigateBack = { navController.popBackStack() }
+                    )
+                }
+                
+                // Account Switcher screen
+                composable(Screen.AccountSwitcher.route) {
+                    AccountSwitcherScreen(
+                        onNavigateBack = { navController.popBackStack() },
+                        onAddAccount = {
+                            // Navigate back to onboarding to add new account
+                            onNavigateToLogin()
+                        },
+                        onAccountSwitched = {
+                            // Refresh the app by navigating to home
+                            navController.navigate(Screen.Home.route) {
+                                popUpTo(0) { inclusive = true }
                             }
                         }
                     )
