@@ -12,6 +12,14 @@ sealed class Screen(val route: String) {
     object LocalTimeline : Screen("local_timeline")
     object FederatedTimeline : Screen("federated_timeline")
     object Lists : Screen("lists")
+    object CreateList : Screen("create_list")
+    object EditList : Screen("edit_list/{listId}") {
+        fun createRoute(listId: String) = "edit_list/$listId"
+    }
+    object ManageListMembers : Screen("manage_list_members/{listName}/{showRepliesTo}/{hideMembers}") {
+        fun createRoute(listName: String, showRepliesTo: String, hideMembers: Boolean) = 
+            "manage_list_members/$listName/$showRepliesTo/$hideMembers"
+    }
     object ListTimeline : Screen("list_timeline/{listId}") {
         fun createRoute(listId: String) = "list_timeline/$listId"
     }

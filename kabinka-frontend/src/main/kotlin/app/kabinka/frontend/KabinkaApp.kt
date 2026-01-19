@@ -28,6 +28,11 @@ import app.kabinka.frontend.screens.BookmarksScreen
 import app.kabinka.frontend.screens.FavoritesScreen
 import app.kabinka.frontend.screens.HashtagTimelineScreen
 import app.kabinka.frontend.screens.ThreadScreen
+import app.kabinka.frontend.screens.ListsScreen
+import app.kabinka.frontend.screens.CreateListScreen
+import app.kabinka.frontend.screens.EditListScreen
+import app.kabinka.frontend.screens.ManageListMembersScreen
+import app.kabinka.frontend.screens.ShowRepliesToOption
 import app.kabinka.frontend.settings.ui.BehaviourSettingsScreen
 import app.kabinka.frontend.settings.ui.DisplaySettingsScreen
 import app.kabinka.frontend.settings.ui.PrivacySettingsScreen
@@ -436,6 +441,71 @@ fun KabinkaApp(
                 
                 composable(Screen.DeleteAccount.route) {
                     PlaceholderScreen("Delete Account")
+                }
+                
+                // Lists screens
+                composable(Screen.Lists.route) {
+                    ListsScreen(
+                        onNavigateBack = { navController.popBackStack() },
+                        onNavigateToCreateList = {
+                            navController.navigate(Screen.CreateList.route)
+                        },
+                        onNavigateToEditList = { listId ->
+                            navController.navigate(Screen.EditList.createRoute(listId))
+                        }
+                    )
+                }
+                
+                composable(Screen.CreateList.route) {
+                    CreateListScreen(
+                        onNavigateBack = { navController.popBackStack() },
+                        onNavigateToManageMembers = { listName, showRepliesTo, hideMembers ->
+                            navController.navigate(
+                                Screen.ManageListMembers.createRoute(
+                                    listName,
+                                    showRepliesTo.name,
+                                    hideMembers
+                                )
+                            )
+                        }
+                    )
+                }
+                
+                composable(
+                    route = Screen.EditList.route,
+                    arguments = listOf(navArgument("listId") { type = NavType.StringType })
+                ) { backStackEntry ->
+                    val listId = backStackEntry.arguments?.getString("listId") ?: return@composable
+                    EditListScreen(
+                        listId = listId,
+                        onNavigateBack = { navController.popBackStack() },
+                        onListDeleted = {
+                            navController.navigate(Screen.Lists.route) {
+                                popUpTo(Screen.Lists.route) { inclusive = true }
+                            }
+                        }
+                    )
+                }
+                
+                composable(
+                    route = Screen.ManageListMembers.route,
+                    arguments = listOf(
+                        navArgument("listName") { type = NavType.StringType },
+                        navArgument("showRepliesTo") { type = NavType.StringType },
+                        navArgument("hideMembers") { type = NavType.BoolType }
+                    )
+                ) { backStackEntry ->
+                    val listName = backStackEntry.arguments?.getString("listName") ?: return@composable
+                    ManageListMembersScreen(
+                        listName = listName,
+                        onNavigateBack = { navController.popBackStack() },
+                        onDone = {
+                            // Navigate back to lists screen, clearing the backstack
+                            navController.navigate(Screen.Lists.route) {
+                                popUpTo(Screen.Lists.route) { inclusive = true }
+                            }
+                        }
+                    )
                 }
                 
                 // User profile screen
