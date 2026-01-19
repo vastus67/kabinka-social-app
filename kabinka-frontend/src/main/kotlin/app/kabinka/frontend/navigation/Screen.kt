@@ -95,4 +95,14 @@ sealed class Screen(val route: String) {
     object About : Screen("about")
 
     object AccountSwitcher : Screen("account_switcher")
+    
+    // Magazine
+    object Magazine : Screen("magazine")
+    object MagazineIssue : Screen("magazine/issue/{issueId}") {
+        fun createRoute(issueId: String) = "magazine/issue/$issueId"
+    }
+    object AdvertiserDetail : Screen("magazine/ad/{adId}") {
+        fun createRoute(adId: String) = "magazine/ad/$adId"
+    }
+    object SubmitAd : Screen("magazine/submit")
 }

@@ -565,6 +565,49 @@ fun KabinkaApp(
                         }
                     )
                 }
+                
+                // Magazine screens
+                composable(Screen.Magazine.route) {
+                    app.kabinka.frontend.magazine.MagazineShelfScreen(
+                        onNavigateToIssue = { issueId ->
+                            navController.navigate(Screen.MagazineIssue.createRoute(issueId))
+                        },
+                        onNavigateToSubmissions = {
+                            navController.navigate(Screen.SubmitAd.route)
+                        }
+                    )
+                }
+                
+                composable(
+                    route = Screen.MagazineIssue.route,
+                    arguments = listOf(navArgument("issueId") { type = NavType.StringType })
+                ) { backStackEntry ->
+                    val issueId = backStackEntry.arguments?.getString("issueId") ?: return@composable
+                    app.kabinka.frontend.magazine.MagazineIssueScreen(
+                        issueId = issueId,
+                        onNavigateBack = { navController.popBackStack() },
+                        onNavigateToAdDetail = { adId ->
+                            navController.navigate(Screen.AdvertiserDetail.createRoute(adId))
+                        }
+                    )
+                }
+                
+                composable(
+                    route = Screen.AdvertiserDetail.route,
+                    arguments = listOf(navArgument("adId") { type = NavType.StringType })
+                ) { backStackEntry ->
+                    val adId = backStackEntry.arguments?.getString("adId") ?: return@composable
+                    app.kabinka.frontend.magazine.AdvertiserDetailScreen(
+                        adId = adId,
+                        onNavigateBack = { navController.popBackStack() }
+                    )
+                }
+                
+                composable(Screen.SubmitAd.route) {
+                    app.kabinka.frontend.magazine.SubmissionFormScreen(
+                        onNavigateBack = { navController.popBackStack() }
+                    )
+                }
             }
         }
     }
