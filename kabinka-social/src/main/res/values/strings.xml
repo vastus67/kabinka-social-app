@@ -10,6 +10,7 @@
 	<string name="ok">OK</string>
 	<string name="preparing_auth">Preparing for authenticationâ€¦</string>
 	<string name="finishing_auth">Finishing authenticationâ€¦</string>
+	<string name="auth_session_lost">Authentication session expired. Please try again.</string>
 	<string name="user_boosted">%s boosted</string>
 	<string name="in_reply_to">in reply to %s</string>
 	<string name="notifications">Notifications</string>

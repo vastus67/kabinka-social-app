@@ -21,6 +21,9 @@ sealed class OnboardingRoute(val route: String) {
     object MastodonOAuthLogin : OnboardingRoute("mastodon_oauth_login")
     object MastodonOAuthCallback : OnboardingRoute("mastodon_oauth_callback")
     
+    // Post-login bootstrap (session loading)
+    object PostLoginBootstrap : OnboardingRoute("post_login_bootstrap")
+    
     // App Shell
     object AppShell : OnboardingRoute("app_shell")
 }

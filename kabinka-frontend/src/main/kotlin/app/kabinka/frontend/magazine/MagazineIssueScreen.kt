@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import app.kabinka.coreui.responsive.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,6 +40,11 @@ fun MagazineIssueScreen(
     }
     
     val gridState = rememberLazyGridState()
+    
+    // Responsive values
+    val gridColumns = responsiveGridColumns(compact = 2, medium = 3, expanded = 4)
+    val contentPadding = responsiveContentPadding()
+    val spacing = responsiveSpacing()
     
     Scaffold(
         topBar = {
@@ -79,14 +85,14 @@ fun MagazineIssueScreen(
             }
         } else {
             LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
+                columns = GridCells.Fixed(gridColumns),
                 state = gridState,
                 modifier = modifier
                     .fillMaxSize()
                     .padding(paddingValues),
-                contentPadding = PaddingValues(12.dp),
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                contentPadding = PaddingValues(contentPadding),
+                horizontalArrangement = Arrangement.spacedBy(spacing),
+                verticalArrangement = Arrangement.spacedBy(spacing)
             ) {
                 items(
                     items = visibleAds,
@@ -109,7 +115,7 @@ fun MagazineIssueScreen(
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(vertical = 32.dp),
+                                .padding(vertical = responsivePadding(compact = 32.dp, medium = 40.dp, expanded = 48.dp)),
                             contentAlignment = Alignment.Center
                         ) {
                             Column(
@@ -146,12 +152,13 @@ private fun AdCardContent(ad: MagazineAd) {
     } else {
         Color(0xFFFFFBF5) // Paper white
     }
+    val cornerRadius = responsiveSpacing(compact = 16.dp, medium = 20.dp, expanded = 24.dp)
     
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentHeight(),
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(cornerRadius),
         colors = CardDefaults.cardColors(
             containerColor = cardColor
         ),
@@ -163,21 +170,37 @@ private fun AdCardContent(ad: MagazineAd) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(0.75f)
-                .background(
-                    Brush.linearGradient(
-                        colors = listOf(
-                            MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
-                            MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.3f)
-                        )
-                    )
-                ),
+                .aspectRatio(0.75f),
             contentAlignment = Alignment.Center
         ) {
-            Text(
-                text = "📸",
-                style = MaterialTheme.typography.displayMedium
-            )
+            if (ad.heroImageUrl != null) {
+                coil.compose.AsyncImage(
+                    model = ad.heroImageUrl,
+                    contentDescription = ad.headline,
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = androidx.compose.ui.layout.ContentScale.Crop
+                )
+            } else {
+                // Placeholder background when no image
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            Brush.linearGradient(
+                                colors = listOf(
+                                    MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.3f),
+                                    MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.3f)
+                                )
+                            )
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = "📸",
+                        style = MaterialTheme.typography.displayMedium
+                    )
+                }
+            }
         }
     }
 }

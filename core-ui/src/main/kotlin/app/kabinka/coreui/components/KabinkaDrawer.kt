@@ -16,7 +16,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import app.kabinka.coreui.responsive.*
 import coil.compose.AsyncImage
+import kotlinx.coroutines.launch
 
 @Composable
 fun KabinkaDrawer(
@@ -29,6 +31,13 @@ fun KabinkaDrawer(
     isLoggedIn: Boolean = false,
     onLogout: () -> Unit = {}
 ) {
+    val snackbarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+    
+    // Responsive padding
+    val horizontalPadding = responsivePadding()
+    val verticalSpacing = responsiveSpacing()
+    
     ModalDrawerSheet(
         modifier = modifier,
         drawerContainerColor = MaterialTheme.colorScheme.surface
@@ -38,7 +47,7 @@ fun KabinkaDrawer(
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
         ) {
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(verticalSpacing * 1.5f))
 
             // Profile Avatar
             if (profileAvatarUrl != null) {
@@ -46,7 +55,7 @@ fun KabinkaDrawer(
                     model = profileAvatarUrl,
                     contentDescription = "Profile avatar",
                     modifier = Modifier
-                        .padding(horizontal = 16.dp)
+                        .padding(horizontal = horizontalPadding)
                         .size(64.dp)
                         .clip(CircleShape)
                         .clickable {
@@ -58,7 +67,7 @@ fun KabinkaDrawer(
             } else {
                 Box(
                     modifier = Modifier
-                        .padding(horizontal = 16.dp)
+                        .padding(horizontal = horizontalPadding)
                         .size(64.dp)
                         .clip(CircleShape)
                         .background(MaterialTheme.colorScheme.primaryContainer)
@@ -76,27 +85,27 @@ fun KabinkaDrawer(
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(verticalSpacing))
 
             Text(
                 text = profileDisplayName ?: "Not logged in",
-                modifier = Modifier.padding(horizontal = 16.dp),
+                modifier = Modifier.padding(horizontal = horizontalPadding),
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onSurface
             )
 
             Text(
                 text = profileUsername ?: "Sign in to continue",
-                modifier = Modifier.padding(horizontal = 16.dp),
+                modifier = Modifier.padding(horizontal = horizontalPadding),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(verticalSpacing * 1.5f))
 
             HorizontalDivider()
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(verticalSpacing * 0.5f))
 
             DrawerItem(
                 icon = Icons.Outlined.AccountCircle,
@@ -143,18 +152,23 @@ fun KabinkaDrawer(
                 }
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(verticalSpacing * 0.5f))
 
             HorizontalDivider()
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(verticalSpacing * 0.5f))
 
             DrawerItem(
                 icon = Icons.Outlined.Chat,
-                label = "FluffyChat",
+                label = "Kabinka Chat",
                 onClick = {
-                    onNavigate("fluffychat")
                     onDismiss()
+                    scope.launch {
+                        snackbarHostState.showSnackbar(
+                            message = "Coming soon!",
+                            duration = SnackbarDuration.Short
+                        )
+                    }
                 },
                 highlight = true
             )
@@ -168,11 +182,25 @@ fun KabinkaDrawer(
                 }
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            DrawerItem(
+                icon = Icons.Outlined.MonetizationOn,
+                label = "Sponsored",
+                onClick = {
+                    onDismiss()
+                    scope.launch {
+                        snackbarHostState.showSnackbar(
+                            message = "Coming soon!",
+                            duration = SnackbarDuration.Short
+                        )
+                    }
+                }
+            )
+
+            Spacer(modifier = Modifier.height(verticalSpacing * 0.5f))
 
             HorizontalDivider()
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(verticalSpacing * 0.5f))
 
             DrawerItem(
                 icon = Icons.Outlined.Settings,
@@ -192,11 +220,11 @@ fun KabinkaDrawer(
                 }
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(verticalSpacing * 0.5f))
 
             HorizontalDivider()
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(verticalSpacing * 0.5f))
 
             DrawerItem(
                 icon = if (isLoggedIn) Icons.Outlined.ExitToApp else Icons.Outlined.Login,
@@ -207,7 +235,10 @@ fun KabinkaDrawer(
                 }
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(verticalSpacing))
+            
+            // Snackbar host at bottom
+            SnackbarHost(hostState = snackbarHostState)
         }
     }
 }

@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import app.kabinka.coreui.responsive.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,12 +33,10 @@ fun AdvertiserDetailScreen(
     val ad = remember { repository.getAdById(adId) }
     val context = LocalContext.current
     
-    val isDark = isSystemInDarkTheme()
-    val surfaceColor = if (isDark) {
-        Color(0xFF1E1E22)
-    } else {
-        Color(0xFFFFFBF5)
-    }
+    // Responsive values
+    val contentPadding = responsivePadding()
+    val itemSpacing = responsiveSpacing(compact = 20.dp, medium = 24.dp, expanded = 28.dp)
+    val cornerRadius = responsiveSpacing(compact = 16.dp, medium = 20.dp, expanded = 24.dp)
     
     Scaffold(
         topBar = {
@@ -73,16 +72,16 @@ fun AdvertiserDetailScreen(
             LazyColumn(
                 modifier = modifier
                     .fillMaxSize()
-                    .background(surfaceColor)
+                    .background(MaterialTheme.colorScheme.background)
                     .padding(paddingValues),
-                contentPadding = PaddingValues(20.dp),
-                verticalArrangement = Arrangement.spacedBy(20.dp)
+                contentPadding = PaddingValues(contentPadding),
+                verticalArrangement = Arrangement.spacedBy(itemSpacing)
             ) {
                 // Paid placement disclosure
                 item {
                     Surface(
                         color = MaterialTheme.colorScheme.tertiaryContainer,
-                        shape = RoundedCornerShape(8.dp)
+                        shape = RoundedCornerShape(responsiveSpacing(compact = 8.dp, medium = 10.dp, expanded = 12.dp))
                     ) {
                         Row(
                             modifier = Modifier
@@ -109,12 +108,13 @@ fun AdvertiserDetailScreen(
                 item {
                     Surface(
                         color = MaterialTheme.colorScheme.secondaryContainer,
-                        shape = RoundedCornerShape(8.dp)
+                        shape = RoundedCornerShape(responsiveSpacing(compact = 8.dp, medium = 10.dp, expanded = 12.dp))
                     ) {
                         Text(
                             text = ad.category.displayName,
                             style = MaterialTheme.typography.labelLarge,
                             fontWeight = FontWeight.SemiBold,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer,
                             modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
                         )
                     }
@@ -125,7 +125,8 @@ fun AdvertiserDetailScreen(
                     Text(
                         text = ad.headline,
                         style = MaterialTheme.typography.headlineLarge,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 }
                 
@@ -134,8 +135,8 @@ fun AdvertiserDetailScreen(
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(280.dp)
-                            .clip(RoundedCornerShape(16.dp))
+                            .aspectRatio(16f / 9f)
+                            .clip(RoundedCornerShape(cornerRadius))
                             .background(
                                 Brush.linearGradient(
                                     colors = listOf(
@@ -147,10 +148,19 @@ fun AdvertiserDetailScreen(
                             ),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text(
-                            text = "📸",
-                            style = MaterialTheme.typography.displayLarge
-                        )
+                        if (ad.heroImageUrl != null) {
+                            coil.compose.AsyncImage(
+                                model = ad.heroImageUrl,
+                                contentDescription = ad.headline,
+                                modifier = Modifier.fillMaxSize(),
+                                contentScale = androidx.compose.ui.layout.ContentScale.Crop
+                            )
+                        } else {
+                            Text(
+                                text = "📸",
+                                style = MaterialTheme.typography.displayLarge
+                            )
+                        }
                     }
                 }
                 
@@ -178,7 +188,8 @@ fun AdvertiserDetailScreen(
                     Text(
                         text = ad.fullDescription ?: ad.bodyCopy,
                         style = MaterialTheme.typography.bodyLarge,
-                        lineHeight = MaterialTheme.typography.bodyLarge.lineHeight.times(1.5f)
+                        lineHeight = MaterialTheme.typography.bodyLarge.lineHeight.times(1.5f),
+                        color = MaterialTheme.colorScheme.onSurface
                     )
                 }
                 
@@ -188,7 +199,8 @@ fun AdvertiserDetailScreen(
                         Text(
                             text = "Gallery",
                             style = MaterialTheme.typography.titleMedium,
-                            fontWeight = FontWeight.SemiBold
+                            fontWeight = FontWeight.SemiBold,
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                     }
                     

@@ -3,6 +3,7 @@ package app.kabinka.frontend.onboarding
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.kabinka.frontend.auth.PendingLoginStorage
 import app.kabinka.frontend.onboarding.auth.MastodonOAuthHelper
 import app.kabinka.frontend.onboarding.data.*
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,6 +24,7 @@ class OnboardingViewModel(
     val state: StateFlow<OnboardingState> = _state.asStateFlow()
     
     private val mastodonOAuth = MastodonOAuthHelper(context)
+    private val pendingLoginStorage = PendingLoginStorage(context)
     
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
@@ -63,15 +65,21 @@ class OnboardingViewModel(
     
     // Mastodon connection methods
     fun setMastodonInstance(instanceUrl: String) {
+        val normalized = try {
+            pendingLoginStorage.normalizeInstanceUrl(instanceUrl)
+        } catch (e: Exception) {
+            android.util.Log.e("OnboardingViewModel", "Invalid instance URL", e)
+            instanceUrl
+        }
         _state.update { 
-            it.copy(mastodonConnection = it.mastodonConnection.copy(instanceUrl = instanceUrl))
+            it.copy(mastodonConnection = it.mastodonConnection.copy(instanceUrl = normalized))
         }
     }
     
     fun startMastodonOAuth(instanceUrl: String) {
         viewModelScope.launch {
             try {
-                android.util.Log.d("OnboardingViewModel", "Starting Mastodon OAuth for $instanceUrl")
+                android.util.Log.d("OAuth:Start", "Starting Mastodon OAuth for $instanceUrl")
                 
                 _state.update { 
                     it.copy(mastodonConnection = it.mastodonConnection.copy(status = ConnectionStatus.CONNECTING))
@@ -79,7 +87,7 @@ class OnboardingViewModel(
                 
                 // Register app with the Mastodon instance
                 val app = mastodonOAuth.registerApp(instanceUrl)
-                android.util.Log.d("OnboardingViewModel", "App registered, client_id: ${app.clientId}")
+                android.util.Log.d("OAuth:Start", "App registered, client_id exists: ${app.clientId.isNotEmpty()}")
                 
                 val connection = _state.value.mastodonConnection.copy(
                     instanceUrl = instanceUrl,
@@ -89,13 +97,21 @@ class OnboardingViewModel(
                 _state.update { it.copy(mastodonConnection = connection) }
                 repository.saveMastodonConnection(connection)
                 
+                // Persist pending login state before opening browser
+                val oauthState = pendingLoginStorage.savePendingLogin(
+                    instanceUrl = instanceUrl,
+                    clientId = app.clientId,
+                    clientSecret = app.clientSecret
+                )
+                android.util.Log.d("OAuth:Start", "Pending login saved, state=${oauthState.take(8)}")
+                
                 // Launch OAuth browser flow
                 kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
                     mastodonOAuth.launchOAuthFlow(instanceUrl, app.clientId)
                 }
-                android.util.Log.d("OnboardingViewModel", "OAuth browser launched successfully")
+                android.util.Log.d("OAuth:Start", "OAuth browser launched successfully")
             } catch (e: Exception) {
-                android.util.Log.e("OnboardingViewModel", "Failed to start Mastodon OAuth", e)
+                android.util.Log.e("OAuth:Start", "Failed to start Mastodon OAuth", e)
                 _errorMessage.value = "Failed to connect to Mastodon: ${e.message}"
                 _state.update { 
                     it.copy(mastodonConnection = it.mastodonConnection.copy(status = ConnectionStatus.DISCONNECTED))
@@ -107,30 +123,55 @@ class OnboardingViewModel(
     fun handleMastodonOAuthCallback(code: String) {
         viewModelScope.launch {
             try {
-                android.util.Log.d("OnboardingViewModel", "Handling Mastodon OAuth callback")
+                android.util.Log.d("OAuth:Callback", "Handling Mastodon OAuth callback")
+                
+                // Load pending login from storage
+                val pendingLogin = pendingLoginStorage.loadPendingLogin()
+                if (pendingLogin == null) {
+                    android.util.Log.e("OAuth:Callback", "No pending login found")
+                    _errorMessage.value = "OAuth session expired. Please try again."
+                    _state.update { 
+                        it.copy(mastodonConnection = it.mastodonConnection.copy(status = ConnectionStatus.DISCONNECTED))
+                    }
+                    pendingLoginStorage.clearPendingLogin()
+                    return@launch
+                }
+                
+                if (!pendingLogin.isValid()) {
+                    android.util.Log.e("OAuth:Callback", "Pending login expired")
+                    _errorMessage.value = "OAuth session expired. Please try again."
+                    pendingLoginStorage.clearPendingLogin()
+                    return@launch
+                }
+                
+                android.util.Log.d("OAuth:Callback", "Pending login valid: instance=${pendingLogin.instanceBaseUrl}")
+                
                 val connection = _state.value.mastodonConnection
                 
                 // Exchange code for token
+                android.util.Log.d("OAuth:Callback", "Exchanging code for token")
                 val token = mastodonOAuth.exchangeCodeForToken(
-                    serverUrl = connection.instanceUrl,
-                    clientId = connection.clientId ?: throw IllegalStateException("Missing client ID"),
-                    clientSecret = connection.clientSecret ?: throw IllegalStateException("Missing client secret"),
+                    serverUrl = pendingLogin.instanceBaseUrl,
+                    clientId = pendingLogin.clientId,
+                    clientSecret = pendingLogin.clientSecret,
                     code = code
                 )
-                android.util.Log.d("OnboardingViewModel", "Token obtained")
+                android.util.Log.d("OAuth:Callback", "Token obtained successfully")
                 
-                // Get user account info
+                // Get user account info (verifyCredentials equivalent)
+                android.util.Log.d("OAuth:Callback", "Fetching user account")
                 val userAccount = mastodonOAuth.getUserAccount(
-                    serverUrl = connection.instanceUrl,
+                    serverUrl = pendingLogin.instanceBaseUrl,
                     accessToken = token.accessToken
                 )
-                android.util.Log.d("OnboardingViewModel", "User account: ${userAccount.username}")
+                android.util.Log.d("OAuth:Callback", "User account fetched: accountId=${userAccount.id}, username=${userAccount.username}")
                 
                 // Get instance info
-                val instanceInfo = mastodonOAuth.getInstance(connection.instanceUrl)
-                android.util.Log.d("OnboardingViewModel", "Instance: ${instanceInfo.title}")
+                val instanceInfo = mastodonOAuth.getInstance(pendingLogin.instanceBaseUrl)
+                android.util.Log.d("OAuth:Callback", "Instance info fetched: ${instanceInfo.title}")
                 
                 val updatedConnection = connection.copy(
+                    instanceUrl = pendingLogin.instanceBaseUrl,
                     status = ConnectionStatus.CONNECTED,
                     username = userAccount.username,
                     displayName = userAccount.displayName,
@@ -142,9 +183,10 @@ class OnboardingViewModel(
                 repository.saveMastodonConnection(updatedConnection)
                 
                 // Create session in kabinka-social AccountSessionManager
+                android.util.Log.d("OAuth:Callback", "Persisting session to database")
                 kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
                     try {
-                        val domain = connection.instanceUrl.removePrefix("https://").removePrefix("http://")
+                        val domain = pendingLogin.instanceBaseUrl.removePrefix("https://").removePrefix("http://")
                         
                         // Create Token object
                         val sessionToken = app.kabinka.social.model.Token().apply {
@@ -164,12 +206,14 @@ class OnboardingViewModel(
                             this.header = userAccount.header
                             this.locked = userAccount.locked ?: false
                             this.bot = userAccount.bot ?: false
-                            this.url = "${connection.instanceUrl}/@${userAccount.username}"
+                            this.url = "${pendingLogin.instanceBaseUrl}/@${userAccount.username}"
                         }
                         
                         // Create Application object
                         val application = app.kabinka.social.model.Application().apply {
                             this.name = "Kabinka"
+                            this.clientId = pendingLogin.clientId
+                            this.clientSecret = pendingLogin.clientSecret
                         }
                         
                         // Create Instance object
@@ -180,7 +224,7 @@ class OnboardingViewModel(
                             this.version = instanceInfo.version ?: ""
                         }
                         
-                        // Add account to AccountSessionManager
+                        // Add account to AccountSessionManager (this persists to database)
                         app.kabinka.social.api.session.AccountSessionManager.getInstance().addAccount(
                             instance,
                             sessionToken,
@@ -189,23 +233,38 @@ class OnboardingViewModel(
                             null
                         )
                         
-                        android.util.Log.d("OnboardingViewModel", "Session created in AccountSessionManager")
+                        android.util.Log.d("OAuth:Callback", "Session persisted to database successfully")
+                        
+                        // Explicitly set active account
+                        val accountId = userAccount.id + "@" + domain
+                        app.kabinka.social.api.session.AccountSessionManager.getInstance().setLastActiveAccountID(accountId)
+                        android.util.Log.d("OAuth:Callback", "Active account set: $accountId")
                         
                         // Set mode to MASTODON now that we have a successful login
                         _state.update { it.copy(mode = OnboardingMode.MASTODON) }
                         repository.saveMode(OnboardingMode.MASTODON)
+                        
+                        // Clear pending login
+                        pendingLoginStorage.clearPendingLogin()
+                        android.util.Log.d("OAuth:Callback", "Pending login cleared")
+                        
                     } catch (e: Exception) {
-                        android.util.Log.e("OnboardingViewModel", "Failed to create session", e)
+                        android.util.Log.e("OAuth:Callback", "Failed to persist session", e)
+                        throw e
                     }
                 }
                 
                 mastodonOAuth.clearPKCE()
+                android.util.Log.d("OAuth:Callback", "OAuth callback completed successfully")
+                
             } catch (e: Exception) {
-                android.util.Log.e("OnboardingViewModel", "Failed to complete Mastodon login", e)
+                android.util.Log.e("OAuth:Callback", "Failed to complete Mastodon login", e)
                 _errorMessage.value = "Failed to complete login: ${e.message}"
                 _state.update { 
                     it.copy(mastodonConnection = it.mastodonConnection.copy(status = ConnectionStatus.DISCONNECTED))
                 }
+                // Clear pending login on error
+                pendingLoginStorage.clearPendingLogin()
             }
         }
     }

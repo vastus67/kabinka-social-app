@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.*
@@ -19,10 +20,12 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import app.kabinka.coreui.responsive.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MagazineShelfScreen(
+    onNavigateBack: () -> Unit,
     onNavigateToIssue: (String) -> Unit,
     onNavigateToSubmissions: () -> Unit,
     modifier: Modifier = Modifier
@@ -31,6 +34,10 @@ fun MagazineShelfScreen(
     val currentIssue = remember { repository.getCurrentIssue() }
     val pastIssues = remember { repository.getPastIssues() }
     var showInfoDialog by remember { mutableStateOf(false) }
+    
+    // Responsive values
+    val contentPadding = responsivePadding()
+    val spacing = responsiveSpacing(compact = 16.dp, medium = 20.dp, expanded = 24.dp)
     
     Scaffold(
         topBar = {
@@ -41,6 +48,14 @@ fun MagazineShelfScreen(
                         style = MaterialTheme.typography.headlineMedium,
                         fontWeight = FontWeight.Bold
                     ) 
+                },
+                navigationIcon = {
+                    IconButton(onClick = onNavigateBack) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back"
+                        )
+                    }
                 },
                 actions = {
                     IconButton(onClick = { showInfoDialog = true }) {
@@ -65,8 +80,8 @@ fun MagazineShelfScreen(
             modifier = modifier
                 .fillMaxSize()
                 .padding(paddingValues),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(24.dp)
+            contentPadding = PaddingValues(contentPadding),
+            verticalArrangement = Arrangement.spacedBy(spacing)
         ) {
             // Subtitle
             item {

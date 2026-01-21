@@ -317,16 +317,12 @@ fun OnboardingNavGraph(
                 }
             }
             
-            // Navigate to AppShell when connected
-            LaunchedEffect(state.mastodonConnection.status, state.onboardingCompleted) {
+            // Navigate to PostLoginBootstrap when connected
+            LaunchedEffect(state.mastodonConnection.status) {
                 if (state.mastodonConnection.status == ConnectionStatus.CONNECTED) {
                     kotlinx.coroutines.delay(500)
-                    viewModel.completeOnboarding()
-                }
-                
-                if (state.onboardingCompleted) {
-                    kotlinx.coroutines.delay(500)
-                    navController.navigate(OnboardingRoute.AppShell.route) {
+                    android.util.Log.d("OAuth", "OAuth connected, navigating to bootstrap")
+                    navController.navigate(OnboardingRoute.PostLoginBootstrap.route) {
                         popUpTo(0) { inclusive = true }
                     }
                 }
@@ -350,6 +346,26 @@ fun OnboardingNavGraph(
                     )
                 }
             }
+        }
+        
+        // Post-login Bootstrap (session loading)
+        composable(OnboardingRoute.PostLoginBootstrap.route) {
+            app.kabinka.frontend.onboarding.ui.PostLoginBootstrapScreen(
+                sessionManager = sessionManager,
+                onSessionReady = {
+                    android.util.Log.d("OAuth:Bootstrap", "Session ready, completing onboarding")
+                    viewModel.completeOnboarding()
+                    navController.navigate(OnboardingRoute.AppShell.route) {
+                        popUpTo(0) { inclusive = true }
+                    }
+                },
+                onSessionFailed = {
+                    android.util.Log.e("OAuth:Bootstrap", "Session failed, returning to login")
+                    navController.navigate(OnboardingRoute.MastodonInstanceInput.route) {
+                        popUpTo(0) { inclusive = true }
+                    }
+                }
+            )
         }
         
         // App Shell (Main App)

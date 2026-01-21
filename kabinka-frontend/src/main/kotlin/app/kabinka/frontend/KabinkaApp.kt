@@ -93,7 +93,7 @@ fun KabinkaApp(
     // Always start at Home - login/logout is handled by the onboarding flow
     val startDestination = Screen.Home.route
     
-    // Always show bottom bar since we're inside the app shell
+    // Always show bottom bar - buttons should always be accessible
     val showBottomBar = true
 
     val bottomNavRoutes = listOf(
@@ -569,6 +569,7 @@ fun KabinkaApp(
                 // Magazine screens
                 composable(Screen.Magazine.route) {
                     app.kabinka.frontend.magazine.MagazineShelfScreen(
+                        onNavigateBack = { navController.popBackStack() },
                         onNavigateToIssue = { issueId ->
                             navController.navigate(Screen.MagazineIssue.createRoute(issueId))
                         },
